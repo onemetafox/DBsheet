@@ -1,10 +1,4 @@
-/******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
-var __webpack_exports__ = {};
-/*!*******************************************************!*\
-  !*** ../demo1/src/js/pages/custom/wizard/wizard-5.js ***!
-  \*******************************************************/
-
+"use strict";
 
 // Class definition
 var KTWizard5 = function () {
@@ -24,6 +18,9 @@ var KTWizard5 = function () {
 
 		// Validation before going to next page
 		_wizardObj.on('change', function (wizard) {
+			if(wizard.currentStep == 1){
+				alert();
+			}
 			if (wizard.getStep() > wizard.getNewStep()) {
 				return; // Skip if stepped back
 			}
@@ -207,7 +204,3 @@ var KTWizard5 = function () {
 jQuery(document).ready(function () {
 	KTWizard5.init();
 });
-
-/******/ })()
-;
-//# sourceMappingURL=wizard-5.js.map

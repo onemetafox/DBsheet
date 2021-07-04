@@ -133,7 +133,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array(
-    'Event_model' =>'event_model',
-    'File_model' => 'file_model'
-);
+$autoload['model'] = array('Admin_model' => 'admin');

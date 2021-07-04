@@ -1,10 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once(APPPATH.'core/AdminController.php');
+require_once(APPPATH.'core/BaseController.php');
 
-class Welcome extends AdminController {
+class Welcome extends BaseController {
 	
+	var $layout = "admin";
+	var $id = "admin@admin.com";
+	var $password = "admin";
+
 	public function __contruct(){
 		parent::__construct();
 	}
@@ -26,7 +30,43 @@ class Welcome extends AdminController {
 	 */
 	public function index()
 	{
-		$data["page_title"] = "Events";
-		$this->load->view("login", $data);	
+		$user = $this->user_data();
+		if(!$user){
+			$data["page_title"] = "Login";
+			$this->load->view("login", $data);		
+		}else{
+			$data["page_title"] = "Langing Page";
+			$data["user"] = $user;
+			$this->render("public/index", $data);	
+		}
+		
 	}	
+	public function signin(){
+		$data = $this->input->post();
+		$this->load->model("Admin_model", "admin");
+		$user = $this->admin->getOneByParam(array("user_id"=> $data["id"]));
+		if($user){
+			if($user["password"] == sha1($data["password"])){
+				
+				$user["last_activity"] = date("y-m-d h:s:i");
+				$user["logged_status"] = 2;
+				$this->session->set_userdata("user",$user);
+				$this->user->updateData($user);
+				$this->json(array("success" => true, "msg" => "Success Login", "user" => $user));
+			}else{
+				$this->json(array("success" => false, "msg"=>"Password incorrect"));
+			}	
+		}else{
+			$this->json(array("success" => false, "msg"=>"User ID incorrect"));
+		}
+		
+	}
+
+	public function signout(){
+		$user = $this->session->userdata("user");
+		$user["logged_status"] = "1";
+		$this->admin->updateData($user);
+	 	$this->session->unset_userdata('user');
+		redirect("/");
+	}
 }
