@@ -80,6 +80,7 @@
                             <!--begin::Form-->
                             <div class="d-flex justify-content-center flex-row-fluid">
                                 <form class="pb-5 w-100 w-md-450px w-lg-500px" novalidate="novalidate" id="kt_form">
+                                    <input type="hidden" name="id" id="id">
                                     <!--begin: Wizard Step 1-->
                                     <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                                         <div class="card-body">
@@ -128,7 +129,7 @@
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="phone" placeholder="Enter your tel"/>
+                                                        <input type="text" class="form-control" name="phone1" placeholder="Enter your tel"/>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="la la-phone"></i></span> 
                                                         </div>
@@ -136,7 +137,7 @@
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="birdthday" placeholder="Enter your birthday"/>
+                                                        <input type="text" class="form-control" name="birthday" placeholder="Enter your birthday"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,15 +155,12 @@
                                                     <h3 class="card-label">家族</h3> -->
                                                 </div>
                                                 <div class="card-toolbar">
-                                                    <!--begin::Button-->
-                                                    <a href="#" class="btn btn-primary font-weight-bolder">
-                                                    <i class="la la-plus"></i>New Record</a>
-                                                    <!--end::Button-->
+                                                   <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_family">+ New</a>
                                                 </div>
                                             </div>
                                             <div class="card-body">
                                                 <!--begin: Datatable-->
-                                                <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+                                                <table class="table table-bordered table-hover table-checkable" id="kt_family_table" style="margin-top: 13px !important">
                                                     <thead>
                                                         <tr>
                                                             <th>Name</th>
@@ -189,22 +187,20 @@
                                                     <h3 class="card-label">家族</h3> -->
                                                 </div>
                                                 <div class="card-toolbar">
-                                                    <!--begin::Button-->
-                                                    <a href="#" class="btn btn-primary font-weight-bolder">
-                                                    <i class="la la-plus"></i>New Record</a>
-                                                    <!--end::Button-->
+                                                   <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_product">+ New</a>
                                                 </div>
                                             </div>
                                             <div class="card-body">
                                                 <!--begin: Datatable-->
-                                                <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+                                                <table class="table table-bordered table-hover table-checkable" id="kt_product_table" style="margin-top: 13px !important">
                                                     <thead>
                                                         <tr>
+                                                            <th>date</th>
                                                             <th>Name</th>
-                                                            <th>Nick Name</th>
-                                                            <th>Ship City</th>
-                                                            <th>Birthday</th>
-                                                            <th>Sexual</th>
+                                                            <th>content</th>
+                                                            <th>price</th>
+                                                            <th>detail</th>
+                                                            <th>detail</th>
                                                         </tr>
                                                     </thead>
                                                 </table>
@@ -272,13 +268,126 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-    
-    <!--end::Entry-->
+    <!--begin::Modal-->
+    <div class="modal fade" id="kt_family_modal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Family</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <form class="form" id ="kt_family_form">
+                    <input type="hidden" name="family_id" id="family_id">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">Name</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input class="form-control form-control-solid form-control-lg" name="name" id="name" type="text" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">Nick name</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" class="form-control form-control-solid form-control-lg" name="nick_name" id="nick_name" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">birthday</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input class="form-control form-control-solid form-control-lg" name="birthday" id="birthday" type="text" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">Gender</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" class="form-control form-control-solid form-control-lg" name="sex" id="sex" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">content</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input class="form-control form-control-solid form-control-lg" name="content" id="content" type="text" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary px-15">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--begin::Modal-->
+    <div class="modal fade" id="kt_product_modal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <form class="form" id ="kt_product_form">
+                    <input type="hidden" name="product_id" id="product_id">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">Date</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input class="form-control form-control-solid form-control-lg" name="date" id="date" type="text" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">Name</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" class="form-control form-control-solid form-control-lg" name="name" id="name" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">Price</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input class="form-control form-control-solid form-control-lg" name="price" id="price" type="text" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">Etc</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" class="form-control form-control-solid form-control-lg" name="etc" id="etc" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">Content</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" class="form-control form-control-solid form-control-lg" name="content" id="content" value="" required>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary px-15">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
     <!--begin::Global Theme Bundle(used by all pages)-->
 <script src="<?=asset_url()?>/plugins/global/plugins.bundle.js"></script>
 <script src="<?=asset_url()?>/plugins/custom/prismjs/prismjs.bundle.js"></script>
 <script src="<?=asset_url()?>/js/scripts.bundle.js"></script>
 <script src="<?=asset_url()?>/plugins/custom/datatables/datatables.bundle.js"></script>
-<script src="<?=asset_url()?>/scripts/edit.js"></script>
+<script src="<?=asset_url()?>/scripts/edit_family.js"></script>
+<script src="<?=asset_url()?>/scripts/edit_product.js"></script>
 <script src="<?=asset_url()?>js/pages/custom/wizard/wizard-5.js"></script>

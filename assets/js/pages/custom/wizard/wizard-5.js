@@ -18,9 +18,7 @@ var KTWizard5 = function () {
 
 		// Validation before going to next page
 		_wizardObj.on('change', function (wizard) {
-			if(wizard.currentStep == 1){
-				alert();
-			}
+			
 			if (wizard.getStep() > wizard.getNewStep()) {
 				return; // Skip if stepped back
 			}
@@ -31,6 +29,34 @@ var KTWizard5 = function () {
 			if (validator) {
 				validator.validate().then(function (status) {
 					if (status == 'Valid') {
+						if(wizard.currentStep == 1){
+							var data = new FormData($("#kt_form")[0]);
+							$.ajax({
+				                url: HOST_URL + "admin/users/save",
+				                type: 'post',
+				                data: data,
+				                contentType: false,
+				                processData: false,
+				                success: function(response){
+				                    var data = JSON.parse(response);
+				                    if(data.success == true){
+				                        $("#id").val(data.id);
+				                    }else{
+				                        swal.fire({
+							                text: data.msg,
+							                icon: "error",
+							                buttonsStyling: false,
+							                confirmButtonText: "Ok, got it!",
+					                        customClass: {
+					    						confirmButton: "btn font-weight-bold btn-light-primary"
+					    					}
+							            }).then(function() {
+											KTUtil.scrollTop();
+										});
+				                    }
+				                },
+				            });
+						}
 						wizard.goTo(wizard.getNewStep());
 
 						KTUtil.scrollTop();
@@ -58,35 +84,35 @@ var KTWizard5 = function () {
 			KTUtil.scrollTop();
 		});
 
-		// Submit event
-		_wizardObj.on('submit', function (wizard) {
-			Swal.fire({
-				text: "All is good! Please confirm the form submission.",
-				icon: "success",
-				showCancelButton: true,
-				buttonsStyling: false,
-				confirmButtonText: "Yes, submit!",
-				cancelButtonText: "No, cancel",
-				customClass: {
-					confirmButton: "btn font-weight-bold btn-primary",
-					cancelButton: "btn font-weight-bold btn-default"
-				}
-			}).then(function (result) {
-				if (result.value) {
-					_formEl.submit(); // Submit form
-				} else if (result.dismiss === 'cancel') {
-					Swal.fire({
-						text: "Your form has not been submitted!.",
-						icon: "error",
-						buttonsStyling: false,
-						confirmButtonText: "Ok, got it!",
-						customClass: {
-							confirmButton: "btn font-weight-bold btn-primary",
-						}
-					});
-				}
-			});
-		});
+		// // Submit event
+		// _wizardObj.on('submit', function (wizard) {
+		// 	Swal.fire({
+		// 		text: "All is good! Please confirm the form submission.",
+		// 		icon: "success",
+		// 		showCancelButton: true,
+		// 		buttonsStyling: false,
+		// 		confirmButtonText: "Yes, submit!",
+		// 		cancelButtonText: "No, cancel",
+		// 		customClass: {
+		// 			confirmButton: "btn font-weight-bold btn-primary",
+		// 			cancelButton: "btn font-weight-bold btn-default"
+		// 		}
+		// 	}).then(function (result) {
+		// 		if (result.value) {
+		// 			_formEl.submit(); // Submit form
+		// 		} else if (result.dismiss === 'cancel') {
+		// 			Swal.fire({
+		// 				text: "Your form has not been submitted!.",
+		// 				icon: "error",
+		// 				buttonsStyling: false,
+		// 				confirmButtonText: "Ok, got it!",
+		// 				customClass: {
+		// 					confirmButton: "btn font-weight-bold btn-primary",
+		// 				}
+		// 			});
+		// 		}
+		// 	});
+		// });
 	}
 
 	var _initValidation = function () {
@@ -96,17 +122,24 @@ var KTWizard5 = function () {
 			_formEl,
 			{
 				fields: {
-					firstname: {
+					name: {
 						validators: {
 							notEmpty: {
 								message: 'First name is required'
 							}
 						}
 					},
-					lastname: {
+					nick_name: {
 						validators: {
 							notEmpty: {
 								message: 'Last name is required'
+							}
+						}
+					},
+					mobile: {
+						validators: {
+							notEmpty: {
+								message: 'Phone is required'
 							}
 						}
 					},
@@ -116,7 +149,15 @@ var KTWizard5 = function () {
 								message: 'Phone is required'
 							}
 						}
+					},
+					post_code: {
+						validators: {
+							notEmpty: {
+								message: 'Phone is required'
+							}
+						}
 					}
+
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),

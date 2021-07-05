@@ -3,18 +3,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once(APPPATH.'core/AdminController.php');
 
-class Products extends AdminController {
+class Product extends AdminController {
 	
 	var $layout = "admin";
 
 	public function __contruct(){
 		parent::__construct();
 	}
-	public function search(){
-		$params = explode(" ", $this->input->get("q"));
-		$this->load->model("User_model", "user");
-		$data["users"] = $this->user->getAll($params);
-		$this->render("admin/search",$data);
+	public function save(){
+		$data = $this->input->post();
+		if($data["product_id"]){
+			$data["id"] = $data["product_id"];
+			unset($data["product_id"]);
+			$this->product->updateData($data);
+			$this->json(array("success"=> true, "id"=>$data["user_id"]));
+		}else{
+			unset($data["product_id"]);
+			$id = $this->product->setData($data);
+			$this->json(array("success"=>true, "id"=>$data["user_id"]));
+		}
 	}
 
 	public function edit($id = null){
@@ -31,5 +38,12 @@ class Products extends AdminController {
 		}else {
 			echo "<script language=\"javascript\">alert('Someone is updating data');</script>";
 		}
+	}
+	public function api(){
+		$filter = $this->input->post("query");
+		$user = $this->user_data();
+		$data["meta"] = $filter;
+		$data["data"] = $this->product->getDataByParam(array("user_id"=>$filter["user_id"]));
+		$this->json($data);
 	}
 }

@@ -87,6 +87,3 @@
 </div>
 
 <script src="<?= asset_url()?>scripts/files.js"></script>
-<script>
-    var HOST_URL = '<?= base_url()?>';
-</script>

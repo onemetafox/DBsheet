@@ -105,6 +105,3 @@
 </div>
 <!--end::Modal-->
 <script src="<?= asset_url()?>scripts/events.js"></script>
-<script>
-    var HOST_URL = '<?= base_url()?>';
-</script>

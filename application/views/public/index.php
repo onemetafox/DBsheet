@@ -25,7 +25,7 @@
             <!--begin::Toolbar-->
             <div class="d-flex align-items-center">
                 <!--begin::Button-->
-                <a href="<?=base_url()?>admin/products/edit" class="btn btn-transparent-white font-weight-bold py-3 px-6">新規</a>
+                <a href="<?=base_url()?>admin/product/edit" class="btn btn-transparent-white font-weight-bold py-3 px-6">新規</a>
                 <!--end::Button-->
             </div>
             <!--end::Toolbar-->

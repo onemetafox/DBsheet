@@ -43,15 +43,13 @@ class Welcome extends BaseController {
 	}	
 	public function signin(){
 		$data = $this->input->post();
-		$this->load->model("Admin_model", "admin");
 		$user = $this->admin->getOneByParam(array("user_id"=> $data["id"]));
 		if($user){
 			if($user["password"] == sha1($data["password"])){
-				
 				$user["last_activity"] = date("y-m-d h:s:i");
 				$user["logged_status"] = 2;
 				$this->session->set_userdata("user",$user);
-				$this->user->updateData($user);
+				$this->admin->updateData($user);
 				$this->json(array("success" => true, "msg" => "Success Login", "user" => $user));
 			}else{
 				$this->json(array("success" => false, "msg"=>"Password incorrect"));
