@@ -9,7 +9,7 @@ class Welcome extends BaseController {
 	var $id = "admin@admin.com";
 	var $password = "admin";
 
-	public function __contruct(){
+	public function __construct(){
 		parent::__construct();
 	}
 
@@ -30,13 +30,18 @@ class Welcome extends BaseController {
 	 */
 	public function index()
 	{
-		$user = $this->user_data();
-		if(!$user){
+		$admin = $this->user_data();
+		if(!$admin){
 			$data["page_title"] = "Login";
 			$this->load->view("login", $data);		
 		}else{
-			$data["page_title"] = "Langing Page";
-			$data["user"] = $user;
+			$this->admin->updateData(array("update_status"=>1, "id"=>$admin["id"]));
+			$this->user->deleteByParam(array("status"=>1, "admin_id"=>$admin["id"]));
+			$this->product->deleteByParam(array("status"=>1,"admin_id"=>$admin["id"]));
+			$this->family->deleteByParam(array("status"=>1,"admin_id"=>$admin["id"]));
+			$this->detail->deleteByParam(array("status"=>1,"admin_id"=>$admin["id"]));
+			$data["user"] = $admin;
+			$data["list"] = $this->db->query("SELECT * FROM `users` WHERE status = 2 ORDER BY created_at DESC LIMIT 0, 3")->result_array();
 			$this->render("public/index", $data);	
 		}
 		
@@ -50,12 +55,12 @@ class Welcome extends BaseController {
 				$user["logged_status"] = 2;
 				$this->session->set_userdata("user",$user);
 				$this->admin->updateData($user);
-				$this->json(array("success" => true, "msg" => "Success Login", "user" => $user));
+				$this->json(array("success" => true, "msg" => "成功ログイン", "user" => $user));
 			}else{
-				$this->json(array("success" => false, "msg"=>"Password incorrect"));
+				$this->json(array("success" => false, "msg"=>"Password 間違った"));
 			}	
 		}else{
-			$this->json(array("success" => false, "msg"=>"User ID incorrect"));
+			$this->json(array("success" => false, "msg"=>"User ID 間違った"));
 		}
 		
 	}

@@ -37,4 +37,8 @@
 				$this->model->setData($data);
 			}
 		}
+		public function one(){
+			$id = $this->input->post("id");
+			return $this->model->getDataById($id);
+		}
 	}

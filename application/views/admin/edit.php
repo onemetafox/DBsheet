@@ -7,6 +7,28 @@
 ?>
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <div class="subheader py-2 py-lg-12 subheader-transparent" id="kt_subheader">
+        <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-1">
+                <!--begin::Heading-->
+                <div class="d-flex flex-column">
+                    <div class="input-icon">
+                    </div>
+                </div>
+                <!--end::Heading-->
+            </div>
+            <!--end::Info-->
+            <!--begin::Toolbar-->
+            <div class="d-flex align-items-center">
+                <?php if(isset($id)){?>
+                    <a id="delete" class="btn btn-danger font-weight-bold py-3 px-6 mr-5">削 除</a>
+                <?php } ?>
+                <a href="<?=base_url()?>" class="btn btn-transparent-white font-weight-bold py-3 px-6">トップ画面に戻る</a>
+            </div>
+            <!--end::Toolbar-->
+        </div>
+    </div>
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -33,8 +55,7 @@
                                                     <span class="wizard-number">1</span>
                                                 </div>
                                                 <div class="wizard-label">
-                                                    <h3 class="wizard-title">Account Settings</h3>
-                                                    <div class="wizard-desc">Setup Your Account Details</div>
+                                                    <h3 class="wizard-title">基本情報</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -47,8 +68,7 @@
                                                     <span class="wizard-number">2</span>
                                                 </div>
                                                 <div class="wizard-label">
-                                                    <h3 class="wizard-title">Address Details</h3>
-                                                    <div class="wizard-desc">Setup Residence Address</div>
+                                                    <h3 class="wizard-title">家族</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -61,8 +81,7 @@
                                                     <span class="wizard-number">3</span>
                                                 </div>
                                                 <div class="wizard-label">
-                                                    <h3 class="wizard-title">Completed!</h3>
-                                                    <div class="wizard-desc">Review and Submit</div>
+                                                    <h3 class="wizard-title">購入履歴</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -79,26 +98,26 @@
                         <div class="wizard-content bg-gray-100 d-flex flex-column flex-row-fluid py-15 px-5 px-lg-10">
                             <!--begin::Form-->
                             <div class="d-flex justify-content-center flex-row-fluid">
-                                <form class="pb-5 w-100 w-md-450px w-lg-500px" novalidate="novalidate" id="kt_form">
-                                    <input type="hidden" name="id" id="id">
+                                <form class="pb-5 w-100 w-md-450px w-lg-800px" novalidate="novalidate" id="kt_form">
+                                    <input type="hidden" name="id" id="id" value="<?=isset($id)?$id:''?>">
                                     <!--begin: Wizard Step 1-->
                                     <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                                         <div class="card-body">
                                             <div class="form-group row">
                                                 <div class="col-sm-4 mt-2">
-                                                    <input type="text" class="form-control" name="name" placeholder="Enter full name"/>
+                                                    <input type="text" class="form-control" value="<?=isset($customer)?$customer['name']:''?>" name="name" placeholder="名 前"/>
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
-                                                    <input type="text" class="form-control" name="nick_name" placeholder="Enter nick name"/>
+                                                    <input type="text" class="form-control" value="<?=isset($customer)?$customer['name']:''?>" name="nick_name" placeholder="ふりがな"/>
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
-                                                    <input type="email" class="form-control" name="email" placeholder="Enter contact email"/>
+                                                    <input type="email" class="form-control" value="<?=isset($customer)?$customer['email']:''?>" name="email" inputmode="text" placeholder="メールアドレス"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="address" name="address" placeholder="Enter your address"/>
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['address']:''?>"  name="address" placeholder="住 所0"/>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="la la-map-marker"></i></span> 
                                                         </div>
@@ -106,7 +125,25 @@
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="post_code" placeholder="Enter your postcode"/>
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['address1']:''?>" name="address1"  placeholder="住 所1"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="la la-map-marker"></i></span> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['address2']:''?>" name="address2" placeholder="住 所2"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="la la-map-marker"></i></span> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['post_code']:''?>" name="post_code" inputmode="text" placeholder="郵便番号"/>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="la la-bookmark-o"></i></span> 
                                                         </div>
@@ -114,7 +151,16 @@
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="mobile" placeholder="Enter your mobile"/>
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['class']:''?>" name="class" placeholder="クラス"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="la la-bookmark-o"></i></span> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <!-- <input type="text" class="form-control" value="<?=isset($customer)?$customer['mobile']:''?>" name="mobile" placeholder="携帯電話"/> -->
+                                                        <input type="text" class="form-control"  placeholder="携帯電話" value="<?=isset($customer)?$customer['mobile']:''?>" name="mobile" inputmode="text">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="la la-mobile-phone"></i></span> 
                                                         </div>
@@ -124,12 +170,7 @@
                                             <div class="form-group row">
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="sex" placeholder="Enter your sexual"/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4 mt-2">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" name="phone1" placeholder="Enter your tel"/>
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone1']:''?>" name="phone1" placeholder="電話自宅1"/>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="la la-phone"></i></span> 
                                                         </div>
@@ -137,7 +178,36 @@
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="birthday" placeholder="Enter your birthday"/>
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone2']:''?>" name="phone2" placeholder="電話自宅2"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="la la-phone"></i></span> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone3']:''?>" name="phone3" placeholder="電話自宅3"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="la la-phone"></i></span> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 mt-2">
+                                                    <div class="input-group">
+                                                        <select class="form-control" name="sex">
+                                                            <option value="1">男</option>
+                                                            <option value="2">女</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 mt-2">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone1']:''?>" name="phone4" placeholder="勤務先電話"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="la la-phone"></i></span> 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,21 +225,12 @@
                                                     <h3 class="card-label">家族</h3> -->
                                                 </div>
                                                 <div class="card-toolbar">
-                                                   <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_family">+ New</a>
+                                                   <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_family">+ 追加</a>
                                                 </div>
                                             </div>
                                             <div class="card-body">
                                                 <!--begin: Datatable-->
                                                 <table class="table table-bordered table-hover table-checkable" id="kt_family_table" style="margin-top: 13px !important">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Nick Name</th>
-                                                            <th>Ship City</th>
-                                                            <th>Birthday</th>
-                                                            <th>Sexual</th>
-                                                        </tr>
-                                                    </thead>
                                                 </table>
                                                 <!--end: Datatable-->
                                             </div>
@@ -187,22 +248,12 @@
                                                     <h3 class="card-label">家族</h3> -->
                                                 </div>
                                                 <div class="card-toolbar">
-                                                   <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_product">+ New</a>
+                                                   <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_product">+ 追加</a>
                                                 </div>
                                             </div>
                                             <div class="card-body">
                                                 <!--begin: Datatable-->
                                                 <table class="table table-bordered table-hover table-checkable" id="kt_product_table" style="margin-top: 13px !important">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>date</th>
-                                                            <th>Name</th>
-                                                            <th>content</th>
-                                                            <th>price</th>
-                                                            <th>detail</th>
-                                                            <th>detail</th>
-                                                        </tr>
-                                                    </thead>
                                                 </table>
                                                 <!--end: Datatable-->
                                             </div>
@@ -223,10 +274,10 @@
                                                     </g>
                                                 </svg>
                                                 <!--end::Svg Icon-->
-                                            </span>Previous</button>
+                                            </span>以 前</button>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-5 pr-8 py-4 my-3" data-wizard-type="action-submit">Submit
+                                            <button type="button"  id="confirm"  class="btn btn-primary font-weight-bolder font-size-h6 pl-5 pr-8 py-4 my-3" data-wizard-type="action-submit">更 新
                                             <span class="svg-icon svg-icon-md ml-2">
                                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Right-2.svg-->
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -238,7 +289,7 @@
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span></button>
-                                            <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3" data-wizard-type="action-next">Next Step
+                                            <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3" data-wizard-type="action-next">次 に
                                             <span class="svg-icon svg-icon-md ml-1">
                                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Right-2.svg-->
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -273,7 +324,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Family</h5>
+                    <h5 class="modal-title">家族/追加・更新</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
@@ -282,35 +333,39 @@
                     <input type="hidden" name="family_id" id="family_id">
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label class="col-form-label text-right col-lg-3 col-sm-12">Name</label>
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">名 前</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input class="form-control form-control-solid form-control-lg" name="name" id="name" type="text" value="" required>
                                 <div class="fv-plugins-message-container"></div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label text-right col-lg-3 col-sm-12">Nick name</label>
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">ふりがな</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" class="form-control form-control-solid form-control-lg" name="nick_name" id="nick_name" value="" required>
                                 <div class="fv-plugins-message-container"></div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label text-right col-lg-3 col-sm-12">birthday</label>
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">生年月日</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input class="form-control form-control-solid form-control-lg" name="birthday" id="birthday" type="text" value="" required>
+                                <input class="form-control form-control-solid form-control-lg" readonly name="birthday" id="birthday" type="text" value="" required>
                                 <div class="fv-plugins-message-container"></div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label text-right col-lg-3 col-sm-12">Gender</label>
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">性 別</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" class="form-control form-control-solid form-control-lg" name="sex" id="sex" value="" required>
+                                <select class="form-control" name="sex">
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                </select>
+                                <!-- <input type="text" class="form-control form-control-solid form-control-lg" name="sex" id="sex" value="" required> -->
                                 <div class="fv-plugins-message-container"></div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label text-right col-lg-3 col-sm-12">content</label>
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">メモ</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input class="form-control form-control-solid form-control-lg" name="content" id="content" type="text" value="" required>
                                 <div class="fv-plugins-message-container"></div>
@@ -318,8 +373,8 @@
                         </div>
                     </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary px-15">Save</button>
+                <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">閉じる</button>
+                <button type="submit" class="btn btn-primary px-15">保存</button>
                 </div>
                 </form>
             </div>
@@ -330,7 +385,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Product</h5>
+                    <h5 class="modal-title">購入履歴/追加・更新</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
@@ -339,21 +394,21 @@
                     <input type="hidden" name="product_id" id="product_id">
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label class="col-form-label text-right col-lg-3 col-sm-12">Date</label>
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">買上日</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input class="form-control form-control-solid form-control-lg" name="date" id="date" type="text" value="" required>
+                                <input class="form-control form-control-solid form-control-lg" readonly name="date" id="date" type="text" value="" required>
                                 <div class="fv-plugins-message-container"></div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label text-right col-lg-3 col-sm-12">Name</label>
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">買上品</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" class="form-control form-control-solid form-control-lg" name="name" id="name" value="" required>
                                 <div class="fv-plugins-message-container"></div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label text-right col-lg-3 col-sm-12">Price</label>
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">買上金額(円)</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input class="form-control form-control-solid form-control-lg" name="price" id="price" type="text" value="" required>
                                 <div class="fv-plugins-message-container"></div>
@@ -367,7 +422,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label text-right col-lg-3 col-sm-12">Content</label>
+                            <label class="col-form-label text-right col-lg-3 col-sm-12">メモ</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" class="form-control form-control-solid form-control-lg" name="content" id="content" value="" required>
                                 <div class="fv-plugins-message-container"></div>
@@ -375,11 +430,46 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary px-15">Save</button>
+                        <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">閉じる</button>
+                        <button type="submit" class="btn btn-primary px-15">保存</button>
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="kt_confirm_modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">確 認</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <form class="form" id ="kt_confirm_form">
+                <input type="hidden" name="decide" id="decide">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-form-label text-right col-lg-3 col-sm-12">I D</label>
+                        <div class="col-lg-9 col-md-9 col-sm-12">
+                            <input class="form-control form-control-solid form-control-lg" name="admin_id" type="text" value="" required>
+                            <div class="fv-plugins-message-container"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label text-right col-lg-3 col-sm-12">Password</label>
+                        <div class="col-lg-9 col-md-9 col-sm-12">
+                            <input type="password" class="form-control form-control-solid form-control-lg" name="password" value="" required>
+                            <div class="fv-plugins-message-container"></div>
+                        </div>
+                    </div>
+                </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">閉じる</button>
+            <button type="submit" class="btn btn-primary px-15">送信</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -390,4 +480,4 @@
 <script src="<?=asset_url()?>/plugins/custom/datatables/datatables.bundle.js"></script>
 <script src="<?=asset_url()?>/scripts/edit_family.js"></script>
 <script src="<?=asset_url()?>/scripts/edit_product.js"></script>
-<script src="<?=asset_url()?>js/pages/custom/wizard/wizard-5.js"></script>
+<script src="<?=asset_url()?>/scripts/edit.js"></script>

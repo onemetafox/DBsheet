@@ -1,119 +1,110 @@
+
+var datatable1;
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 var __webpack_exports__ = {};
-/*!******************************************************************************!*\
-  !*** ../demo1/src/js/pages/crud/datatables/data-sources/ajax-client-side.js ***!
-  \******************************************************************************/
 
-var KTDatatablesDataSourceAjaxClient = function() {
-
-	var initTable1 = function() {
-		var table = $('#kt_datatable');
-
-		// begin first table
-		table.DataTable({
-			responsive: true,
-			ajax: {
-				url: HOST_URL + '/api/datatables/demos/default.php',
-				type: 'POST',
-				data: {
+var KTDatatableRemoteAjaxDemo1 = function() {
+    
+    var searchGrid = function() {
+        datatable1 = $('#kt_datatable').KTDatatable({
+            data: {
+                type: 'remote',
+                source: {
+                    read: {
+                        url: HOST_URL + 'admin/user/api',
+                        params : {
+                            query:{
+                                "q" : $("#query").val(),
+                            }
+                        },
+                        map: function(raw) {
+                            var dataSet = raw;
+                            if (typeof raw.data !== 'undefined') {
+                                dataSet = raw.data;
+                            }
+                            return dataSet;
+                        },
+                        timeout: 30000
+                    },
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            layout: {
+                scroll: false,
+                footer: false,
+				icons:{
 					pagination: {
-						perpage: 50,
-					},
+						next: 'la la-angle-right',
+						prev: 'la la-angle-left',
+						first: 'la la-angle-double-left',
+						last: 'la la-angle-double-right',
+						more: 'la la-ellipsis-h'
+					  }
 				},
-			},
-			columns: [
-				{data: 'OrderID'},
-				{data: 'Country'},
-				{data: 'ShipCity'},
-				{data: 'CompanyName'},
-				{data: 'ShipDate'},
-				{data: 'Status'},
-				{data: 'Type'},
-				{data: 'Actions', responsivePriority: -1},
-			],
-			columnDefs: [
-				{
-					targets: -1,
-					title: 'Actions',
-					orderable: false,
-					render: function(data, type, full, meta) {
-						return '\
-							<div class="dropdown dropdown-inline">\
-								<a href="javascript:;" class="btn btn-sm btn-clean btn-icon" data-toggle="dropdown">\
-	                                <i class="la la-cog"></i>\
-	                            </a>\
-							  	<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">\
-									<ul class="nav nav-hoverable flex-column">\
-							    		<li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon la la-edit"></i><span class="nav-text">Edit Details</span></a></li>\
-							    		<li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon la la-leaf"></i><span class="nav-text">Update Status</span></a></li>\
-							    		<li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon la la-print"></i><span class="nav-text">Print</span></a></li>\
-									</ul>\
-							  	</div>\
-							</div>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon" title="Edit details">\
-								<i class="la la-edit"></i>\
-							</a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon" title="Delete">\
-								<i class="la la-trash"></i>\
-							</a>\
-						';
-					},
-				},
-				{
-					width: '75px',
-					targets: -3,
-					render: function(data, type, full, meta) {
-						var status = {
-							1: {'title': 'Pending', 'class': 'label-light-primary'},
-							2: {'title': 'Delivered', 'class': ' label-light-danger'},
-							3: {'title': 'Canceled', 'class': ' label-light-primary'},
-							4: {'title': 'Success', 'class': ' label-light-success'},
-							5: {'title': 'Info', 'class': ' label-light-info'},
-							6: {'title': 'Danger', 'class': ' label-light-danger'},
-							7: {'title': 'Warning', 'class': ' label-light-warning'},
-						};
-						if (typeof status[data] === 'undefined') {
-							return data;
-						}
-						return '<span class="label label-lg font-weight-bold' + status[data].class + ' label-inline">' + status[data].title + '</span>';
-					},
-				},
-				{
-					width: '75px',
-					targets: -2,
-					render: function(data, type, full, meta) {
-						var status = {
-							1: {'title': 'Online', 'state': 'danger'},
-							2: {'title': 'Retail', 'state': 'primary'},
-							3: {'title': 'Direct', 'state': 'success'},
-						};
-						if (typeof status[data] === 'undefined') {
-							return data;
-						}
-						return '<span class="label label-' + status[data].state + ' label-dot mr-2"></span>' +
-							'<span class="font-weight-bold text-' + status[data].state + '">' + status[data].title + '</span>';
-					},
-				},
-			],
-		});
-	};
+            },
+			
+            // column sorting
+            sortable: true,
 
-	return {
+            pagination: true,
+            translate :{
+                records : {
+                    noRecords : 'データがありません',
+                    processing: 'お待ちください...'
+                },
+                toolbar :{
+                    pagination :{
+                        items :{
+                            info : '表示 {{start}} - {{end}} の {{total}} 記録'
+                        }
+                    }
+                }
+            },
+            columns: [{
+                field: 'name',
+                title: '名 前',
+            },{
+                field: 'nick_name',
+                title: 'ふりがな'
+            }, {
+                field: 'sex',
+                title: '性 別',
+                template : function(row){
+                    if(row.sex == 1){
+                        return '男 別';
+                    }else{
+                        return '女 別'
+                    }
+                }
+            }, {
+                field: 'birthday',
+                title: '生年月日'
+            }, {
+                field: 'content',
+                title: 'コンテンツ'
+            }],
+        });
 
-		//main function to initiate the module
-		init: function() {
-			initTable1();
-		},
-
-	};
-
+    };
+    
+    return {
+        // public functions
+        init: function() {
+            searchGrid();
+            // datatable1.reload();
+        },
+    };
 }();
 
 jQuery(document).ready(function() {
-	KTDatatablesDataSourceAjaxClient.init();
+    KTDatatableRemoteAjaxDemo1.init();
 });
 
 /******/ })()
 ;
-//# sourceMappingURL=ajax-client-side.js.map
+//# sourceMappingURL=data-ajax.js.map
+

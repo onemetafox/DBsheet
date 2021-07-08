@@ -19,6 +19,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
 
         datatable1 = $('#kt_family_table').KTDatatable({
             // datasource definition
+            
             data: {
                 type: 'remote',
                 source: {
@@ -35,7 +36,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                         },
                         params : {
                             query:{
-                                "user_id" : $("#id").val()
+                                "user_id" : ""
                             }
                         }
                     },
@@ -50,13 +51,26 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 footer: false,
 					icons:{
 						pagination: {
-    							next: 'la la-angle-right',
-    							prev: 'la la-angle-left',
-    							first: 'la la-angle-double-left',
-    							last: 'la la-angle-double-right',
-    							more: 'la la-ellipsis-h'
+							next: 'la la-angle-right',
+							prev: 'la la-angle-left',
+							first: 'la la-angle-double-left',
+							last: 'la la-angle-double-right',
+							more: 'la la-ellipsis-h'
 						  }
 					},
+            },
+            translate :{
+                records : {
+                    noRecords : 'データがありません',
+                    processing: 'お待ちください...'
+                },
+                toolbar :{
+                    pagination :{
+                        items :{
+                            info : '表示 {{start}} - {{end}} の {{total}} 記録'
+                        }
+                    }
+                }
             },
 			
             // column sorting
@@ -66,29 +80,38 @@ var KTDatatableRemoteAjaxDemo1 = function() {
 
             columns: [{
                 field: 'name',
-                title: 'Name',
+                title: '名 前',
+                textAlign: 'center'
             }, {
                 field: 'nick_name',
-                title: 'Nick name'
+                title: 'ふりがな',
+                textAlign: 'center'
             }, {
                 field: 'sex',
-                title: 'Gender'
+                title: '性 別',
+                template : function(row){
+                    if(row.sex == 1){
+                        return '男 別';
+                    }else{
+                        return '女 別'
+                    }
+                }
             }, {
                 field: 'birthday',
-                title: 'birthday'
+                title: '生年月日'
             }, {
                 field: 'content',
-                title: 'Content'
+                title: 'コンテンツ'
             }, {
                 field: 'Actions',
-                title: 'Actions',
+                title: '編 集',
                 sortable: false,
                 width: 240,
                 overflow: 'visible',
                 autoHide: false,
                 template: function(row) {
                     return '\
-                    <a href="javascript:onEdit('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm edit_btn" title = "Edit">\
+                    <a href="javascript:editFamily('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm edit_btn" title = "Edit">\
                         <span class="svg-icon svg-icon-md svg-icon-primary">\
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -99,7 +122,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                             </svg>\
                         </span>\
                     </a>\
-                    <a href="javascript:onDel('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Delete">\
+                    <a href="javascript:delFamily('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Delete">\
                         <span class="svg-icon svg-icon-md svg-icon-primary">\
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -119,7 +142,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
         $("#new_family").on("click", function(){
             // $('#form')[0].reset();
             $("#family_id").val("");
-            $('#form#kt_family_form').trigger("reset");
+            $('#kt_family_form').trigger("reset");
             $("#kt_family_modal").modal('show');
         });
        
@@ -139,7 +162,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                     if(data.success == true){
                         $("#kt_family_modal").modal('hide');
                         $("#id").val(data.id);
-                        datatable1.setDataSourceParam("query[user_id]", $("#id").val());
+                        datatable1.setDataSourceParam("query[user_id]", data.id);
                         datatable1.reload();
                     }else{
                         toastr.error(data.msg)
@@ -159,9 +182,50 @@ var KTDatatableRemoteAjaxDemo1 = function() {
 }();
 
 jQuery(document).ready(function() {
+    $('input[name=birthday]').datepicker({
+        rtl: KTUtil.isRTL(),
+        orientation: "bottom left",
+        todayHighlight: true,
+        templates: arrows,
+        format: "yyyy-mm-dd"
+    });
     KTDatatableRemoteAjaxDemo1.init();
 });
 
 /******/ })()
 ;
 //# sourceMappingURL=data-ajax.js.map
+
+function editFamily(id){
+    $.ajax({
+        type: "POST",
+        url: HOST_URL + "admin/family/api",
+        data: {
+            query:{"id" : id}
+        },
+        dataType: "json",
+        encode: true,
+    }).done(function (data) {
+        var row = data.data;
+        $("#kt_family_form #family_id").val(row["id"]);
+        $("#kt_family_form #name").val(row["name"]);
+        $("#kt_family_form #nick_name").val(row["nick_name"]);
+        $("#kt_family_form #birthday").val(row["birthday"]);
+        $("#kt_family_form #sex").val(row["sex"]);
+        $("#kt_family_form #content").val(row["content"]);
+        $("#kt_family_modal").modal('show');
+    });
+}
+
+function delFamily(id){
+    $.ajax({
+        type: "POST",
+        url: HOST_URL + "admin/family/delete",
+        data: {"id" : id },
+        dataType: "json",
+        encode: true,
+    }).done(function (data) {
+        toastr.success("成 功");
+        datatable1.reload();
+    });
+}

@@ -34,14 +34,14 @@ var KTLogin = function() {
 					username: {
 						validators: {
 							notEmpty: {
-								message: 'Username is required'
+								message: 'ユーザー名が必要です'
 							}
 						}
 					},
 					password: {
 						validators: {
 							notEmpty: {
-								message: 'Password is required'
+								message: 'パスワードが必要です'
 							}
 						}
 					}
@@ -76,7 +76,7 @@ var KTLogin = function() {
 					                text: data.msg,
 					                icon: "error",
 					                buttonsStyling: false,
-					                confirmButtonText: "Ok, got it!",
+					                confirmButtonText: "はい、わかった!",
 			                        customClass: {
 			    						confirmButton: "btn font-weight-bold btn-light-primary"
 			    					}
@@ -88,10 +88,10 @@ var KTLogin = function() {
 		            });
 				} else {
 					swal.fire({
-		                text: "Sorry, looks like there are some errors detected, please try again.",
+		                text: "申し訳ありませんが、エラーが検出されたようです。もう一度お試しください。",
 		                icon: "error",
 		                buttonsStyling: false,
-		                confirmButtonText: "Ok, got it!",
+		                confirmButtonText: "はい、わかった!",
                         customClass: {
     						confirmButton: "btn font-weight-bold btn-light-primary"
     					}

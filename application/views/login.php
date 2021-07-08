@@ -21,30 +21,30 @@
 						<a href="#" class="text-center mb-10">
 							<img src="<?=asset_url()?>/media/logos/logo-letter-1.png" class="max-h-70px" alt="" />
 						</a>
-						<h3 class="font-weight-bolder text-center font-size-h4 font-size-h1-lg" style="color: #986923;">Discover Amazing Metronic
-						<br />with great build tools</h3>
+						<h3 class="font-weight-bolder text-center font-size-h4 font-size-h1-lg" style="color: #986923;">アメージングメトロニックを発見
+						<br />優れたビルドツールを使用</h3>
 					</div>
 					<div class="aside-img d-flex flex-row-fluid bgi-no-repeat bgi-position-y-bottom bgi-position-x-center" style="background-image: url(<?=asset_url()?>/media/svg/illustrations/login-visual-1.svg)"></div>
 				</div>
-				<div class="login-content flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7">
+				<div class="login-content flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto">
 					<div class="d-flex flex-column-fluid flex-center">
 						<div class="login-form login-signin">
 							<form class="form" novalidate="novalidate" id="kt_login_signin_form">
 								<div class="pb-13 pt-lg-0 pt-5">
-									<h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">Welcome to Metronic</h3>
+									<h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">メトロニックへようこそ</h3>
 								</div>
 								<div class="form-group">
 									<label class="font-size-h6 font-weight-bolder text-dark">ID</label>
-									<input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text" name="id" autocomplete="off" />
+									<input style ="border: solid 1px grey;" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text" name="id" autocomplete="off" />
 								</div>
 								<div class="form-group">
 									<div class="d-flex justify-content-between mt-n5">
 										<label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
 									</div>
-									<input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="password" name="password" autocomplete="off" />
+									<input style ="border: solid 1px grey;" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="password" name="password" autocomplete="off" />
 								</div>
 								<div class="pb-lg-0 pb-5">
-									<button type="button" id="kt_login_signin_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
+									<button type="button" id="kt_login_signin_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">サインイン</button>
 								</div>
 							</form>
 						</div>

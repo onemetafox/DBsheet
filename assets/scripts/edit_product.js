@@ -67,40 +67,46 @@ var KTDatatableRemoteAjaxDemo2 = function() {
             sortable: true,
 
             pagination: true,
+            translate :{
+                records : {
+                    noRecords : 'データがありません',
+                    processing: 'お待ちください...'
+                },
+                toolbar :{
+                    pagination :{
+                        items :{
+                            info : '表示 {{start}} - {{end}} の {{total}} 記録'
+                        }
+                    }
+                }
+            },
 
 			// columns definition
             columns: [{
                 field: 'date',
-                title: 'Date',
+                title: '買上日',
             }, {
                 field: 'name',
-                title: 'Name'
+                title: '買上品'
+            }, {
+                field: '買上金額',
+                title: '価 格',
+                template: function(row){
+                    return "¥" + row.price;
+                }
             }, {
                 field: 'content',
-                title: 'Content'
-            }, {
-                field: 'price',
-                title: 'Price'
+                title: 'コンテンツ'
             }, {
                 field: 'Actions',
-                title: 'Actions',
+                title: '編 集',
                 sortable: false,
                 width: 240,
                 overflow: 'visible',
                 autoHide: false,
                 template: function(row) {
                     return '\
-                    <a href="'+HOST_URL +'admin/events/view/' +row.id+'" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Set Image Pair">\
-                        <span class="svg-icon svg-icon-md svg-icon-primary">\
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
-                                    <rect x="0" y="0" width="24" height="24"/>\
-                                    <path d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z" fill="#000000"/>\
-                                </g>\
-                            </svg>\
-                        </span>\
-                    </a>\
-                    <a href="javascript:qrGen('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Generate QR Code">\
+                    <a href="'+HOST_URL+'admin/product/detail/'+row.id+'" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Generate QR Code">\
                         <span class="svg-icon svg-icon-md svg-icon-primary"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Send.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
                                 <rect x="0" y="0" width="24" height="24"/>\
@@ -108,7 +114,7 @@ var KTDatatableRemoteAjaxDemo2 = function() {
                             </g>\
                         </svg><!--end::Svg Icon--></span>\
                     </a>\
-                    <a href="javascript:onEdit('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm edit_btn" title = "Edit">\
+                    <a href="javascript:editProduct('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm edit_btn" title = "Edit">\
                         <span class="svg-icon svg-icon-md svg-icon-primary">\
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -119,7 +125,7 @@ var KTDatatableRemoteAjaxDemo2 = function() {
                             </svg>\
                         </span>\
                     </a>\
-                    <a href="javascript:onDel('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Delete">\
+                    <a href="javascript:delProduct('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Delete">\
                         <span class="svg-icon svg-icon-md svg-icon-primary">\
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -140,7 +146,7 @@ var KTDatatableRemoteAjaxDemo2 = function() {
         });
         $("#new_product").on("click", function(){
             // $('#form')[0].reset();
-            $("#iproduct_d").val("");
+            $("#product_id").val("");
             $('form#kt_product_form').trigger("reset");
             $("#kt_product_modal").modal('show');
         });
@@ -182,9 +188,53 @@ var KTDatatableRemoteAjaxDemo2 = function() {
 }();
 
 jQuery(document).ready(function() {
+    $('input[name=date]').datepicker({
+        rtl: KTUtil.isRTL(),
+        orientation: "bottom left",
+        todayHighlight: true,
+        templates: arrows,
+        format: "yyyy-mm-dd"
+    });
+    $("input[name=price]").inputmask('decimal', {
+        numericInput: true,
+        rightAlignNumerics: false
+    }); 
     KTDatatableRemoteAjaxDemo2.init();
 });
 
 /******/ })()
 ;
 //# sourceMappingURL=data-ajax.js.map
+function editProduct(id){
+    $.ajax({
+        type: "POST",
+        url: HOST_URL + "admin/product/api",
+        data: {
+            query:{"id" : id}
+        },
+        dataType: "json",
+        encode: true,
+    }).done(function (data) {
+        var row = data.data;
+        $("#kt_product_form #product_id").val(row["id"]);
+        $("#kt_product_form #name").val(row["name"]);
+        $("#kt_product_form #price").val(row["price"]);
+        $("#kt_product_form #date").val(row["date"]);
+        $("#kt_product_form #etc").val(row["etc"]);
+        $("#kt_product_form #content").val(row["content"]);
+        $("#kt_product_modal").modal('show');
+    });
+}
+
+function delProduct(id){
+    $.ajax({
+        type: "POST",
+        url: HOST_URL + "admin/product/delete",
+        data: {"id" : id },
+        dataType: "json",
+        encode: true,
+    }).done(function (data) {
+        toastr.success("成 功");
+        datatable2.reload();
+    });
+}
