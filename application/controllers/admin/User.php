@@ -14,6 +14,11 @@ class User extends AdminController {
 
 	public function save(){
 		$data = $this->input->post();
+		if(isset($data["customer"]) && ($data["customer"]  == "on")){
+			$data["customer"] = 2;
+		}else{
+			$data["customer"] = 1;
+		}
 		$admin = $this->user_data();
 		$data["admin_id"] = $admin["id"];
 		if($data["id"]){
@@ -71,10 +76,12 @@ class User extends AdminController {
 		$filter["query"] = $this->input->get("q");
 		$params = explode(" ", $filter["query"]);
 		$data["users"] = $this->model->all($params);
+		$data["filter"] = $filter["query"];
 		$this->render("admin/search",$data);
 	}
 	public function view(){
 		$data["page_title"] = "View Page";
+		$data["filter"] = $this->input->post();
 		$this->render("admin/view", $data);
 	}
 }

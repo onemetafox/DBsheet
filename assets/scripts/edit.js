@@ -78,8 +78,7 @@ var KTWizard5 = function () {
 				                    var data = JSON.parse(response);
 				                    if(data.success == true){
 				                        $("#id").val(data.id);
-				                        datatable1.setDataSourceParam("query[user_id]", data.id);
-                        				datatable1.reload();
+				                         datatable1.search(data.id, 'user_id');
 				                    }else{
 				                        swal.fire({
 							                text: data.msg,
@@ -97,8 +96,7 @@ var KTWizard5 = function () {
 				            });
 						}
 						if(wizard.currentStep == 2){
-							datatable2.setDataSourceParam("query[user_id]", $("#id").val());
-							datatable2.reload();
+							datatable2.search($("#id").val(), 'user_id');
 						}
 						wizard.goTo(wizard.getNewStep());
 
@@ -161,7 +159,8 @@ var KTWizard5 = function () {
 								message: '無効入力'
 							}
 						}
-					},phone1: {
+					},
+					phone1: {
 						validators: {
 							digits: {
 								message: '無効入力'
@@ -204,13 +203,13 @@ var KTWizard5 = function () {
 			_formEl,
 			{
 				fields: {
-					address1: {
-						validators: {
-							notEmpty: {
-								message: 'Address is required'
-							}
-						}
-					}
+					// address1: {
+					// 	validators: {
+					// 		notEmpty: {
+					// 			message: 'Address is required'
+					// 		}
+					// 	}
+					// }
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),

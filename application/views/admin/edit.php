@@ -159,7 +159,6 @@
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <!-- <input type="text" class="form-control" value="<?=isset($customer)?$customer['mobile']:''?>" name="mobile" placeholder="携帯電話"/> -->
                                                         <input type="text" class="form-control"  placeholder="携帯電話" value="<?=isset($customer)?$customer['mobile']:''?>" name="mobile" inputmode="text">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="la la-mobile-phone"></i></span> 
@@ -208,6 +207,55 @@
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="la la-phone"></i></span> 
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-6">お得意様</label>
+                                                        <div class="col-sm-6">
+                                                            <span class="switch switch-icon">
+                                                                <label>
+                                                                    <input type="checkbox" <?=isset($customer)&&($customer["customer"]=="2")?'checked':''?> name="customer">
+                                                                    <span></span>
+                                                                </label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-3">趣 味</label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-control" name="hobby">
+                                                                <option value=""></option>
+                                                                <option value="歌舞伎" <?=isset($customer)&&($customer["hobby"]=="歌舞伎")?'selected':''?>>歌舞伎</option>
+                                                                <option value="能" <?=isset($customer)&&($customer["hobby"]=="能")?'selected':''?>>能</option>
+                                                                <option value="文楽" <?=isset($customer)&&($customer["hobby"]=="文楽")?'selected':''?>>文楽 </option>
+                                                                <option value="落語" <?=isset($customer)&&($customer["hobby"]=="落語")?'selected':''?>>落語 </option>
+                                                                <option value="美術・工芸品" <?=isset($customer)&&($customer["hobby"]=="美術・工芸品")?'selected':''?>>美術・工芸品</option>
+                                                            </select>
+                                                            <!-- <input type="text" class="form-control form-control-solid form-control-lg" name="sex" id="sex" value="" required> -->
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-4">習い事</label>
+                                                        <div class="col-sm-8">
+                                                            <select class="form-control" name="habit">
+                                                                <option value=""></option>
+                                                                <option value="着付" <?=isset($customer)&&($customer["habit"]=="着付")?'selected':''?>>着付</option>
+                                                                <option value="和裁" <?=isset($customer)&&($customer["habit"]=="和裁")?'selected':''?>>和裁 </option>
+                                                                <option value="茶道" <?=isset($customer)&&($customer["habit"]=="茶道")?'selected':''?>>茶道 </option>
+                                                                <option value="華道" <?=isset($customer)&&($customer["habit"]=="華道")?'selected':''?>>華道 </option>
+                                                                <option value="三味線" <?=isset($customer)&&($customer["habit"]=="三味線")?'selected':''?>>三味線 </option>
+                                                                <option value="琴" <?=isset($customer)&&($customer["habit"]=="琴")?'selected':''?>>琴</option>
+                                                            </select>
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>    
                                                     </div>
                                                 </div>
                                             </div>

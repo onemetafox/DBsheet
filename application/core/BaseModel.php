@@ -10,7 +10,8 @@
 		}
 		public function where($filter){
 			foreach($filter as $key => $value){
-				$this->db->where($key, $value);
+				if($value != '')
+					$this->db->where($key, $value);
 			}
 		}
 		public function setData($data) {

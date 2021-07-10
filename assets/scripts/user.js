@@ -70,7 +70,7 @@ var KTLogin = function() {
 		                success: function(response){
 		                    var data = JSON.parse(response);
 		                    if(data.success == true){
-		                        window.location = HOST_URL + "/";
+		                        window.location = HOST_URL;
 		                    }else{
 		                        swal.fire({
 					                text: data.msg,

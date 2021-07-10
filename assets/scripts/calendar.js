@@ -7,17 +7,6 @@ var __webpack_exports__ = {};
 
 var KTCalendarExternalEvents = function() {
 
-    var initExternalEvents = function() {
-        $('#kt_calendar_external_events .fc-draggable-handle').each(function() {
-            // store data so the calendar knows to render an event upon drop
-            $(this).data('event', {
-                title: $.trim($(this).text()), // use the element's text as the event title
-                stick: true, // maintain when user navigates (see docs on the renderEvent method)
-                classNames: [$(this).data('color')],
-                description: 'Lorem ipsum dolor eius mod tempor labore'
-            });
-        });
-    }
     var events = function(){
         $.ajax({
             type: "POST",
@@ -30,7 +19,7 @@ var KTCalendarExternalEvents = function() {
             for (var i = 0 ; i < row.length; i++){
                 events.push({
                     title: row[i]['name'],
-                    start: row[i]['date'],
+                    start: row[i]['delivery_date'],
                     description: row[i]['content'],
                     className : 'fc-event-success'
                 })
@@ -47,31 +36,14 @@ var KTCalendarExternalEvents = function() {
 
         var calendarEl = document.getElementById('kt_calendar');
         var containerEl = document.getElementById('kt_calendar_external_events');
-
-        // var Draggable = FullCalendarInteraction.Draggable;
-
-        // new Draggable(containerEl, {
-        //     itemSelector: '.fc-draggable-handle',
-        //     eventData: function(eventEl) {
-        //         return $(eventEl).data('event');
-        //     }
-        // });
-        $("#kt_calendar_external_events").on('click',function(){
-            aler();
-        })
-
         
-
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
 
             isRTL: KTUtil.isRTL(),
             header: {
-                // left: 'prev,next 今日',
-
-                // center: 'title'
-                // ,
-                right: 'today'
+                left: false,
+                center: 'title'
             },
 
             height: 600,
@@ -90,20 +62,20 @@ var KTCalendarExternalEvents = function() {
             defaultView: 'dayGridMonth',
             defaultDate: TODAY,
 
-            droppable: true, // this allows things to be dropped onto the calendar
-            editable: true,
+            droppable: false, // this allows things to be dropped onto the calendar
+            editable: false,
             eventLimit: true, // allow "more" link when too many events
             navLinks: true,
             events : events,
-
-            drop: function(arg) {
-                // is the "remove after drop" checkbox checked?
-                if ($('#kt_calendar_external_events_remove').is(':checked')) {
-                    // if so, remove the element from the "Draggable Events" list
-                    $(arg.draggedEl).remove();
-                }
+            eventClick : function (info){
+                var date = info.event.start;
+                var title = info.event.title;
+                var content = info.event.extendedProps.description;
+                $("div[name=detail]").css("display","block");
+                $("span[name=date]").html(date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate() );
+                $("a[name=title]").html(title);
+                $("p[name=content]").html(content);
             },
-
             eventRender: function(info) {
                 var element = $(info.el);
                 if (info.event.extendedProps && info.event.extendedProps.description) {
@@ -124,16 +96,27 @@ var KTCalendarExternalEvents = function() {
     }
 
     return {
-        //main function to initiate the module
         init: function() {
-            initExternalEvents();
             events();
-            // initCalendar();
         }
     };
 }();
 
 jQuery(document).ready(function() {
+    $('input[name=date_from]').datepicker({
+        rtl: KTUtil.isRTL(),
+        orientation: "bottom left",
+        todayHighlight: true,
+        // templates: arrows,
+        format: "yyyy-mm-dd"
+    });
+    $('input[name=date_to]').datepicker({
+        rtl: KTUtil.isRTL(),
+        orientation: "bottom left",
+        todayHighlight: true,
+        // templates: arrows,
+        format: "yyyy-mm-dd"
+    });
     KTCalendarExternalEvents.init();
 });
 

@@ -11,11 +11,11 @@ var __webpack_exports__ = {};
   \****************************************************************/
 
 // Class definition
-var KTDatatableRemoteAjaxDemo1 = function() {
+var KTDatatableRemoteAjaxDemo1 = function(query) {
     // Private functions
 
     // basic demo
-    var demo1 = function() {
+    var demo1 = function(query) {
 
         datatable1 = $('#kt_datatable').KTDatatable({
             // datasource definition
@@ -24,7 +24,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 type: 'remote',
                 source: {
                     read: {
-                        url: HOST_URL + 'admin/user/api',
+                        url: HOST_URL + 'admin/product/search',
                         // sample custom headers
                         headers: {'x-my-custom-header': 'some value', 'x-test-header': 'the value'},
                         map: function(raw) {
@@ -34,16 +34,16 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                             }
                             return dataSet;
                         },
-                        params : {
+                        params:{
                             query:{
-                                "q" : ""
-                            }
+                                "query" : query
+                            } 
                         }
                     },
                 },
                 pageSize: 10,
                 serverPaging: false,
-                serverFiltering: false,
+                serverFiltering: true,
                 serverSorting: false
             },
             rows :{
@@ -96,6 +96,13 @@ var KTDatatableRemoteAjaxDemo1 = function() {
             pagination: true,
 
             columns: [{
+                field: 'RecordID',
+                title: '宛名印刷',
+                sortable: false,
+                width: 40,
+                selector: true,
+                textAlign: 'center',
+            },{
                 field: 'name',
                 title: '名前(ふりがな)',
                 textAlign: 'center',
@@ -118,98 +125,78 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                     }
                 }
             }, {
-                field: 'birthday',
-                title: '生年月日'
+                field: 'address',
+                title: '〒住所'
             }, {
                 field: 'mobile',
                 title: '電話番号'
             }, {
-                field: 'address',
-                title: '住 所'
+                field: 'price',
+                title: '購入金額',
+                template:function(row){
+                    return row.price + "円";
+                }
+            }, {
+                field: 'date',
+                title: '最終購入日'
             }],
 
         });
 
-        $("#new_family").on("click", function(){
-            // $('#form')[0].reset();
-            $("#family_id").val("");
-            $('#form#kt_family_form').trigger("reset");
-            $("#kt_family_modal").modal('show');
-        });
+       
+        $("#search").on("click", function(){
+            var paramObj = {};
+            paramObj['name'] = $("input[name=name]").val();
+            paramObj['customer'] = $("#customer").prop("checked");
+            paramObj['making'] = $("#making").prop("checked");
+
+            paramObj['date_from'] = $("input[name=date_from]").val();
+            paramObj['date_to'] = $("input[name=date_to]").val();
+            paramObj['price_from'] = $("input[name=price_from]").val();
+            paramObj['price_to'] = $("input[name=price_to]").val();
+            paramObj['hobby'] = $("select[name=hobby]").val();
+            paramObj['habit'] = $("select[name=habit]").val();
+
+            datatable1.search(JSON.stringify(paramObj), 'query');
+
+        })
        
     };
-    var temp1 = function (){
-        $("form#kt_family_form").submit(function (event) {
-            var paramObj = new FormData($("form#kt_family_form")[0]);
-            paramObj.append('user_id',$("#id").val());
-            $.ajax({
-                url: HOST_URL + "admin/family/save",
-                type: 'post',
-                data: paramObj,
-                contentType: false,
-                processData: false,
-                success: function(response){
-                    var data = JSON.parse(response);
-                    if(data.success == true){
-                        $("#kt_family_modal").modal('hide');
-                        $("#id").val(data.id);
-                        datatable1.setDataSourceParam("query[user_id]", $("#id").val());
-                        datatable1.reload();
-                    }else{
-                        toastr.error(data.msg)
-                    }
-                },
-            });
-            event.preventDefault();
-        });
-    }
+    
     return {
         // public functions
-        init: function() {
-            temp1();
-            demo1();
+        init: function(query) {
+            demo1(query);
         },
     };
 }();
 
 jQuery(document).ready(function() {
-    KTDatatableRemoteAjaxDemo1.init();
+    var paramObj = {};
+    paramObj['name'] = $("input[name=name]").val();
+    paramObj['customer'] = $("#customer").prop("checked");
+    paramObj['making'] = $("#making").prop("checked");
+    paramObj['date_from'] = $("input[name=date_from]").val();
+    paramObj['date_to'] = $("input[name=date_to]").val();
+    paramObj['price_from'] = $("input[name=price_from]").val();
+    paramObj['price_to'] = $("input[name=price_to]").val();
+    paramObj['hobby'] = $("select[name=hobby]").val();
+    paramObj['habit'] = $("select[name=habit]").val();
+
+    KTDatatableRemoteAjaxDemo1.init(JSON.stringify(paramObj));
 });
 
 /******/ })()
 ;
 //# sourceMappingURL=data-ajax.js.map
 
-function editFamily(id){
-    $.ajax({
-        type: "POST",
-        url: HOST_URL + "admin/family/api",
-        data: {
-            query:{"id" : id}
-        },
-        dataType: "json",
-        encode: true,
-    }).done(function (data) {
-        var row = data.data;
-        $("#kt_family_form #family_id").val(row["id"]);
-        $("#kt_family_form #name").val(row["name"]);
-        $("#kt_family_form #nick_name").val(row["nick_name"]);
-        $("#kt_family_form #birthday").val(row["birthday"]);
-        $("#kt_family_form #sex").val(row["sex"]);
-        $("#kt_family_form #content").val(row["content"]);
-        $("#kt_family_modal").modal('show');
-    });
-}
 
-function delFamily(id){
-    $.ajax({
-        type: "POST",
-        url: HOST_URL + "admin/family/delete",
-        data: {"id" : id },
-        dataType: "json",
-        encode: true,
-    }).done(function (data) {
-        toastr.success("成 功");
-        datatable1.reload();
-    });
+function showSearch(){
+    var isVisible = $('.card-footer').is( ":visible" );
+    if(isVisible){
+        $('.card-footer').collapse('hide');
+    }else{
+        $('.card-footer').collapse('show');
+    }
+    
 }

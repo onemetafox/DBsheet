@@ -20,7 +20,7 @@ class Product extends AdminController {
 			$data["id"] = $data["product_id"];
 			unset($data["product_id"]);
 			$this->product->updateData($data);
-			$this->json(array("success"=> true, "id"=>$data["user_id"]));
+			$this->json(array("success"=> true, "msg"=>"正確に保管されてい","id"=>$data["user_id"]));
 		}else{
 			unset($data["product_id"]);
 			$id = $this->product->setData($data);
@@ -74,6 +74,7 @@ class Product extends AdminController {
 		$data["user_id"] = $product["user_id"];
 		$data["images"] = json_decode($product["image"]);
 		$data["remark"] = $product["remark"];
+		$data["product"] = $product;
 		$this->render("admin/detail",$data);
 	}
 
@@ -96,6 +97,13 @@ class Product extends AdminController {
 		$this->product->updateData(array("id"=>$data["product_id"], "image"=>json_encode($images), "remark"=>$data["remark"]));
 
 		$this->json(array("success"=>true, "msg"=>"成 功!", "data" => $data));
-		
+	}
+
+	public function search(){
+		$filter = json_decode($this->input->post("query[query]"));
+		// print_r($filter);
+		$data["data"] = $this->product->search((array)$filter);
+		$data["filter"] = $filter;
+		$this->json($data);
 	}
 }

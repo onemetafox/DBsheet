@@ -4,10 +4,26 @@
     <div class="subheader py-2 py-lg-12 subheader-transparent" id="kt_subheader">
         <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-1">
+                <!--begin::Heading-->
                 <div class="d-flex flex-column">
-                    <div class="input-icon">
+                    <!--begin::Title-->
+                    <h2 class="text-white font-weight-bold my-2 mr-5"><?=$product["name"]?></h2>
+                    <!--end::Title-->
+                    <!--begin::Breadcrumb-->
+                    <div class="d-flex align-items-center font-weight-bold my-2">
+                        <!--begin::Item-->
+                        <a class="opacity-75 hover-opacity-100">
+                            <i class="flaticon2-shelter text-white icon-1x"></i>
+                        </a>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
+                        <a  class="text-white text-hover-white opacity-75 hover-opacity-100"><?= $product["content"]?></a>
+                        <!--end::Item-->
                     </div>
+                    <!--end::Breadcrumb-->
                 </div>
+                <!--end::Heading-->
             </div>
             <div class="d-flex align-items-center">
                 <a href="<?=base_url()?>" class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-5">トップ画面に戻る</a>
@@ -22,33 +38,33 @@
                 <input type="hidden" name="user_id" id="user_id" value="<?=$user_id?>">
                 <div class="card-header">
                     <div class="card-toolbar">
-                       <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_detail">+ 追加</a>
+                       <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="setMaking">制作中</a>
+                       <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="setDate">完成予定日</a>
+                       <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="new_detail">+ 追加</a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <!--begin: Datatable-->
-                    <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
-                        <thead>
-                            <tr>
-                                <th>丈（背）</th>
-                                <th>丈（肩）</th>
-                                <th>裄</th>
-                                <th>肩巾</th>
-                                <th>袖巾</th>
-                                <th>袖丈</th>
-                                <th>袖付</th>
-                                <th>前巾</th>
-                                <th>後巾</th>
-                                <th>褄下</th>
-                                <th>抱巾</th>
-                                <th>衽巾</th>
-                                <th>ヒップ</th>
-                                <th>バスト</th>
-                                <th>ウエスト</th>
-                                <td>身長</td>
-                            </tr>
-                        </thead>
-                    </table>
+                    <!-- Tabs navs -->
+                    <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="tab" href="javascript:switchView(1)" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">
+                            cm表示
+                        </a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="javascript:switchView(2)" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">
+                            鯨尺表示
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="ex1-content">
+                        <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1" >
+                            <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important"></table>
+                        </div>
+                        <div class="tab-pane fade show" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                            <table class="table table-bordered table-hover table-checkable" id="kt_datatable_1" style="margin-top: 13px !important;"></table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card card-custom gutter-b">
@@ -82,7 +98,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-toolbar float-right">
-                       <a href="javascript:saveData()"class="btn btn-light-primary font-weight-bolder btn-sm" id="save_detail">セーブ</a>
+                       <a href="javascript:saveData()"class="btn btn-light-primary font-weight-bolder btn-sm" id="save_detail">保 存</a>
                     </div>
                 </div>
             </div>
@@ -90,7 +106,7 @@
     </div>
 </div>
 <div class="modal fade" id="kt_detail_modal" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">詳細を編集</h5>
@@ -103,73 +119,185 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="back" placeholder="丈（背）"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">丈(背)</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="back" placeholder="丈(背)"/>    
+                                </div>
+                            </div>
+                            
                         </div>
                         <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="shoulder" placeholder="丈（肩）"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">丈(肩)</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="shoulder" placeholder="丈(肩)"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="yuki" placeholder="裄"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="shawl" placeholder="肩巾"/>
-                        </div>
-                        <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="sleeve_width" placeholder="袖巾"/>
-                        </div>
-                        <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="sleeve_Length" placeholder="袖丈"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="with_sleeves" placeholder="袖付"/>
-                        </div>
-                        <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="front_width" placeholder="前巾"/>
-                        </div>
-                        <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="back_width" placeholder="後巾"/>
+                             <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">裄</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="yuki" placeholder="裄"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="under_hood" placeholder="褄下"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">肩巾</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="shawl" placeholder="肩巾"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="hug" placeholder="抱巾"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">袖巾</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="sleeve_width" placeholder="袖巾"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="width" placeholder="衽巾"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">袖丈</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="sleeve_Length" placeholder="袖丈"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="carry_forward" placeholder="繰越"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">袖付</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="with_sleeves" placeholder="袖付"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="hips" placeholder="ヒップ"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">前巾</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="front_width" placeholder="前巾"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-4 mt-2">
-                            <input type="text" class="form-control" name="bust" placeholder="バスト"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">後巾</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="back_width" placeholder="後巾"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-4 mt-2">
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">褄下</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="under_hood" placeholder="褄下"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">抱巾</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="hug" placeholder="抱巾"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">衽巾</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="width" placeholder="衽巾"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-4 mt-2">
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">繰越</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="carry_forward" placeholder="繰越"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">ヒップ</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="hips" placeholder="ヒップ"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">バスト</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="bust" placeholder="バスト"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mt-2">
-                            <input type="text" class="form-control" name="west" placeholder="ウエスト"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">ウエスト</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="west" placeholder="ウエスト"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-6 mt-2">
-                            <input type="text" class="form-control" name="height" placeholder="身長"/>
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-3">身長</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="height" placeholder="身長"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">閉じる</button>
-            <button type="submit" class="btn btn-primary px-15">保存</button>
+                <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">閉じる</button>
+                <button type="submit" class="btn btn-primary px-15">保存</button>
             </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="kt_delivery_modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">詳細を編集</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <form class="form" id ="kt_date_form">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-md-12 input-group">
+                            <label class="col-form-label text-right col-md-3">完成予定</label>
+                            <input type="text" class="form-control col-md-9" name="delivery_date"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">閉じる</button>
+                    <button type="submit" class="btn btn-primary px-15">保存</button>
+                </div>
             </form>
         </div>
     </div>
@@ -178,5 +306,5 @@
 <script src="<?=asset_url()?>/plugins/custom/prismjs/prismjs.bundle.js"></script>
 <script src="<?=asset_url()?>/js/scripts.bundle.js"></script>
 <script src="<?=asset_url()?>/plugins/custom/datatables/datatables.bundle.js"></script>
-<script src="<?=asset_url()?>/scripts/detail.js"></script>
+<script src="<?=asset_url()?>scripts/detail.js"></script>
 <script src="<?=asset_url()?>scripts/image_input.js"></script>

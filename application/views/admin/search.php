@@ -4,29 +4,27 @@
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="subheader py-2 py-lg-12 subheader-transparent" id="kt_subheader">
         <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Heading-->
+            <div class="d-flex align-items-center flex-wrap mr-1 mb-2">
                 <div class="d-flex flex-column">
-                    <div class="input-icon">
+                    <div class="input-icon input-icon-right mr-2">
+                        <input type="text" class="form-control" placeholder="検索..." id="search" value="<?= $filter?>" onkeypress="goSearch(event)">
+                        <span>
+                            <i class="flaticon2-search-1 icon-md"></i>
+                        </span>
                     </div>
                 </div>
-                <!--end::Heading-->
+            
+                <div class="d-flex align-items-center">
+                    <a href="javascript:search()" class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-2">検索</a>
+                </div>
             </div>
-            <!--end::Info-->
-            <!--begin::Toolbar-->
             <div class="d-flex align-items-center">
-                <!--begin::Button-->
-                <a href="<?=base_url()?>" class="btn btn-transparent-white font-weight-bold py-3 px-6">トップ画面に戻る</a>
-                <!--end::Button-->
+                <a href="<?=base_url()?>" class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-5">トップ画面に戻る</a>
+                <a href="<?=base_url()?>welcome/signout" class="btn btn-danger font-weight-bold py-3 px-6">ログアウト</a>
             </div>
-            <!--end::Toolbar-->
         </div>
     </div>
-    <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
-        <!-- <input type="hidden" name="query" id="query" value="<?=$query?>"> -->
-        <!--begin::Container-->
         <div class="container">
             <div class="card card-custom gutter-b">
                 <div class="card-header">
@@ -66,4 +64,13 @@
 <script src="<?=asset_url()?>/plugins/custom/prismjs/prismjs.bundle.js"></script>
 <script src="<?=asset_url()?>/js/scripts.bundle.js"></script>
 <script src="<?=asset_url()?>/plugins/custom/datatables/datatables.bundle.js"></script>
-<!-- <script src="<?=asset_url()?>/scripts/search.js"></script> -->
+<script type="text/javascript">
+    function goSearch(e){
+        if (e.keyCode == 13) {
+            window.location = "<?=base_url()?>admin/user/search?q=" + $("#search").val();
+        }
+    }
+    function search(){
+        window.location = "<?=base_url()?>admin/user/search?q=" + $("#search").val();
+    }
+</script>

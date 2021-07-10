@@ -11,11 +11,11 @@ var __webpack_exports__ = {};
   \****************************************************************/
 
 // Class definition
-var KTDatatableRemoteAjaxDemo1 = function() {
+var KTDatatableRemoteAjaxDemo1 = function(user_id) {
     // Private functions
 
     // basic demo
-    var demo1 = function() {
+    var demo1 = function(user_id) {
 
         datatable1 = $('#kt_family_table').KTDatatable({
             // datasource definition
@@ -34,16 +34,16 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                             }
                             return dataSet;
                         },
-                        params : {
-                            query:{
-                                "user_id" : ""
+                        params :{
+                            query :{
+                                "user_id" : "user_id"
                             }
                         }
                     },
                 },
                 pageSize: 10,
                 serverPaging: false,
-                serverFiltering: false,
+                serverFiltering: true,
                 serverSorting: false
             },
             layout: {
@@ -162,8 +162,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                     if(data.success == true){
                         $("#kt_family_modal").modal('hide');
                         $("#id").val(data.id);
-                        datatable1.setDataSourceParam("query[user_id]", data.id);
-                        datatable1.reload();
+                        datatable1.search(data.id, 'user_id');
                     }else{
                         toastr.error(data.msg)
                     }
@@ -174,9 +173,9 @@ var KTDatatableRemoteAjaxDemo1 = function() {
     }
     return {
         // public functions
-        init: function() {
+        init: function(user_id) {
             temp1();
-            demo1();
+            demo1(user_id);
         },
     };
 }();
@@ -189,7 +188,8 @@ jQuery(document).ready(function() {
         templates: arrows,
         format: "yyyy-mm-dd"
     });
-    KTDatatableRemoteAjaxDemo1.init();
+    var user_id = $("#id").val();
+    KTDatatableRemoteAjaxDemo1.init(user_id);
 });
 
 /******/ })()
