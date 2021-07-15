@@ -155,6 +155,10 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
             for (var i = 0; i < ids.length; i++) {
                  temp = temp + "." + ids[i];
             }
+            if(ids[1]){
+                toastr.error("一つの項目だけを選択してください。");
+                return;
+            }
             window.open(HOST_URL+"admin/user/export/"+ids[0], '_blank').focus();
             // var c = document.createDocumentFragment();
             // for (var i = 0; i < ids.length; i++) {

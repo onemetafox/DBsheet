@@ -14,7 +14,7 @@
 
 </head>
 <body onload="window.print()">
-    <div style="margin-top: 350px;">
+    <div style="margin-top: 450px;">
         <div  name="detail">
             <!--begin::Body-->
             <div class="card-body d-flex flex-column"   style="text-align: center;">
@@ -27,7 +27,7 @@
                     <p class="text-dark font-weight-bolder text-hover-primary font-size-h4" name="title" ><?= $user["address"]?>
                     </p>
                     <!--begin::Desc-->
-                    <p class="text-dark-50 font-weight-normal font-size-lg mt-6" name="content"><b style="font-size : 22"><?=$user["name"]?></b>様
+                    <p class="text-dark-50 font-weight-normal font-size-lg mt-6" name="content"><b style="font-size : 24"><?=$user["name"]?></b>様
                     </p>
                     <!--end::Desc-->
                 </div>
