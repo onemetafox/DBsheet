@@ -75,9 +75,9 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 title: '性 別',
                 template : function(row){
                     if(row.sex == 1){
-                        return '男 別';
+                        return '男';
                     }else{
-                        return '女 別'
+                        return '女'
                     }
                 }
             }, {

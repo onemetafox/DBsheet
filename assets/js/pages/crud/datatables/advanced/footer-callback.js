@@ -2,6 +2,7 @@
 var KTDatatablesAdvancedFooterCalllback = function() {
 
 	var init = function() {
+		alert('init')
 		var table = $('#kt_datatable');
 
 		// begin first table

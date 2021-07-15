@@ -15,6 +15,10 @@ class Family extends AdminController {
 	/** function to save one image pair */
 	public function save(){
 		$data = $this->input->post();
+		if(!preg_match('/^[ぁ-ん]+$/u', $data["nick_name"])){
+			$this->json(array("success"=>false, "msg"=>"「ふりがな」入力チェック"));
+			return;
+		}
 		$admin = $this->user_data();
 		$data["admin_id"] = $admin["id"];
 		if($data["family_id"]){

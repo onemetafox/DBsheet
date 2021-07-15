@@ -14,6 +14,10 @@ class User extends AdminController {
 
 	public function save(){
 		$data = $this->input->post();
+		if(!preg_match('/^[ぁ-ん]+$/u', $data["nick_name"])){
+			$this->json(array("success"=>false, "msg"=>"「ふりがな」入力チェック"));
+			return;
+		}
 		if(isset($data["customer"]) && ($data["customer"]  == "on")){
 			$data["customer"] = 2;
 		}else{
@@ -34,7 +38,7 @@ class User extends AdminController {
 	// delete image pair
 	public function delete($id){
 		$this->recipe->unsetDataById($id);
-		$this->json(array("success"=>true, "msg"=>"削除されました!"));
+		$this->json(array("success"=>true, "msg"=>"削除しました。"));
 	}
 
 	public function confirm(){
@@ -55,7 +59,7 @@ class User extends AdminController {
 					$this->family->deleteByParam(array("user_id"=>$filter["id"], "admin_id"=>$admin["id"]));
 					$this->detail->deleteByParam(array("user_id"=>$filter["id"], "admin_id"=>$admin["id"]));
 				}
-				$this->json(array("success"=>true, "msg"=>"正確に保管されてい"));
+				$this->json(array("success"=>true, "msg"=>"正確に保管しました。"));
 			}else{
 				$this->json(array("success"=>false, "msg"=>"passwordが正しくありません"));
 			}
@@ -83,5 +87,15 @@ class User extends AdminController {
 		$data["page_title"] = "View Page";
 		$data["filter"] = $this->input->post();
 		$this->render("admin/view", $data);
+	}
+	public function export($id){
+		$data['user'] = $this->user->getDataById($id);
+		$this->load->library('pdf');
+		$html = $this->load->view('admin/print', $data, TRUE);
+		// $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+	 	// $html = utf8_decode($html);
+        // $html = htmlspecialchars_decode(htmlentities($html, ENT_NOQUOTES, 'ISO-8859-1'), ENT_NOQUOTES);
+        // print_r(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $this->pdf->createPDF($html, 'mypdf', false);
 	}
 }

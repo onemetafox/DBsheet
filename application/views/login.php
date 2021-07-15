@@ -30,9 +30,6 @@
 					<div class="d-flex flex-column-fluid flex-center">
 						<div class="login-form login-signin">
 							<form class="form" novalidate="novalidate" id="kt_login_signin_form">
-								<div class="pb-13 pt-lg-0 pt-5">
-									<h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">メトロニックへようこそ</h3>
-								</div>
 								<div class="form-group">
 									<label class="font-size-h6 font-weight-bolder text-dark">ID</label>
 									<input style ="border: solid 1px grey;" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text" name="id" autocomplete="off" />
@@ -44,7 +41,7 @@
 									<input style ="border: solid 1px grey;" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="password" name="password" autocomplete="off" />
 								</div>
 								<div class="pb-lg-0 pb-5">
-									<button type="button" id="kt_login_signin_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">サインイン</button>
+									<button type="button" id="kt_login_signin_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">ログイン</button>
 								</div>
 							</form>
 						</div>

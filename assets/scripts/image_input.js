@@ -46,7 +46,13 @@ function saveData(){
     }
         
     formData.append("product_id", $("#product_id").val());
-    formData.append("remark", $("textarea").val());
+    formData.append("user[age]", $("input[name=age]").val());
+    formData.append("user[color]", $("input[name=color]").val());
+    formData.append("user[hobby]", $("select[name=hobby]").val());
+    formData.append("user[habit]", $("select[name=habit]").val());
+    formData.append("user[etc]", $("input[name=etc]").val());
+    formData.append("user[body]", $("input[name=body]").val());
+
     $.ajax({
         url: HOST_URL + 'admin/product/saveImage',
         type: 'post',

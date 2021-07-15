@@ -2,6 +2,7 @@ arrows = {
     leftArrow: '<i class="la la-angle-right"></i>',
     rightArrow: '<i class="la la-angle-left"></i>'
 }
+
 var datatable1;
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
@@ -36,7 +37,7 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
                         },
                         params :{
                             query :{
-                                "user_id" : "user_id"
+                                "user_id" : $("#id").val()==""?"test":$("#id").val()
                             }
                         }
                     },
@@ -76,7 +77,7 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
             // column sorting
             sortable: true,
 
-            pagination: true,
+            pagination: false,
 
             columns: [{
                 field: 'name',
@@ -89,11 +90,12 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
             }, {
                 field: 'sex',
                 title: '性 別',
+                width: 40,
                 template : function(row){
                     if(row.sex == 1){
-                        return '男 別';
+                        return '男';
                     }else{
-                        return '女 別'
+                        return '女'
                     }
                 }
             }, {
@@ -101,7 +103,7 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
                 title: '生年月日'
             }, {
                 field: 'content',
-                title: 'コンテンツ'
+                title: '続柄'
             }, {
                 field: 'Actions',
                 title: '編 集',
@@ -141,6 +143,10 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
 
         $("#new_family").on("click", function(){
             // $('#form')[0].reset();
+            if($("#id").val() == ""){
+                toastr.error("ユーザー情報を最初に挿入してください");
+                return;
+            }
             $("#family_id").val("");
             $('#kt_family_form').trigger("reset");
             $("#kt_family_modal").modal('show');

@@ -20,7 +20,7 @@ class Product extends AdminController {
 			$data["id"] = $data["product_id"];
 			unset($data["product_id"]);
 			$this->product->updateData($data);
-			$this->json(array("success"=> true, "msg"=>"正確に保管されてい","id"=>$data["user_id"]));
+			$this->json(array("success"=> true, "msg"=>"正確に保管しました。","id"=>$data["user_id"]));
 		}else{
 			unset($data["product_id"]);
 			$id = $this->product->setData($data);
@@ -30,7 +30,7 @@ class Product extends AdminController {
 	public function delete(){
 		$id = $this->input->post("id");
 		$this->product->unsetDataById($id);
-		$this->json(array("success"=>true, "msg"=>"削除されました!"));
+		$this->json(array("success"=>true, "msg"=>"削除しました。"));
 	}
 	public function edit($id = null){
 		$update_user = $this->admin->getOneByParam(array("update_status" =>2));
@@ -73,30 +73,42 @@ class Product extends AdminController {
 		$product = $this->product->getDataById($id);
 		$data["user_id"] = $product["user_id"];
 		$data["images"] = json_decode($product["image"]);
-		$data["remark"] = $product["remark"];
+		$data["customer"] = $this->user->getDataById($product["user_id"]);
 		$data["product"] = $product;
-		$this->render("admin/detail",$data);
+		$this->load->view("admin/detail",$data);
 	}
 
 	public function saveImage(){
 		$data = $this->input->post();
 		$images = array();
+		$startNum = 0;
 		for($i =1; $i <= 8 ; $i++){
 			if(isset($_FILES["file".$i]))
 				if ( 0 < $_FILES["file".$i]['error'] ) {
 					echo 'Error: ' . $_FILES["file".$i]['error'] . '<br>';
 				}
 				else {
+					if($startNum == 0){
+						$startNum = $i;
+					}
 					$name = $_FILES["file".$i]["name"];
 					$ext = pathinfo($name, PATHINFO_EXTENSION);
 					// print_r($_FILES["file".$i]['tmp_name']);
 					move_uploaded_file($_FILES["file".$i]['tmp_name'], 'uploads/' . $data["product_id"] . "_". $i.".".$ext);
-					array_push($images, $data["product_id"]. "_". $i.".".$ext);
+					$images[$i] = $data["product_id"]. "_". $i.".".$ext;
 				}
 		}
-		$this->product->updateData(array("id"=>$data["product_id"], "image"=>json_encode($images), "remark"=>$data["remark"]));
+		$product = $this->product->getDataById($data["product_id"]);
+		$old_images = (array)json_decode($product["image"]);
+		if($old_images)
+			$result = $old_images + $images;
+		else
+			$result = $images;
+		$user = $data["user"];
+		$this->user->updateDataByParam($user, array("id"=>$product["user_id"]));
+		$this->product->updateData(array("id"=>$data["product_id"], "image"=>json_encode($result)));
 
-		$this->json(array("success"=>true, "msg"=>"成 功!", "data" => $data));
+		$this->json(array("success"=>true, "msg"=>"成功!", "data" => $data));
 	}
 
 	public function search(){

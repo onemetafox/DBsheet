@@ -18,6 +18,7 @@ var KTCalendarExternalEvents = function() {
             var row = data.data;
             for (var i = 0 ; i < row.length; i++){
                 events.push({
+                    user_name: row[i]['user_name'],
                     title: row[i]['name'],
                     start: row[i]['delivery_date'],
                     description: row[i]['content'],
@@ -68,11 +69,11 @@ var KTCalendarExternalEvents = function() {
             navLinks: true,
             events : events,
             eventClick : function (info){
-                var date = info.event.start;
+                var user_name = info.event.extendedProps.user_name;
                 var title = info.event.title;
                 var content = info.event.extendedProps.description;
                 $("div[name=detail]").css("display","block");
-                $("span[name=date]").html(date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate() );
+                $("span[name=date]").html(user_name);
                 $("a[name=title]").html(title);
                 $("p[name=content]").html(content);
             },

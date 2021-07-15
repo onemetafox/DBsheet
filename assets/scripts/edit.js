@@ -10,29 +10,30 @@ var KTWizard5 = function () {
 
 	var initUI = function(){
         $("input[name=mobile]").inputmask("mask", {
-            "mask": "(999) 999-9999"
+            "mask": "999-9999-9999"
         }); 
         $("input[name=post_code]").inputmask("mask", {
             "mask": "999-9999"
         });
         $("input[name=phone1]").inputmask("mask", {
-            "mask": "99999999999"
+            "mask": "9999999999"
         });
      	$("input[name=phone2]").inputmask("mask", {
-            "mask": "99999999999"
+            "mask": "9999999999"
         });
         $("input[name=phone4]").inputmask("mask", {
-            "mask": "99999999999"
+            "mask": "9999999999"
         });
         $("input[name=phone3]").inputmask("mask", {
-            "mask": "99999999999"
+            "mask": "9999999999"
         });
-        $("input[name=post_code]").inputmask("mask", {
-            "mask": "999-9999"
-        });
-        $("input[name=post_code]").inputmask("mask", {
-            "mask": "999-9999"
-        }); 
+         $('input[name=birthday]').datepicker({
+	        rtl: KTUtil.isRTL(),
+	        orientation: "bottom left",
+	        todayHighlight: true,
+	        templates: arrows,
+	        format: "yyyy-mm-dd"
+	    });
     }
 	// Private functions
 	var _initWizard = function () {
@@ -48,72 +49,35 @@ var KTWizard5 = function () {
         		$("#kt_confirm_modal").modal('show');
 			}
         });
-		_wizardObj = new KTWizard(_wizardEl, {
-			startStep: 1, // initial active step number
-			clickableSteps: false  // allow step clicking
-		});
-
-		// Validation before going to next page
-		_wizardObj.on('change', function (wizard) {
-			
-			if (wizard.getStep() > wizard.getNewStep()) {
-				return; // Skip if stepped back
-			}
-
-			// Validate form before change wizard step
-			var validator = _validations[wizard.getStep() - 1]; // get validator for currnt step
-
-			if (validator) {
+        $("button[name=saveUser]").on('click', function(){
+        	var validator = _validations[0];
+        	if (validator) {
 				validator.validate().then(function (status) {
 					if (status == 'Valid') {
-						if(wizard.currentStep == 1){
-							var data = new FormData($("#kt_form")[0]);
-							$.ajax({
-				                url: HOST_URL + "admin/user/save",
-				                type: 'post',
-				                data: data,
-				                contentType: false,
-				                processData: false,
-				                success: function(response){
-				                    var data = JSON.parse(response);
-				                    if(data.success == true){
-				                        $("#id").val(data.id);
-				                         datatable1.search(data.id, 'user_id');
-				                    }else{
-				                        swal.fire({
-							                text: data.msg,
-							                icon: "error",
-							                buttonsStyling: false,
-							                confirmButtonText: "はい、わかった！",
-					                        customClass: {
-					    						confirmButton: "btn font-weight-bold btn-light-primary"
-					    					}
-							            }).then(function() {
-											KTUtil.scrollTop();
-										});
-				                    }
-				                },
-				            });
-						}
-						if(wizard.currentStep == 2){
-							datatable2.search($("#id").val(), 'user_id');
-						}
-						wizard.goTo(wizard.getNewStep());
-
-						KTUtil.scrollTop();
+						
+						var data = new FormData($("#kt_form")[0]);
+						$.ajax({
+			                url: HOST_URL + "admin/user/save",
+			                type: 'post',
+			                data: data,
+			                contentType: false,
+			                processData: false,
+			                success: function(response){
+			                    var data = JSON.parse(response);
+			                    if(data.success == true){
+			                        $("#id").val(data.id);
+			                        toastr.success("基本情報を登録しました。次の情報を登録してください。");
+									datatable1.search(data.id, 'user_id');
+									$("#confirm").css("display","block");
+			                    }else{
+			                    	toastr.success(data.msg);
+			                    }
+			                },
+			            });
 					}
-					// datatable1.reload();
-					// datatable2.reload();
 				});
 			}
-
-			return false;  // Do not change wizard step, further action will be handled by he validator
-		});
-
-		// Change event
-		_wizardObj.on('changed', function (wizard) {
-			KTUtil.scrollTop();
-		});
+        })
 	}
 
 	var _initValidation = function () {
@@ -141,6 +105,9 @@ var KTWizard5 = function () {
 						validators: {
 							notEmpty: {
 								message: 'ふりがなは必須です'
+							},
+							isKatakana: {
+								message: "フリガナを入力してください",
 							}
 						}
 					},
@@ -148,22 +115,6 @@ var KTWizard5 = function () {
 						validators: {
 							notEmpty: {
 								message: '携帯電話は必須です'
-							}
-						}
-					},
-					phone: {
-						validators: {
-							notEmpty: {
-								message: '電話自宅は必須です'
-							},digits: {
-								message: '無効入力'
-							}
-						}
-					},
-					phone1: {
-						validators: {
-							digits: {
-								message: '無効入力'
 							}
 						}
 					},
@@ -198,29 +149,6 @@ var KTWizard5 = function () {
 			}
 		));
 
-		// Step 2
-		_validations.push(FormValidation.formValidation(
-			_formEl,
-			{
-				fields: {
-					// address1: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Address is required'
-					// 		}
-					// 	}
-					// }
-				},
-				plugins: {
-					trigger: new FormValidation.plugins.Trigger(),
-					// Bootstrap Framework Integration
-					bootstrap: new FormValidation.plugins.Bootstrap({
-						//eleInvalidClass: '',
-						eleValidClass: '',
-					})
-				}
-			}
-		));
 	}
 	var temp1 = function (){
         $("#kt_confirm_form").submit(function (event) {
@@ -261,5 +189,6 @@ var KTWizard5 = function () {
 }();
 
 jQuery(document).ready(function () {
+
 	KTWizard5.init();
 });

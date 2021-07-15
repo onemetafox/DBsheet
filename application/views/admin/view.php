@@ -13,7 +13,7 @@
             </div>
             <div class="d-flex align-items-center">
                 <a href="javascript:showSearch()" class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-2">一覧作成</a>
-                <a href="<?=base_url()?>" class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-2">宛名印刷</a>
+                <a class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-2" name="print">宛名印刷</a>
                 <a href="<?=base_url()?>" class="btn btn-transparent-white font-weight-bold py-3 px-6">トップ画面に戻る</a>
             </div>
         </div>
@@ -80,13 +80,13 @@
                                     <input type="text" class="form-control" value="<?=$filter['date_to']?>" name="date_to">
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 input-daterange input-group">
-                                    <input type="text" class="form-control" value="<?=$filter['price_from']?>" name="price_from">
+                                    <input type="number" class="form-control" value="<?=$filter['price_from']?>" name="price_from">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             円～
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" value="<?=$filter['price_to']?>" name="price_to">
+                                    <input type="number" class="form-control" value="<?=$filter['price_to']?>" name="price_to">
                                 </div>
                             </div>
                         </div>

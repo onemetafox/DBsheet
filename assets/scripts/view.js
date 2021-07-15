@@ -12,14 +12,9 @@ var __webpack_exports__ = {};
 
 // Class definition
 var KTDatatableRemoteAjaxDemo1 = function(query) {
-    // Private functions
-
-    // basic demo
-    var demo1 = function(query) {
-
-        datatable1 = $('#kt_datatable').KTDatatable({
-            // datasource definition
-            
+   
+    var localSelectorDemo = function(query){
+         var options = {
             data: {
                 type: 'remote',
                 source: {
@@ -96,7 +91,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
             pagination: true,
 
             columns: [{
-                field: 'RecordID',
+                field: 'user_id',
                 title: '宛名印刷',
                 sortable: false,
                 width: 40,
@@ -110,7 +105,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
                 template: function(row) {
                         return '\
                         <a href="'+HOST_URL+'admin/product/edit/'+row.id+'" class="" title = "Edit">\
-                        ' + row.name +'(' + row.nick_name +')\
+                        ' + row.user_name +'(' + row.nick_name +')\
                         </a>\
                         ';
                 }
@@ -119,9 +114,9 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
                 title: '性 別',
                 template : function(row){
                     if(row.sex == 1){
-                        return '男 別';
+                        return '男';
                     }else{
-                        return '女 別'
+                        return '女'
                     }
                 }
             }, {
@@ -134,16 +129,42 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
                 field: 'price',
                 title: '購入金額',
                 template:function(row){
-                    return row.price + "円";
+                    return new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(Number(row.price))
                 }
             }, {
                 field: 'date',
                 title: '最終購入日'
             }],
-
+        };
+        options.extensions ={
+            checkbox: true
+        };
+        datatable1 = $('#kt_datatable').KTDatatable(options);
+        $('a[name=print]').on('click', function(e) {
+            var ids = datatable1.rows('.datatable-row-active').
+                nodes().
+                find('.checkbox > [type="checkbox"]').
+                map(function(i, chk) {
+                    return $(chk).val();
+            });
+            if(ids.length == 0){
+                toastr.error("select user");
+                return;
+            }
+            var temp = "";
+            for (var i = 0; i < ids.length; i++) {
+                 temp = temp + "." + ids[i];
+            }
+            window.open(HOST_URL+"admin/user/export/"+ids[0], '_blank').focus();
+            // var c = document.createDocumentFragment();
+            // for (var i = 0; i < ids.length; i++) {
+            //     var li = document.createElement('li');
+            //     li.setAttribute('data-id', ids[i]);
+            //     li.innerHTML = 'Selected record ID: ' + ids[i];
+            //     c.appendChild(li);
+            // }
+            // $('#kt_datatable_fetch_display').append(c);
         });
-
-       
         $("#search").on("click", function(){
             var paramObj = {};
             paramObj['name'] = $("input[name=name]").val();
@@ -160,13 +181,11 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
             datatable1.search(JSON.stringify(paramObj), 'query');
 
         })
-       
-    };
-    
+    }
     return {
         // public functions
         init: function(query) {
-            demo1(query);
+            localSelectorDemo(query);
         },
     };
 }();
@@ -182,7 +201,20 @@ jQuery(document).ready(function() {
     paramObj['price_to'] = $("input[name=price_to]").val();
     paramObj['hobby'] = $("select[name=hobby]").val();
     paramObj['habit'] = $("select[name=habit]").val();
-
+     $('input[name=date_from]').datepicker({
+        rtl: KTUtil.isRTL(),
+        orientation: "bottom left",
+        todayHighlight: true,
+        // templates: arrows,
+        format: "yyyy-mm-dd"
+    });
+    $('input[name=date_to]').datepicker({
+        rtl: KTUtil.isRTL(),
+        orientation: "bottom left",
+        todayHighlight: true,
+        // templates: arrows,
+        format: "yyyy-mm-dd"
+    });
     KTDatatableRemoteAjaxDemo1.init(JSON.stringify(paramObj));
 });
 

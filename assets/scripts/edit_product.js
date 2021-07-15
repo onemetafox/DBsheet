@@ -2,6 +2,7 @@ arrows = {
     leftArrow: '<i class="la la-angle-right"></i>',
     rightArrow: '<i class="la la-angle-left"></i>'
 }
+
 var datatable2;
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
@@ -28,15 +29,27 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                         // sample custom headers
                         headers: {'x-my-custom-header': 'some value', 'x-test-header': 'the value'},
                         map: function(raw) {
+                            var temp = {};
+                            Object.assign(temp, raw.data[0]);
+                            temp.price = 0;
                             var dataSet = raw;
-                            if (typeof raw.data !== 'undefined') {
-                                dataSet = raw.data;
+                            if (typeof raw.data !== 'undefined' ) {
+                                var data = raw.data;
+                                for(var i=0 ; i<data.length; i++){
+                                    temp.price = Number(temp.price) + Number(data[i].price);
+                                }
+                                temp.name = "合計";
+                                temp.id = "";
+                                temp.content = "";
+                                temp.date = "";
+                                data.push(temp);
+                                dataSet = data;
                             }
                             return dataSet;
                         },
                         params :{
                             query:{
-                                "user_id":"user_id"
+                                "user_id":$("#id").val()==""?"test":$("#id").val()
                             }
                         }
                     },
@@ -66,7 +79,7 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
             // column sorting
             sortable: true,
 
-            pagination: true,
+            pagination: false,
             translate :{
                 records : {
                     noRecords : 'データがありません',
@@ -80,7 +93,6 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                     }
                 }
             },
-
 			// columns definition
             columns: [{
                 field: 'date',
@@ -89,10 +101,10 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                 field: 'name',
                 title: '買上品'
             }, {
-                field: '買上金額',
+                field: 'price',
                 title: '価 格',
-                template: function(row){
-                    return "¥" + row.price;
+                template:function(row){
+                    return new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(Number(row.price))
                 }
             }, {
                 field: 'content',
@@ -105,8 +117,9 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                 overflow: 'visible',
                 autoHide: false,
                 template: function(row) {
+                    if(row.id != "")
                     return '\
-                    <a href="'+HOST_URL+'admin/product/detail/'+row.id+'" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Generate QR Code">\
+                    <a href="javascript:loadDetail('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="寸法">\
                         <span class="svg-icon svg-icon-md svg-icon-primary"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Send.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
                                 <rect x="0" y="0" width="24" height="24"/>\
@@ -114,7 +127,7 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                             </g>\
                         </svg><!--end::Svg Icon--></span>\
                     </a>\
-                    <a href="javascript:editProduct('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm edit_btn" title = "Edit">\
+                    <a href="javascript:editProduct('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm edit_btn" title = "編集">\
                         <span class="svg-icon svg-icon-md svg-icon-primary">\
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -125,7 +138,7 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                             </svg>\
                         </span>\
                     </a>\
-                    <a href="javascript:delProduct('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Delete">\
+                    <a href="javascript:delProduct('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="削除">\
                         <span class="svg-icon svg-icon-md svg-icon-primary">\
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -137,18 +150,36 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                         </span>\
                     </a>\
                     ';
+                    else
+                        return "";
                 }
-            }, {
-                field: 'etc',
-                title: 'Etc'
-            }],
-
+            }]
         });
         $("#new_product").on("click", function(){
-            // $('#form')[0].reset();
-            $("#product_id").val("");
-            $('form#kt_product_form').trigger("reset");
-            $("#kt_product_modal").modal('show');
+            if($("#id").val() == ""){
+                toastr.error("ユーザー情報を最初に挿入してください");
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: HOST_URL + "admin/family/api",
+                data: {
+                    query:{"user_id" : $("#id").val()}
+                },
+                dataType: "json",
+                encode: true,
+            }).done(function (data) {
+                var row = data.data;
+                var str = '';
+                for(var i= 0; i < row.length; i++){
+                    str = str + '<option value = "' + row[i].id + '">' + row[i].name + '</option>';
+                }
+                $("select[name=family_id]").html(str);
+                $("#product_id").val("");
+                $('form#kt_product_form').trigger("reset");
+                $("#kt_product_modal").modal('show');
+            });
+            
         });
        
     };
@@ -194,10 +225,9 @@ jQuery(document).ready(function() {
         templates: arrows,
         format: "yyyy-mm-dd"
     });
-    $("input[name=price]").inputmask('decimal', {
-        numericInput: true,
-        rightAlignNumerics: false
-    }); 
+    // $("input[name=price]").inputmask('¥ 999,999,999,999', {
+    //     numericInput: true
+    // }); //123456  =>  € ___.__1.234,56
     var user_id = $("#id").val();
     KTDatatableRemoteAjaxDemo2.init(user_id);
 });
@@ -222,6 +252,7 @@ function editProduct(id){
         $("#kt_product_form #date").val(row["date"]);
         $("#kt_product_form #etc").val(row["etc"]);
         $("#kt_product_form #content").val(row["content"]);
+        $("#kt_product_form #user_name").val(row["user_name"]);
         $("#kt_product_modal").modal('show');
     });
 }
@@ -237,4 +268,8 @@ function delProduct(id){
         toastr.success("成 功");
         datatable2.reload();
     });
+}
+function loadDetail(id){
+    $("#detail_div").css("display","block");
+    $("#detail_div").load(HOST_URL+'admin/product/detail/'+id);
 }
