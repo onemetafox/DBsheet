@@ -91,11 +91,7 @@ class User extends AdminController {
 	public function export($id){
 		$data['user'] = $this->user->getDataById($id);
 		$this->load->library('pdf');
-		$html = $this->load->view('admin/print', $data, TRUE);
-		// $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
-	 	// $html = utf8_decode($html);
-        // $html = htmlspecialchars_decode(htmlentities($html, ENT_NOQUOTES, 'ISO-8859-1'), ENT_NOQUOTES);
-        // print_r(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-        $this->pdf->createPDF($html, 'mypdf', false);
+		$this->load->view('admin/print', $data);
+        // $this->pdf->createPDF($html, 'mypdf', false);
 	}
 }
