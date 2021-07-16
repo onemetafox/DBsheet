@@ -597,29 +597,6 @@ var KTDatatableRemoteAjaxDemo1 = function() {
             });
             event.preventDefault();
         });
-        $("#setMaking").on('click', function(){
-            // if (window.confirm("未完成")) {
-                var data = new FormData();
-                data.append("product_id", $("#product_id").val());
-                data.append("making","2");
-                data.append("user_id", $("#user_id").val());
-                $.ajax({
-                    url: HOST_URL + "admin/product/save",
-                    type: 'post',
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    success: function(response){
-                        var data = JSON.parse(response);
-                        if(data.success == true){
-                            toastr.success(data.msg);
-                        }else{
-                            toastr.error(data.msg);
-                        }
-                    },
-                });
-            // }
-        })
     }
     return {
         // public functions
@@ -701,4 +678,32 @@ function switchView(index){
         $("#ex1-tabs-2").addClass("active");
     }
 
+}
+function setMaking(){
+    var data = new FormData();
+    if($("input[name=making]").prop("checked")){
+        data.append("making","2");
+    }
+    else{
+        data.append("making","1");
+    }
+    
+    data.append("product_id", $("#product_id").val());
+    
+    data.append("user_id", $("#user_id").val());
+    $.ajax({
+        url: HOST_URL + "admin/product/save",
+        type: 'post',
+        data: data,
+        contentType: false,
+        processData: false,
+        success: function(response){
+            var data = JSON.parse(response);
+            if(data.success == true){
+                toastr.success(data.msg);
+            }else{
+                toastr.error(data.msg);
+            }
+        },
+    });
 }

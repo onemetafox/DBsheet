@@ -191,10 +191,11 @@
                                                 <h3 class="card-label">購入履歴</h3>
                                             </div>
                                             <div class="card-toolbar">
-                                               <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_product">+ 追加</a>
+                                                <a href="javascript:showPurchase()" class="btn btn-light-primary font-weight-bolder btn-sm mr-5">非表示ボタン</a>
+                                                <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_product">+ 追加</a>
                                             </div>
                                         </div>
-                                        <div class="card-body">
+                                        <div class="card-body purchase collapse">
                                             <!--begin: Datatable-->
                                             <table class="table table-separate table-head-custom table-foot-custom table-checkable" id="kt_product_table" style="margin-top: 13px !important">
                                             </table>
@@ -205,10 +206,10 @@
                                         
                                     </div>
                                     <div class="card card-custom gutter-b">
-                                        <div class="d-flex card-body justify-content-between flex-wrap">
+                                        <div class="d-flex card-body justify-content-between flex-wrap ">
                                             <?php for ($i = 1; $i <= 12; $i++){ ?>
-                                                <div class="image-input image-input-outline m-5" id="kt_image_<?=$i?>" style="background-image: url(<?=asset_url()?>media/users/blank.png)">
-                                                    <div class="image-<?=$i?> image-input-wrapper" style="background-image: url(<?=upload_url()?><?=isset($images->$i)?$images->$i:''?>)"></div>
+                                                <div class="image-input image-input-outline m-5" id="kt_image_<?=$i?>" style="background-image: url(<?=asset_url()?>media/users)">
+                                                    <div class="image-<?=$i?> image-input-wrapper" style="background-image: url(<?=upload_url()?><?=isset($images->$i)?$images->$i:''?>);background-size: contain;"></div>
 
                                                     <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="アバターを変更する">
                                                         <i class="fa fa-pen icon-sm text-muted"></i>
@@ -226,7 +227,18 @@
                                         </div>
                                     </div>
                                     <div class="card card-custom gutter-b">
-                                        <div class="card-body">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <span class="card-icon">
+                                                    <i class="flaticon2-psd text-primary"></i>
+                                                </span>
+                                                <h3 class="card-label">備考</h3>
+                                            </div>
+                                            <div class="card-toolbar">
+                                                <a href="javascript:showExtend()" class="btn btn-light-primary font-weight-bolder btn-sm mr-5">非表示ボタン</a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body extend collapse">
                                             <div class="form-group row">
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
@@ -536,6 +548,32 @@
             <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">閉じる</button>
             <button type="submit" class="btn btn-primary px-15">送信</button>
             </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="kt_password_modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">4桁を入力してください</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <form class="form" id ="kt_password_form">
+                <input type="hidden" name="show_type">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-md-12 input-group">
+                            <input type="number" class="form-control col-md-9" maxlength="4" placeholder="4桁を入力してください" name="digit_pwd"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">閉じる</button>
+                    <button type="submit" class="btn btn-primary px-15">保存</button>
+                </div>
             </form>
         </div>
     </div>

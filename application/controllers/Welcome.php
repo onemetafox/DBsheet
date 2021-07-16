@@ -72,4 +72,13 @@ class Welcome extends BaseController {
 	 	$this->session->unset_userdata('user');
 		redirect("/");
 	}
+	public function checkPassword(){
+		$data = $this->input->post();
+		$admin = $this->user_data();
+		if($admin["digit_pwd"] == $data["digit_pwd"]){
+			$this->json(array("success"=>true));
+		}else{
+			$this->json(array("success"=>false ,"msg"=>"間違った数字"));
+		}
+	}
 }

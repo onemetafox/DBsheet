@@ -4,8 +4,18 @@
     <input type="hidden" name="product_id" id="product_id" value="<?=$product_id?>">
     <input type="hidden" name="user_id" id="user_id" value="<?=$user_id?>">
     <div class="card-header">
+        <div class="card-title">
+            <span class="card-icon">
+            </span>
+        </div>
         <div class="card-toolbar">
-           <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="setMaking">制作中</a>
+            <span class="switch switch-icon">
+                <label>
+                    <input type="checkbox" name="making" onchange="setMaking(this.value)">
+                    <span></span>
+                </label>
+            </span>
+           <!-- <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="setMaking">制作中</a> -->
            <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="setDate">完成予定日</a>
            <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="new_detail">+ 追加</a>
         </div>

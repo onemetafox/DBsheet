@@ -151,6 +151,32 @@ var KTWizard5 = function () {
 
 	}
 	var temp1 = function (){
+		$("form#kt_password_form").submit(function (event) {
+            var paramObj = new FormData($("form#kt_password_form")[0]);
+            $.ajax({
+                url: HOST_URL + "welcome/checkPassword",
+                type: 'post',
+                data: paramObj,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    var data = JSON.parse(response);
+                    if(data.success == true){
+                        $("#kt_password_modal").modal('hide');
+                        if($("input[name=show_type]").val()=="purchase"){
+                        	$('.purchase').collapse('show');
+                        }else{
+                        	$('.extend').collapse('show');
+                        }
+
+                        
+                    }else{
+                        toastr.error(data.msg)
+                    }
+                },
+            });
+            event.preventDefault();
+        });
         $("#kt_confirm_form").submit(function (event) {
             var paramObj = new FormData($("form#kt_confirm_form")[0]);
             paramObj.append('confirm',$("#decide").val());
@@ -250,4 +276,23 @@ function removeImg(index){
             }
         },
     });
+}
+function showPurchase (){
+    var isVisible = $('.purchase').is( ":visible" );
+    if(isVisible){
+        $('.purchase').collapse('hide');
+    }else{
+    	$("input[name=show_type]").val("purchase");
+    	$("#kt_password_modal").modal("show");
+    }
+}
+
+function showExtend (){
+    var isVisible = $('.extend').is( ":visible" );
+    if(isVisible){
+        $('.extend').collapse('hide');
+    }else{
+    	$("input[name=show_type]").val("extend");
+    	$("#kt_password_modal").modal("show");
+    }
 }
