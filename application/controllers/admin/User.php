@@ -18,6 +18,12 @@ class User extends AdminController {
 			$this->json(array("success"=>false, "msg"=>"「ふりがな」入力チェック"));
 			return;
 		}
+		if(isset($data["extend"])){
+			unset($data["extend"]);
+		}
+		if(isset($data["profile_avatar_remove"])){
+			unset($data["profile_avatar_remove"]);
+		}
 		if(isset($data["customer"]) && ($data["customer"]  == "on")){
 			$data["customer"] = 2;
 		}else{
@@ -93,5 +99,36 @@ class User extends AdminController {
 		$this->load->library('pdf');
 		$this->load->view('admin/print', $data);
         // $this->pdf->createPDF($html, 'mypdf', false);
+	}
+	public function saveImage(){
+		$data = $this->input->post("extend");
+		$this->user->updateData($data);
+		$images = array();
+		$startNum = 0;
+		for($i =1; $i <= 8 ; $i++){
+			if(isset($_FILES["file".$i]))
+				if ( 0 < $_FILES["file".$i]['error'] ) {
+					echo 'Error: ' . $_FILES["file".$i]['error'] . '<br>';
+				}
+				else {
+					if($startNum == 0){
+						$startNum = $i;
+					}
+					$name = $_FILES["file".$i]["name"];
+					$ext = pathinfo($name, PATHINFO_EXTENSION);
+					// print_r($_FILES["file".$i]['tmp_name']);
+					move_uploaded_file($_FILES["file".$i]['tmp_name'], 'uploads/' . $data["id"] . "_". $i.".".$ext);
+					$images[$i] = $data["id"]. "_". $i.".".$ext;
+				}
+		}
+		$user = $this->user->getDataById($data["id"]);
+		$old_images = (array)json_decode($user["image"]);
+		if($old_images)
+			$result = $old_images + $images;
+		else
+			$result = $images;
+		$this->user->updateData(array("id"=>$data["id"], "image"=>json_encode($result)));
+
+		$this->json(array("success"=>true, "msg"=>"成功!", "data" => $data));
 	}
 }

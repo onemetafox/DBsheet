@@ -85,7 +85,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 title: '生年月日'
             }, {
                 field: 'content',
-                title: 'コンテンツ'
+                title: '備考'
             }],
         });
 

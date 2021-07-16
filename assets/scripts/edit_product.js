@@ -108,7 +108,7 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                 }
             }, {
                 field: 'content',
-                title: 'コンテンツ'
+                title: '備考'
             }, {
                 field: 'Actions',
                 title: '編 集',

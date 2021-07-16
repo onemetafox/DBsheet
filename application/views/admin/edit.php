@@ -68,15 +68,6 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                
-                                                <div class="col-sm-3 mt-2">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['post_code']:''?>" name="post_code" inputmode="text" placeholder="郵便番号"/>
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="la la-bookmark-o"></i></span> 
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="col-sm-3 mt-2">
                                                     <div class="input-group">
                                                         <select class="form-control" name="sex">
@@ -87,20 +78,22 @@
                                                 </div>
                                                 <div class="col-sm-3 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"  placeholder="携帯電話" value="<?=isset($customer)?$customer['mobile']:''?>" name="mobile" inputmode="text">
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['post_code']:''?>" name="post_code" inputmode="text" placeholder="郵便番号"/>
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="la la-mobile-phone"></i></span> 
+                                                            <span class="input-group-text"><i class="la la-bookmark-o"></i></span> 
                                                         </div>
                                                     </div>
                                                 </div>
-                                                 <div class="col-sm-3 mt-2">
+                                                <div class="col-sm-6 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone1']:''?>" name="phone4" placeholder="勤務先電話"/>
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['address']:''?>"  name="address" placeholder="住所"/>
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="la la-phone"></i></span> 
+                                                            <span class="input-group-text"><i class="la la-map-marker"></i></span> 
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
+                                                
                                                 
                                                 <!-- <div class="col-sm-3 mt-2">
                                                     <div class="input-group">
@@ -112,26 +105,17 @@
                                                 </div> -->
                                             </div>
                                             <div class="form-group row">
-                                                
                                                 <div class="col-sm-3 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone1']:''?>" name="phone1" placeholder="電話自宅1"/>
+                                                        <input type="text" class="form-control"  placeholder="携帯電話1" value="<?=isset($customer)?$customer['mobile']:''?>" name="mobile" inputmode="text">
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="la la-phone"></i></span> 
+                                                            <span class="input-group-text"><i class="la la-mobile-phone"></i></span> 
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 mt-2">
+                                                 <div class="col-sm-3 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone2']:''?>" name="phone2" placeholder="電話自宅2"/>
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="la la-phone"></i></span> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3 mt-2">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone3']:''?>" name="phone3" placeholder="電話自宅3"/>
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone1']:''?>" name="phone4" placeholder="携帯電話2"/>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="la la-phone"></i></span> 
                                                         </div>
@@ -152,11 +136,19 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <div class="col-sm-12 mt-2">
+                                                <div class="col-sm-3 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['address']:''?>"  name="address" placeholder="住所"/>
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone1']:''?>" name="phone1" placeholder="電話自宅1"/>
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="la la-map-marker"></i></span> 
+                                                            <span class="input-group-text"><i class="la la-phone"></i></span> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 mt-2">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone2']:''?>" name="phone2" placeholder="電話自宅2"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="la la-phone"></i></span> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -211,6 +203,147 @@
                                     </div>  
                                     <div style="display:none;" id="detail_div">
                                         
+                                    </div>
+                                    <div class="card card-custom gutter-b">
+                                        <div class="d-flex card-body justify-content-between flex-wrap">
+                                            <?php for ($i = 1; $i <= 12; $i++){ ?>
+                                                <div class="image-input image-input-outline m-5" id="kt_image_<?=$i?>" style="background-image: url(<?=asset_url()?>media/users/blank.png)">
+                                                    <div class="image-<?=$i?> image-input-wrapper" style="background-image: url(<?=upload_url()?><?=isset($images->$i)?$images->$i:''?>)"></div>
+
+                                                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="アバターを変更する">
+                                                        <i class="fa fa-pen icon-sm text-muted"></i>
+                                                        <input type="file" id = "profile_avatar_<?=$i?>" name="profile_avatar_<?=$i?>" accept=".heic, .jpg, .jpeg, .tiff"/>
+                                                        <input type="hidden" name="profile_avatar_remove"/>
+                                                    </label>
+                                                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="アバターをキャンセルする">
+                                                    <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                                    </span>
+                                                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="アバターを削除する">
+                                                    <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                                    </span>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="card card-custom gutter-b">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-3">趣 味</label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-control" name="extend[hobby]" id="hobby">
+                                                                <option value=""></option>
+                                                                <option value="歌舞伎" <?=isset($customer)&&($customer["hobby"]=="歌舞伎")?'selected':''?>>歌舞伎</option>
+                                                                <option value="能" <?=isset($customer)&&($customer["hobby"]=="能")?'selected':''?>>能</option>
+                                                                <option value="文楽" <?=isset($customer)&&($customer["hobby"]=="文楽")?'selected':''?>>文楽 </option>
+                                                                <option value="落語" <?=isset($customer)&&($customer["hobby"]=="落語")?'selected':''?>>落語 </option>
+                                                                <option value="美術・工芸品" <?=isset($customer)&&($customer["hobby"]=="美術・工芸品")?'selected':''?>>美術・工芸品</option>
+                                                            </select>
+                                                            <!-- <input type="text" class="form-control form-control-solid form-control-lg" name="sex" id="sex" value="" required> -->
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-4">習い事</label>
+                                                        <div class="col-sm-8">
+                                                            <select class="form-control" name="extend[habit]" id="habit">
+                                                                <option value=""></option>
+                                                                <option value="着付" <?=isset($customer)&&($customer["habit"]=="着付")?'selected':''?>>着付</option>
+                                                                <option value="和裁" <?=isset($customer)&&($customer["habit"]=="和裁")?'selected':''?>>和裁 </option>
+                                                                <option value="茶道" <?=isset($customer)&&($customer["habit"]=="茶道")?'selected':''?>>茶道 </option>
+                                                                <option value="華道" <?=isset($customer)&&($customer["habit"]=="華道")?'selected':''?>>華道 </option>
+                                                                <option value="三味線" <?=isset($customer)&&($customer["habit"]=="三味線")?'selected':''?>>三味線 </option>
+                                                                <option value="琴" <?=isset($customer)&&($customer["habit"]=="琴")?'selected':''?>>琴</option>
+                                                            </select>
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-4">年 代</label>
+                                                        <div class="col-sm-8">
+                                                            <select class="form-control" name="extend[age]" id="age">
+                                                                <option value=""></option>
+                                                                <option value="～20代" <?=isset($customer)&&($customer["age"]=="～20代")?'selected':''?>>～20代</option>
+                                                                <option value="30代" <?=isset($customer)&&($customer["age"]=="30代")?'selected':''?>>30代 </option>
+                                                                <option value="40代" <?=isset($customer)&&($customer["age"]=="40代")?'selected':''?>>40代 </option>
+                                                                <option value="50代" <?=isset($customer)&&($customer["age"]=="50代")?'selected':''?>>50代 </option>
+                                                                <option value="60代" <?=isset($customer)&&($customer["age"]=="60代")?'selected':''?>>60代 </option>
+                                                                <option value="70代～" <?=isset($customer)&&($customer["age"]=="70代～")?'selected':''?>>70代～</option>
+                                                            </select>
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-3">体 型</label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-control" name="extend[body]" id="body">
+                                                                <option value=""></option>
+                                                                <option value="細" <?=isset($customer)&&($customer["body"]=="細")?'selected':''?>>細</option>
+                                                                <option value="普" <?=isset($customer)&&($customer["body"]=="普")?'selected':''?>>普 </option>
+                                                                <option value="太" <?=isset($customer)&&($customer["body"]=="太")?'selected':''?>>太 </option>
+                                                                <option value="もっと太め" <?=isset($customer)&&($customer["body"]=="もっと太め")?'selected':''?>>もっと太め </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-4">色の好み</label>
+                                                        <div class="col-sm-8">
+                                                            <select class="form-control" name="extend[color]" id="color">
+                                                                <option value=""></option>
+                                                                <option value="青系" <?=isset($customer)&&($customer["color"]=="青系")?'selected':''?>>青系</option>
+                                                                <option value="赤系" <?=isset($customer)&&($customer["color"]=="赤系")?'selected':''?>>赤系 </option>
+                                                                <option value="黄系" <?=isset($customer)&&($customer["color"]=="黄系")?'selected':''?>>黄系 </option>
+                                                                <option value="みどり系" <?=isset($customer)&&($customer["color"]=="みどり系")?'selected':''?>>みどり系 </option>
+                                                                <option value="黒" <?=isset($customer)&&($customer["color"]=="黒")?'selected':''?>>黒 </option>
+                                                                <option value="淡色" <?=isset($customer)&&($customer["color"]=="淡色")?'selected':''?>>淡色</option>
+                                                            </select>
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-4">好 み</label>
+                                                        <div class="col-sm-8">
+                                                            <select class="form-control" name="extend[etc]" id="etc">
+                                                                <option value=""></option>
+                                                                <option value="せっかち" <?=isset($customer)&&($customer["etc"]=="せっかち")?'selected':''?>>せっかち</option>
+                                                                <option value="細かい" <?=isset($customer)&&($customer["etc"]=="細かい")?'selected':''?>>細かい </option>
+                                                                <option value="穏やか" <?=isset($customer)&&($customer["etc"]=="穏やか")?'selected':''?>>穏やか </option>
+                                                                <option value="大雑把" <?=isset($customer)&&($customer["etc"]=="大雑把")?'selected':''?>>大雑把 </option>
+                                                                <option value="金額にシビア" <?=isset($customer)&&($customer["etc"]=="金額にシビア")?'selected':''?>>金額にシビア </option>
+                                                                <option value="沢山相談し" <?=isset($customer)&&($customer["etc"]=="沢山相談し")?'selected':''?>>沢山相談し</option>
+                                                            </select>
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-4">備考欄</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control form-control-solid form-control-lg" name="extend[extra]"  id="extra"
+                                                            value="<?=isset($customer)?$customer['extra']:''?>">
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="card-toolbar float-right">
+                                               <a href="javascript:saveData()"class="btn btn-light-primary font-weight-bolder btn-sm" id="save_detail">保 存</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!--begin: Wizard Actions-->
                                     <div class="justify-content-between pt-3 text-right" style="text-align: right;">
@@ -287,14 +420,6 @@
                         <div class="col-lg-9 col-md-9 col-sm-12">
                             <input class="form-control form-control-solid form-control-lg" name="content" id="content" type="text" value="">
                             <div class="fv-plugins-message-container"></div>
-                            <!-- <select class="form-control" name="hobby">
-                                <option value=""></option>
-                                <option value="歌舞伎" <?=isset($customer)&&($customer["hobby"]=="歌舞伎")?'selected':''?>>歌舞伎</option>
-                                <option value="能" <?=isset($customer)&&($customer["hobby"]=="能")?'selected':''?>>能</option>
-                                <option value="文楽" <?=isset($customer)&&($customer["hobby"]=="文楽")?'selected':''?>>文楽 </option>
-                                <option value="落語" <?=isset($customer)&&($customer["hobby"]=="落語")?'selected':''?>>落語 </option>
-                                <option value="美術・工芸品" <?=isset($customer)&&($customer["hobby"]=="美術・工芸品")?'selected':''?>>美術・工芸品</option>
-                            </select> -->
                         </div>
                     </div>
                 </div>
@@ -424,3 +549,4 @@
 <script src="<?=asset_url()?>/scripts/edit_family.js"></script>
 <script src="<?=asset_url()?>/scripts/edit_product.js"></script>
 <script src="<?=asset_url()?>/scripts/edit.js"></script>
+<script src="<?=asset_url()?>/scripts/image_input.js"></script>

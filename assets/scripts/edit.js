@@ -22,7 +22,7 @@ var KTWizard5 = function () {
             "mask": "9999999999"
         });
         $("input[name=phone4]").inputmask("mask", {
-            "mask": "9999999999"
+            "mask": "999-9999-9999"
         });
         $("input[name=phone3]").inputmask("mask", {
             "mask": "9999999999"
@@ -70,7 +70,7 @@ var KTWizard5 = function () {
 									datatable1.search(data.id, 'user_id');
 									$("#confirm").css("display","block");
 			                    }else{
-			                    	toastr.success(data.msg);
+			                    	toastr.error(data.msg);
 			                    }
 			                },
 			            });
@@ -192,3 +192,40 @@ jQuery(document).ready(function () {
 
 	KTWizard5.init();
 });
+
+function saveData(){
+    var formData = new FormData();
+    for(var i =1 ; i <= 8 ; i++){
+        if($(".image-"+i).css("background-image") != "url(\"http://localhost/dbsheet/uploads/\")"){
+            var file = $('#profile_avatar_'+i)[0].files;
+            formData.append('file'+i ,file[0]);
+        }
+    }
+        
+    formData.append("extend[id]", $("#id").val());
+    formData.append("extend[age]", $("#age").val());
+    formData.append("extend[color]", $("#color").val());
+    formData.append("extend[hobby]", $("#hobby").val());
+    formData.append("extend[habit]", $("#habit").val());
+    formData.append("extend[etc]", $("#etc").val());
+    formData.append("extend[body]", $("#body").val());
+    formData.append("extend[extra]", $("#extra").val());
+
+    $.ajax({
+        url: HOST_URL + 'admin/user/saveImage',
+        type: 'post',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response){
+            var data = JSON.parse(response);
+            if(data.success == true){
+                toastr.success(data.msg);
+                var raw = data.data;
+                // $("input[name=photo-id-"+index+"]").val(raw.id);
+            }else{
+                toastr.error(data.msg)
+            }
+        },
+    });
+}
