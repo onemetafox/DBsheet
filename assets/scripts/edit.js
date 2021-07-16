@@ -229,3 +229,25 @@ function saveData(){
         },
     });
 }
+function removeImg(index){
+	$.ajax({
+		type: "POST",
+        url: HOST_URL + 'admin/user/removeImage',
+        data: {
+        	"id" : $("#id").val(),
+        	"index": index
+        },
+        dataType: "json",
+        encode: true,
+        success: function(response){
+            var data = JSON.parse(response);
+            if(data.success == true){
+                toastr.success(data.msg);
+                var raw = data.data;
+                // $("input[name=photo-id-"+index+"]").val(raw.id);
+            }else{
+                toastr.error(data.msg)
+            }
+        },
+    });
+}

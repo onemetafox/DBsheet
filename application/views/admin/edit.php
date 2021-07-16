@@ -218,7 +218,7 @@
                                                     <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="アバターをキャンセルする">
                                                     <i class="ki ki-bold-close icon-xs text-muted"></i>
                                                     </span>
-                                                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="アバターを削除する">
+                                                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" onclick="removeImg(<?=$i?>)" data-action="remove" data-toggle="tooltip" title="アバターを削除する">
                                                     <i class="ki ki-bold-close icon-xs text-muted"></i>
                                                     </span>
                                                 </div>

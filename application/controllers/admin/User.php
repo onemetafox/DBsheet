@@ -131,4 +131,18 @@ class User extends AdminController {
 
 		$this->json(array("success"=>true, "msg"=>"成功!", "data" => $data));
 	}
+	public function removeImage(){
+		$data = $this->input->post();
+		$user = $this->user->getDataById($data["id"]);
+		$images = json_decode($user["image"]);
+		if($images){
+			foreach($images as $index =>$item){
+				if($index == $data["index"]){
+					unset($images->$index);
+				}
+			}
+		}
+		$user["image"] = json_encode($images);
+		$this->user->updateData($user);
+	}
 }
