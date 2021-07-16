@@ -113,7 +113,7 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
                 autoHide: false,
                 template: function(row) {
                     return '\
-                    <a href="javascript:editFamily('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm edit_btn" title = "Edit">\
+                    <a href="javascript:editFamily('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm edit_btn" title = "編集">\
                         <span class="svg-icon svg-icon-md svg-icon-primary">\
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -124,7 +124,7 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
                             </svg>\
                         </span>\
                     </a>\
-                    <a href="javascript:delFamily('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="Delete">\
+                    <a href="javascript:delFamily('+row.id+')" class="btn btn-icon btn-light btn-hover-primary btn-sm" title="削除">\
                         <span class="svg-icon svg-icon-md svg-icon-primary">\
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -144,7 +144,7 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
         $("#new_family").on("click", function(){
             // $('#form')[0].reset();
             if($("#id").val() == ""){
-                toastr.error("ユーザー情報を最初に挿入してください");
+                toastr.error("ユーザー情報を登録してください。");
                 return;
             }
             $("#family_id").val("");

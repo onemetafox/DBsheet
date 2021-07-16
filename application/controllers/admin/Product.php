@@ -48,7 +48,7 @@ class Product extends AdminController {
 				$this->render("admin/edit",$data);
 			}
 		}else {
-			echo "<script language=\"javascript\">alert('誰かがデータを更新しています');window.location = '/';</script>";
+			echo "<script language=\"javascript\">alert('他のユーザーがデータを変更しています。');window.location = '/';</script>";
 		}
 	}
 	public function api(){

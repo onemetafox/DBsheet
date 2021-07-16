@@ -88,10 +88,10 @@ var KTLogin = function() {
 		            });
 				} else {
 					swal.fire({
-		                text: "申し訳ありませんが、エラーが検出されたようです。もう一度お試しください。",
+		                text: "申し訳ありませんが、エラーが発生しました。再試行してください。",
 		                icon: "error",
 		                buttonsStyling: false,
-		                confirmButtonText: "はい、わかった!",
+		                confirmButtonText: "はい",
                         customClass: {
     						confirmButton: "btn font-weight-bold btn-light-primary"
     					}

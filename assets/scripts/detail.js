@@ -557,7 +557,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
             event.preventDefault();
         });
         $("#setMaking").on('click', function(){
-            if (window.confirm("未完成")) {
+            // if (window.confirm("未完成")) {
                 var data = new FormData();
                 data.append("product_id", $("#product_id").val());
                 data.append("making","2");
@@ -577,7 +577,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                         }
                     },
                 });
-            }
+            // }
         })
     }
     return {

@@ -50,7 +50,7 @@
                                         <div class="card-body">
                                             <div class="form-group row">
                                                 <div class="col-sm-3 mt-2">
-                                                    <input type="text" class="form-control" value="<?=isset($customer)?$customer['name']:''?>" name="name" placeholder="名 前"/>
+                                                    <input type="text" class="form-control" value="<?=isset($customer)?$customer['name']:''?>" name="name" placeholder="名前"/>
                                                 </div>
                                                 <div class="col-sm-3 mt-2">
                                                     <input type="text" class="form-control" value="<?=isset($customer)?$customer['nick_name']:''?>" name="nick_name" placeholder="ふりがな"/>

@@ -44,7 +44,7 @@ var KTWizard5 = function () {
         	$("#kt_confirm_modal").modal('show');
         });
         $("#delete").on("click", function(){
-        	if (window.confirm("本当に去りたいですか？?")) {
+        	if (window.confirm("削除しますか？")) {
 				$("#decide").val("delete");
         		$("#kt_confirm_modal").modal('show');
 			}
@@ -90,14 +90,14 @@ var KTWizard5 = function () {
 					name: {
 						validators: {
 							notEmpty: {
-								message: '氏名は必須です'
+								message: '名前は必須です'
 							}
 						}
 					},
 					address: {
 						validators: {
 							notEmpty: {
-								message: 'アドレスは必須です'
+								message: '住所は必須です'
 							}
 						}
 					},
@@ -107,7 +107,7 @@ var KTWizard5 = function () {
 								message: 'ふりがなは必須です'
 							},
 							isKatakana: {
-								message: "フリガナを入力してください",
+								message: "ふりがなナを入力してください",
 							}
 						}
 					},
@@ -131,7 +131,7 @@ var KTWizard5 = function () {
 								message: 'メールアドレスは必須です'
 							},
 							emailAddress: {
-								message: '無効なメール'
+								message: 'メールアドレスを入力してください。'
 							}
 						}
 					}

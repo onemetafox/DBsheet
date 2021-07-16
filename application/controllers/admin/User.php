@@ -61,10 +61,10 @@ class User extends AdminController {
 				}
 				$this->json(array("success"=>true, "msg"=>"正確に保管しました。"));
 			}else{
-				$this->json(array("success"=>false, "msg"=>"passwordが正しくありません"));
+				$this->json(array("success"=>false, "msg"=>"パスワードが正しくありません。"));
 			}
 		}else{
-			$this->json(array("success"=>false, "msg"=>"IDが正しくありません"));
+			$this->json(array("success"=>false, "msg"=>"IDが正しくありません。"));
 		}
 	}
 

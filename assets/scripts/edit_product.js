@@ -157,7 +157,7 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
         });
         $("#new_product").on("click", function(){
             if($("#id").val() == ""){
-                toastr.error("ユーザー情報を最初に挿入してください");
+                toastr.error("ユーザー情報を登録してください。");
                 return;
             }
             $.ajax({
