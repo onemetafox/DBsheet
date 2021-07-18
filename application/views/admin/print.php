@@ -26,52 +26,67 @@
             padding: 7px;
             height: 15%;
             width: 100%;
-
         }
         @media print {
-            tr.page-break  { display: inline; page-break-before: always; }
-            tr>td{
-                width: 30%;
-            }
-            table { page-break-inside:auto }
-        } 
+          section {page-break-before: always;}
+        }
+        p {
+            font-size: 15px !important;
+        }
     </style>
 </head>
-<body onload="window.print()" style=" margin-top: 1.27cm; margin-bottom: 1.31cm;">
-    <div class="container">
-        <table>
-            <?php for ($i = 1 ; $i <= count($users); $i = $i +3 ){ ?>        
-            <tr class = "<?= $i % 8 == 0?'page-break1':''?>">
-                <td>
-                    <div class="content">
-                        <p><?= $users[$i]["post_code"]?></p>
-                        <p><?= $users[$i]["address"]?></p>
-                        <p><?= $users[$i]["name"]?></p>
-                    </div>
-                </td>
-                <td>
-                    <div class="content">
-                        <p><?= $users[$i+1]["post_code"]?></p>
-                        <p><?= $users[$i+1]["address"]?></p>
-                        <p><?= $users[$i+1]["name"]?></p>
-                    </div>
-                </td>
-                <td>
-                    <div class="content">
-                        <p><?= $users[$i+2]["post_code"]?></p>
-                        <p><?= $users[$i+2]["address"]?></p>
-                        <p><?= $users[$i+2]["name"]?></p>
-                    </div>
-                </td>
-            </tr>
 
-            <!-- <div class="content">
-                <p><?= $users[$i]["post_code"]?></p>
-                <p><?= $users[$i]["address"]?></p>
-                <p><?= $users[$i]["name"]?></p>
-            </div> -->
+<body onload="window.print()" style="margin-left: 1.5cm; margin-bottom: 1.5cm;">
+        <?php for ($i = 1 ; $i <= count($users); $i=$i+3 ) { ?>
+            <?php if ($i % 8 == 1)  { ?>
+                <section class="d-flex" style="margin-top: 10mm;">
+                    <?php if ($i <= count($users)) { ?>
+                        <div style="width: 30%;">
+                            <p style="padding: 5px;"><?= $users[$i]["post_code"]?></p>
+                            <p style="padding: 5px;"><?= $users[$i]["address"]?></p>
+                            <p style="padding: 5px;"><?= $users[$i]["name"]?></p>
+                        </div>
+                    <?php } ?>
+                    <?php if ($i+1 <= count($users)) { ?>
+                        <div style="width: 30%;">
+                            <p style="padding: 5px;"><?= $users[$i+1]["post_code"]?></p>
+                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+1]["address"]?></p>
+                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+1]["name"]?></p>
+                        </div>
+                    <?php } ?>
+                    <?php if ($i+2 <= count($users)) { ?>
+                        <div style="width: 30%;">
+                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["post_code"]?></p>
+                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["address"]?></p>
+                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["name"]?></p>
+                        </div>
+                    <?php } ?>
+                </section>
+            <?php } else { ?>
+                <div class='d-flex'>
+                    <?php if ($i <= count($users)) { ?>
+                        <div style="width: 30%;">
+                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["post_code"]?></p>
+                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["address"]?></p>
+                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["name"]?></p>
+                        </div>
+                    <?php } ?>
+                    <?php if ($i+1 <= count($users)) { ?>
+                        <div style="width: 30%;">
+                            <p style="padding: 5px;"><?= $users[$i+1]["post_code"]?></p>
+                            <p style="padding: 5px;"><?= $users[$i+1]["address"]?></p>
+                            <p style="padding: 5px;"><?= $users[$i+1]["name"]?></p>
+                        </div>
+                    <?php } ?>
+                    <?php if ($i+2 <= count($users)) { ?>
+                        <div style="width: 30%;">
+                            <p style="padding: 5px;"><?= $users[$i+2]["post_code"]?></p>
+                            <p style="padding: 5px;"><?= $users[$i+2]["address"]?></p>
+                            <p style="padding: 5px;"><?= $users[$i+2]["name"]?></p>
+                        </div>
+                    <?php } ?>
+                </div>
             <?php } ?>
-        </table>
-    </div>
+        <?php } ?>
 </body>
 </html>
