@@ -77,6 +77,8 @@ class Product extends AdminController {
 		$data["customer"] = $this->user->getDataById($product["user_id"]);
 		$data["product"] = $product;
 		$this->load->view("admin/detail",$data);
+		// return $html;
+		// $this->json($html);
 	}
 
 	

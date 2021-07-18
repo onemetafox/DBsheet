@@ -112,6 +112,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
             }, {
                 field: 'sex',
                 title: '性 別',
+                width: 40,
                 template : function(row){
                     if(row.sex == 1){
                         return '男';
@@ -124,6 +125,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
                 title: '〒住所'
             }, {
                 field: 'mobile',
+                width: 150,
                 title: '電話番号'
             }, {
                 field: 'price',
@@ -133,6 +135,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
                 }
             }, {
                 field: 'date',
+                width: 100,
                 title: '最終購入日'
             }],
         };
@@ -155,11 +158,11 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
             for (var i = 0; i < ids.length; i++) {
                  temp = temp + "." + ids[i];
             }
-            if(ids[1]){
-                toastr.error("一つの項目だけを選択してください。");
-                return;
-            }
-            window.open(HOST_URL+"admin/user/export/"+ids[0], '_blank').focus();
+            // if(ids[1]){
+            //     toastr.error("一つの項目だけを選択してください。");
+            //     return;
+            // }
+            window.open(HOST_URL+"admin/user/export/"+temp, '_blank').focus();
             // var c = document.createDocumentFragment();
             // for (var i = 0; i < ids.length; i++) {
             //     var li = document.createElement('li');

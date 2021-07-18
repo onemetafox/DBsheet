@@ -4,36 +4,74 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Create PDF from View in CodeIgniter Example</title>
+
+    <link href="<?=asset_url()?>/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="<?=asset_url()?>/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="<?=asset_url()?>/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
-       *{ font-family: MS PMincho; font-size: 18px;}
-       @page {
-            size: A4 portrait;
+        @page {
+            size: A4;
             margin: 0;
         }
-    </style>
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                font-size: 15px;
+                display:table;
+                table-layout:fixed;
+            }
+        }
+        .content {
+            padding: 7px;
+            height: 15%;
+            width: 100%;
 
+        }
+        @media print {
+            tr.page-break  { display: inline; page-break-before: always; }
+            tr>td{
+                width: 30%;
+            }
+            table { page-break-inside:auto }
+        } 
+    </style>
 </head>
-<body onload="window.print()">
-    <div style="margin-top: 450px;">
-        <div  name="detail">
-            <!--begin::Body-->
-            <div class="card-body d-flex flex-column"   style="text-align: center;">
-                <div style="margin: auto;  text-align: left; width: 265px; height: 113px;">
-                    <!--begin::Info-->
-                    <div class="d-flex align-items-center pr-2 mb-6">
-                        <span class="text-muted font-weight-bold font-size-lg flex-grow-1" name="date"><?=$user["post_code"]?></span>
+<body onload="window.print()" style=" margin-top: 1.27cm; margin-bottom: 1.31cm;">
+    <div class="container">
+        <table>
+            <?php for ($i = 1 ; $i <= count($users); $i = $i +3 ){ ?>        
+            <tr class = "<?= $i % 8 == 0?'page-break1':''?>">
+                <td>
+                    <div class="content">
+                        <p><?= $users[$i]["post_code"]?></p>
+                        <p><?= $users[$i]["address"]?></p>
+                        <p><?= $users[$i]["name"]?></p>
                     </div>
-                    <!--end::Info-->
-                    <p class="text-dark font-weight-bolder text-hover-primary font-size-h4" name="title" ><?= $user["address"]?>
-                    </p>
-                    <!--begin::Desc-->
-                    <p class="text-dark-50 font-weight-normal font-size-lg mt-6" name="content"><b style="font-size : 24"><?=$user["name"]?></b>様
-                    </p>
-                    <!--end::Desc-->
-                </div>
-            </div>
-            <!--end::Body-->
-        </div>
+                </td>
+                <td>
+                    <div class="content">
+                        <p><?= $users[$i+1]["post_code"]?></p>
+                        <p><?= $users[$i+1]["address"]?></p>
+                        <p><?= $users[$i+1]["name"]?></p>
+                    </div>
+                </td>
+                <td>
+                    <div class="content">
+                        <p><?= $users[$i+2]["post_code"]?></p>
+                        <p><?= $users[$i+2]["address"]?></p>
+                        <p><?= $users[$i+2]["name"]?></p>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- <div class="content">
+                <p><?= $users[$i]["post_code"]?></p>
+                <p><?= $users[$i]["address"]?></p>
+                <p><?= $users[$i]["name"]?></p>
+            </div> -->
+            <?php } ?>
+        </table>
     </div>
 </body>
 </html>

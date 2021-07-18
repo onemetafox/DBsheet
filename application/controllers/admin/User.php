@@ -55,6 +55,7 @@ class User extends AdminController {
 				/// update status
 
 				if($filter["confirm"] == "save") {
+					
 					$this->user->updateData(array("status"=>2, "id"=>$filter["id"]));
 					$this->product->updateDataByParam(array("status"=>2), array("admin_id"=>$admin["id"], "user_id"=>$filter["id"]));
 					$this->family->updateDataByParam(array("status"=>2), array("admin_id"=>$admin["id"], "user_id"=>$filter["id"]));
@@ -94,8 +95,13 @@ class User extends AdminController {
 		$data["filter"] = $this->input->post();
 		$this->render("admin/view", $data);
 	}
-	public function export($id){
-		$data['user'] = $this->user->getDataById($id);
+	public function export($ids){
+		$filter = explode(".",$ids);
+		foreach($filter as $index => $id){
+			if($id)
+				$users[$index] = $this->user->getDataById($id);
+		}
+		$data['users'] = $users;
 		$this->load->library('pdf');
 		$this->load->view('admin/print', $data);
         // $this->pdf->createPDF($html, 'mypdf', false);
@@ -105,7 +111,7 @@ class User extends AdminController {
 		$this->user->updateData($data);
 		$images = array();
 		$startNum = 0;
-		for($i =1; $i <= 8 ; $i++){
+		for($i =1; $i <= 20 ; $i++){
 			if(isset($_FILES["file".$i]))
 				if ( 0 < $_FILES["file".$i]['error'] ) {
 					echo 'Error: ' . $_FILES["file".$i]['error'] . '<br>';

@@ -18,6 +18,16 @@ var KTImageInputDemo = function () {
         var avatar6 = new KTImageInput('kt_image_6');
         var avatar7 = new KTImageInput('kt_image_7');
         var avatar8 = new KTImageInput('kt_image_8');
+        var avatar9 = new KTImageInput('kt_image_9');
+        var avatar10 = new KTImageInput('kt_image_10');
+        var avatar11 = new KTImageInput('kt_image_11');
+        var avatar12 = new KTImageInput('kt_image_12');
+        var avatar13 = new KTImageInput('kt_image_13');
+        var avatar14 = new KTImageInput('kt_image_14');
+        var avatar15 = new KTImageInput('kt_image_15');
+        var avatar16 = new KTImageInput('kt_image_16');
+        var avatar17 = new KTImageInput('kt_image_17');
+        var avatar18 = new KTImageInput('kt_image_18');
     }
 
     return {

@@ -49,6 +49,27 @@ var KTWizard5 = function () {
         		$("#kt_confirm_modal").modal('show');
 			}
         });
+        $("#new_photo").on('click',function(){
+
+        	var count = $(".photo-container>div").length +1;
+
+        	var str = '<div class="image-input image-input-outline m-5" id="kt_image_'+count+'" style="background-image: url(/dbsheet/assets/media/users)">\
+                        <div class="image-'+count+' image-input-wrapper" ;background-size: contain;"></div>\
+                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="アバターを変更する">\
+                            <i class="fa fa-pen icon-sm text-muted"></i>\
+                            <input type="file" id = "profile_avatar_'+count+'" name="profile_avatar_'+count+'" accept=".heic, .jpg, .jpeg, .tiff"/>\
+                            <input type="hidden" name="profile_avatar_remove"/>\
+                        </label>\
+                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="アバターをキャンセルする">\
+                        <i class="ki ki-bold-close icon-xs text-muted"></i>\
+                        </span>\
+                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" onclick="removeImg('+count+')" data-action="remove" data-toggle="tooltip" title="アバターを削除する">\
+                        <i class="ki ki-bold-close icon-xs text-muted"></i>\
+                        </span>\
+                    </div>';
+             $(".photo-container").append(str);
+             var temp = new KTImageInput('kt_image_'+count);
+        })
         $("button[name=saveUser]").on('click', function(){
         	var validator = _validations[0];
         	if (validator) {
@@ -165,11 +186,10 @@ var KTWizard5 = function () {
                         $("#kt_password_modal").modal('hide');
                         if($("input[name=show_type]").val()=="purchase"){
                         	$('.purchase').collapse('show');
+                        	$("#detail_div").css("display","block");
                         }else{
                         	$('.extend').collapse('show');
                         }
-
-                        
                     }else{
                         toastr.error(data.msg)
                     }
@@ -177,7 +197,11 @@ var KTWizard5 = function () {
             });
             event.preventDefault();
         });
+        $(".img_close").on('click', function(){
+        	$("#myModal").css("display", "none");
+        })
         $("#kt_confirm_form").submit(function (event) {
+
             var paramObj = new FormData($("form#kt_confirm_form")[0]);
             paramObj.append('confirm',$("#decide").val());
             paramObj.append('id',$("#id").val());
@@ -191,7 +215,8 @@ var KTWizard5 = function () {
                     var data = JSON.parse(response);
                     if(data.success == true){
                         $("#kt_confirm_modal").modal('toggle');
-                        window.location = HOST_URL;
+                        saveData();
+                        // window.location = HOST_URL;
                     }else{
                         toastr.error(data.msg);
                     }
@@ -221,7 +246,8 @@ jQuery(document).ready(function () {
 
 function saveData(){
     var formData = new FormData();
-    for(var i =1 ; i <= 8 ; i++){
+    var count = $(".photo-container>div").length;
+    for(var i =1 ; i <= count ; i++){
         if($(".image-"+i).css("background-image") != "url(\"http://localhost/dbsheet/uploads/\")"){
             var file = $('#profile_avatar_'+i)[0].files;
             formData.append('file'+i ,file[0]);
@@ -281,6 +307,7 @@ function showPurchase (){
     var isVisible = $('.purchase').is( ":visible" );
     if(isVisible){
         $('.purchase').collapse('hide');
+        $("#detail_div").css("display","none");
     }else{
     	$("input[name=show_type]").val("purchase");
     	$("#kt_password_modal").modal("show");
@@ -295,4 +322,11 @@ function showExtend (){
     	$("input[name=show_type]").val("extend");
     	$("#kt_password_modal").modal("show");
     }
+}
+function showImage(el){
+	var image = el.style.backgroundImage
+	var path = image.replace('url(','').replace(')','').replace(/\"/gi, "");
+	$("#img01").attr("src",path);
+	$("#myModal").css("display", "block");
+
 }

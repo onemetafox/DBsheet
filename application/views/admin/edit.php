@@ -5,6 +5,75 @@
     $user["update_status"] = "2";
     $this->admin->updateData($user);
 ?>
+<style type="text/css">
+    
+/* The Modal (background) */
+    .img_modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+/* Modal Content (image) */
+    .img-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+
+/* Add Animation */
+    .img-content, #caption {  
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @-webkit-keyframes zoom {
+        from {-webkit-transform:scale(0)} 
+        to {-webkit-transform:scale(1)}
+    }
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+    .img_close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .img_close:hover,
+    .img_close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .img_content {
+        width: 100%;
+    }
+}
+</style>
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="subheader py-2 py-lg-12 subheader-transparent" id="kt_subheader">
@@ -206,10 +275,22 @@
                                         
                                     </div>
                                     <div class="card card-custom gutter-b">
-                                        <div class="d-flex card-body justify-content-between flex-wrap ">
-                                            <?php for ($i = 1; $i <= 12; $i++){ ?>
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <span class="card-icon">
+                                                    <i class="flaticon2-psd text-primary"></i>
+                                                </span>
+                                                <h3 class="card-label">写真</h3>
+                                            </div>
+                                            <div class="card-toolbar">
+                                                <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_photo">+ 追加</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex card-body justify-content-between flex-wrap photo-container">
+                                            <?php end($images); $key = key($images); if($key >12){ $count = $key;}else{$count = 12;}?>
+                                            <?php for ($i = 1; $i <= $key; $i++){ ?>
                                                 <div class="image-input image-input-outline m-5" id="kt_image_<?=$i?>" style="background-image: url(<?=asset_url()?>media/users)">
-                                                    <div class="image-<?=$i?> image-input-wrapper" style="background-image: url(<?=upload_url()?><?=isset($images->$i)?$images->$i:''?>);background-size: contain;"></div>
+                                                    <div class="image-<?=$i?> image-input-wrapper" onclick="showImage(this)" style="background-image: url(<?=upload_url()?><?=isset($images->$i)?$images->$i:''?>);background-size: contain;"></div>
 
                                                     <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="アバターを変更する">
                                                         <i class="fa fa-pen icon-sm text-muted"></i>
@@ -344,14 +425,13 @@
                                                     <div class="input-group">
                                                         <label class="col-form-label text-right col-sm-4">備考欄</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" class="form-control form-control-solid form-control-lg" name="extend[extra]"  id="extra"
-                                                            value="<?=isset($customer)?$customer['extra']:''?>">
+                                                            <textarea rows = "5" class="form-control form-control-solid form-control-lg" name="extend[extra]"  id="extra"><?=isset($customer)?$customer['extra']:''?></textarea> 
                                                         </div>    
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-footer">
+                                        <div class="card-footer extend collapse">
                                             <div class="card-toolbar float-right">
                                                <a href="javascript:saveData()"class="btn btn-light-primary font-weight-bolder btn-sm" id="save_detail">保 存</a>
                                             </div>
@@ -556,7 +636,7 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">4桁を入力してください</h5>
+                <h5 class="modal-title">パスワード（4桁）を入力してください</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -566,19 +646,27 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-md-12 input-group">
-                            <input type="number" class="form-control col-md-9" maxlength="4" placeholder="4桁を入力してください" name="digit_pwd"/>
+                            <input type="password" class="form-control col-md-9" maxlength="4" placeholder="パスワード（4桁）を入力してください" name="digit_pwd"/>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary px-15 mr-2" data-dismiss="modal">閉じる</button>
-                    <button type="submit" class="btn btn-primary px-15">保存</button>
+                    <button type="submit" class="btn btn-primary px-15">確認</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<div id="myModal" class="img_modal">
 
+    <!-- The Close Button -->
+    <span class="img_close">&times;</span>
+
+    <!-- Modal Content (The Image) -->
+    <img class="img-content" id="img01">
+
+</div>
     <!--begin::Global Theme Bundle(used by all pages)-->
 <script src="<?=asset_url()?>/plugins/global/plugins.bundle.js"></script>
 <script src="<?=asset_url()?>/plugins/custom/prismjs/prismjs.bundle.js"></script>

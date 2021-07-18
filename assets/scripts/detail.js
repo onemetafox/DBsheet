@@ -100,111 +100,247 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '丈(背)'
+                title: '丈(背)',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.back+"</span>"
+                    }else{
+                        return row.back;
+                       
+                    }
+                }
             }, {
                 field: 'shoulder',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '丈(肩)'
+                title: '丈(肩)',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.shoulder+"</span>"
+                    }else{
+                        return row.shoulder;
+                       
+                    }
+                }
             }, {
                 field: 'yuki',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '裄'
+                title: '裄',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.yuki+"</span>"
+                    }else{
+                        return row.yuki;
+                       
+                    }
+                }
             }, {
                 field: 'shawl',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '肩巾'
+                title: '肩巾',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.shawl+"</span>"
+                    }else{
+                        return row.shawl;
+                       
+                    }
+                }
             }
             , {
                 field: 'sleeve_width',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '袖巾'
+                title: '袖巾',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.sleeve_width+"</span>"
+                    }else{
+                        return row.sleeve_width;
+                       
+                    }
+                }
             }
             , {
                 field: 'sleeve_length',
                 width: 20,
                 overflow: 'visible',
                 autoHide: false,
-                title: '袖丈'
+                title: '袖丈',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.sleeve_length+"</span>"
+                    }else{
+                        return row.sleeve_length;
+                       
+                    }
+                }
             }
             , {
                 field: 'with_sleeves',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '袖付'
+                title: '袖付',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.with_sleeves+"</span>"
+                    }else{
+                        return row.with_sleeves;
+                       
+                    }
+                }
             },{
                 field: 'front_width',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '前巾'
+                title: '前巾',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.front_width+"</span>"
+                    }else{
+                        return row.front_width;
+                       
+                    }
+                }
             }
             , {
                 field: 'back_width',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '後巾'
+                title: '後巾',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.back_width+"</span>"
+                    }else{
+                        return row.back_width;
+                       
+                    }
+                }
             }
             , {
                 field: 'under_hood',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '褄下'
+                title: '褄下',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.under_hood+"</span>"
+                    }else{
+                        return row.under_hood;
+                       
+                    }
+                }
             }
             , {
                 field: 'hug',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '抱巾'
+                title: '抱巾',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.hug+"</span>"
+                    }else{
+                        return row.hug;
+                       
+                    }
+                }
             }
             , {
                 field: 'width',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '衽巾'
+                title: '衽巾',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.width+"</span>"
+                    }else{
+                        return row.width;
+                       
+                    }
+                }
             }
             , {
                 field: 'carry_forward',
                 width: 20,
                 overflow: 'visible',
                 autoHide: false,
-                title: '繰越'
+                title: '繰越',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.carry_forward+"</span>"
+                    }else{
+                        return row.carry_forward;
+                       
+                    }
+                }
             },{
                 field: 'hips',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: 'ヒップ'
+                title: 'ヒップ',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.hips+"</span>"
+                    }else{
+                        return row.hips;
+                       
+                    }
+                }
             },{
                 field: 'bust',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: 'バスト'
+                title: 'バスト',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.bust+"</span>"
+                    }else{
+                        return row.bust;
+                       
+                    }
+                }
             },{
                 field: 'west',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: 'ウエスト'
+                title: 'ウエスト',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.west+"</span>"
+                    }else{
+                        return row.west;
+                       
+                    }
+                }
             },{
                 field: 'height',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '身長'
+                title: '身長',
+                template: function(row){
+                    if(row.parent_id){
+                        return "<span class='font-weight-boldest text-danger'>"+row.height+"</span>"
+                    }else{
+                        return row.height;
+                       
+                    }
+                }
             }, {
                 field: 'Actions',
                 title: '編 集',
@@ -346,7 +482,15 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '丈(背)',
                 template : function(row){
-                    return Number(row.back) * 26;
+                    if(row.parent_id){
+                        if(row.back){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.back) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }
+                    else{
+                        return Number(row.back) * 26;
+                    }
                 }
             }, {
                 field: 'shoulder',
@@ -355,7 +499,15 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '丈(肩)',
                 template : function(row){
-                    return Number(row.shoulder) * 26;
+                    if(row.parent_id){
+                        if(row.shoulder){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.shoulder) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }
+                    else{
+                        return Number(row.shoulder) * 26;
+                    }
                 }
             }, {
                 field: 'yuki',
@@ -364,7 +516,15 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '裄',
                 template : function(row){
-                    return Number(row.yuki) * 26;
+                     if(row.parent_id){
+                        if(row.yuki){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.yuki) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }
+                    else{
+                        return Number(row.yuki) * 26;
+                    }
                 }
             }, {
                 field: 'shawl',
@@ -372,8 +532,16 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 width: 20,
                 autoHide: false,
                 title: '肩巾',
-                template : function(row){
-                    return Number(row.shawl) * 26;
+                template : function(row){ 
+                    if(row.parent_id){
+                        if(row.shawl){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.shawl) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }
+                    else{
+                        return Number(row.shawl) * 26;
+                    }
                 }
             }
             , {
@@ -383,7 +551,14 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '袖巾',
                 template : function(row){
-                    return Number(row.sleeve_width) * 26;
+                     if(row.parent_id){
+                        if(row.sleeve_width){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.sleeve_width) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return Number(row.sleeve_width) * 26;
+                    }
                 }
             }
             , {
@@ -393,7 +568,14 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '袖丈',
                 template : function(row){
-                    return Number(row.sleeve_length) * 26;
+                     if(row.parent_id){
+                        if(row.sleeve_length){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.sleeve_length) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return Number(row.sleeve_length) * 26;
+                    }
                 }
             }
             , {
@@ -403,7 +585,14 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '袖付',
                 template : function(row){
-                    return Number(row.with_sleeves) * 26;
+                     if(row.parent_id){
+                        if(row.with_sleeves){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.with_sleeves) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return Number(row.with_sleeves) * 26;
+                    }
                 }
             },{
                 field: 'front_width',
@@ -412,7 +601,14 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '前巾',
                 template : function(row){
-                    return Number(row.front_width) * 26;
+                     if(row.parent_id){
+                        if(row.front_width){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.front_width) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return Number(row.front_width) * 26;
+                    }
                 }
             }
             , {
@@ -422,7 +618,14 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '後巾',
                 template : function(row){
-                    return Number(row.back_width) * 26;
+                     if(row.parent_id){
+                        if(row.back_width){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.back_width) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return Number(row.back_width) * 26;
+                    }
                 }
             }
             , {
@@ -432,7 +635,14 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '褄下',
                 template : function(row){
-                    return Number(row.under_hood) * 26;
+                     if(row.parent_id){
+                        if(row.under_hood){
+                            return "<span class='font-weight-boldest text-danger'>"+Number(row.under_hood) * 26;+"</span>"; }else{
+                            return "";
+                        }
+                    }else{
+                        return Number(row.under_hood) * 26;
+                    }
                 }
             }
             , {
@@ -442,7 +652,14 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '抱巾',
                 template : function(row){
-                    return Number(row.hug) * 26;
+                     if(row.parent_id){
+                        if(row.hug){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.hug) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return Number(row.hug) * 26;
+                    }
                 }
             }
             , {
@@ -452,7 +669,14 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '衽巾',
                 template : function(row){
-                    return Number(row.width) * 26;
+                     if(row.parent_id){
+                        if(row.width){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.width) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return Number(row.width) * 26;
+                    }
                 }
             }
             , {
@@ -462,32 +686,83 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 autoHide: false,
                 title: '繰越',
                 template : function(row){
-                    return Number(row.carry_forward) * 26;
+                     if(row.parent_id){
+                        if(row.carry_forward){
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.carry_forward) * 26;+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return Number(row.carry_forward) * 26;
+                    }
                 }
             },{
                 field: 'hips',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: 'ヒップ'
+                title: 'ヒップ',
+                template: function(row){
+                    if(row.parent_id){
+                        if(row.hips){
+                        return "<span class='font-weight-boldest text-danger'>"+row.hips+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return row.hips;
+                       
+                    }
+                }
             },{
                 field: 'bust',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: 'バスト'
+                title: 'バスト',
+                template: function(row){
+                    if(row.parent_id){
+                        if(row.bust){
+                        return "<span class='font-weight-boldest text-danger'>"+row.bust+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return row.bust;
+                       
+                    }
+                }
             },{
                 field: 'west',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: 'ウエスト'
+                title: 'ウエスト',
+                template: function(row){
+                    if(row.parent_id){
+                        if(row.west){
+                        return "<span class='font-weight-boldest text-danger'>"+row.west+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return row.west;
+                       
+                    }
+                }
             },{
                 field: 'height',
                 overflow: 'visible',
                 width: 20,
                 autoHide: false,
-                title: '身長'
+                title: '身長',
+                template: function(row){
+                    if(row.parent_id){
+                        if(row.height){
+                        return "<span class='font-weight-boldest text-danger'>"+row.height+"</span>" }else{
+                            return "";
+                        }
+                    }else{
+                        return row.height;
+                       
+                    }
+                }
             }, {
                 field: 'Actions',
                 title: '編 集',

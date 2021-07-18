@@ -9,7 +9,8 @@
 
 		public function search($filter){
 			$this->db->join("users", "users.id = products.user_id","LEFT");
-			$this->db->select("*, users.id user_id, users.name user_name");
+			$this->db->select("*, users.id user_id, users.name user_name, max(products.date)");
+			$this->db->group_by("products.user_id");
 			if($filter["customer"]){
 				$this->db->where("users.customer","2");
 				
