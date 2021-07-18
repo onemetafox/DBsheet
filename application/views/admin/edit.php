@@ -287,7 +287,18 @@
                                             </div>
                                         </div>
                                         <div class="d-flex card-body justify-content-between flex-wrap photo-container">
-                                            <?php end($images); $key = key($images); if($key >12){ $count = $key;}else{$count = 12;}?>
+                                            <?php if (isset($images)){
+                                                end($images); 
+                                                $key = key($images); 
+
+                                                if($key >12){ 
+                                                    $count = $key;
+                                                }else{
+                                                    $count = 12;
+                                                } 
+                                            } else{
+                                                $count = 12;
+                                            } ?>
                                             <?php for ($i = 1; $i <= $key; $i++){ ?>
                                                 <div class="image-input image-input-outline m-5" id="kt_image_<?=$i?>" style="background-image: url(<?=asset_url()?>media/users)">
                                                     <div class="image-<?=$i?> image-input-wrapper" onclick="showImage(this)" style="background-image: url(<?=upload_url()?><?=isset($images->$i)?$images->$i:''?>);background-size: contain;"></div>
