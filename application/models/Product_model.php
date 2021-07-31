@@ -41,10 +41,18 @@
 				$this->db->where("products.date >= '" . $filter['date_to'] . "'");
 			}
 			if($filter["name"]){
-				$this->db->group_start();
-			    $this->db->or_like('users.name',$filter["name"]);
-			    $this->db->or_like('products.name',$filter["name"]);
-			    $this->db->group_end();
+				$keyword = explode(" ", $filter["name"]);
+				foreach($keyword as $index => $value){
+					$this->db->group_start();
+				    $this->db->or_like('users.name',$value);
+				    $this->db->or_like('users.address',$value);
+				    $this->db->or_like('users.email',$value);
+				    $this->db->or_like('users.mobile',$value);
+				    $this->db->or_like('users.phone1',$value);
+				    $this->db->or_like('users.nick_name',$value);
+				    $this->db->or_like('products.name',$value);
+				    $this->db->group_end();
+				}
 			}
 			unset($filter["name"]);
 		    unset($filter['date_to']);

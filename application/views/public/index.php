@@ -7,6 +7,9 @@
     .fc-day-number{
         pointer-events: none;
     }
+    #customer.active{
+        color: #6993ff !important;
+    }
 </style>
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="subheader py-2 py-lg-12 subheader-transparent" id="kt_subheader">
@@ -56,7 +59,14 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 input-group">
-                                    <label class="col-form-label text-right col-lg-3 col-sm-3">お得意様</label>
+                                    <div class="d-flex flex-grow-1 align-items-center rounded">
+                                        <input type="hidden" name="customer">
+                                        <div class="text-muted">お得意様</div>
+                                        <div class="mr-4 flex-shrink-0 text-center ml-10" style="width: 40px;" onclick="setCustomer()">
+                                            <i id="customer"  class="icon-2x  flaticon-star text-dark-50"></i>
+                                        </div>
+                                    </div>
+                                    <!-- <label class="col-form-label text-right col-lg-3 col-sm-3">お得意様</label>
                                     <div class="col-lg-9 col-sm-3">
                                         <span class="switch switch-icon">
                                             <label>
@@ -64,7 +74,7 @@
                                                 <span></span>
                                             </label>
                                         </span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -185,5 +195,16 @@
     }
     function search(){
         window.location = "<?=base_url()?>admin/user/search?q=" + $("#search").val();
+    }
+    function setCustomer(){
+        var active = $("#customer").hasClass("active");
+        if(active){
+            $("#customer").removeClass("active");
+            $("input[name=customer]").val("off");
+        }else{
+            $("#customer").addClass("active");
+            $("input[name=customer]").val("on");
+            
+        }
     }
 </script>

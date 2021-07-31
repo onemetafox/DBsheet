@@ -44,10 +44,26 @@ var KTWizard5 = function () {
         	$("#kt_confirm_modal").modal('show');
         });
         $("#delete").on("click", function(){
-        	if (window.confirm("削除しますか？")) {
-				$("#decide").val("delete");
-        		$("#kt_confirm_modal").modal('show');
-			}
+        	Swal.fire({
+		        title: "本気ですか？",
+		        text: "これを元に戻すことはできません！",
+		        icon: "warning",
+		        showCancelButton: true,
+		        confirmButtonText: "はい、削除してください！",
+		        cancelButtonText: "いいえ、キャンセルします。",
+		        reverseButtons: true
+		    }).then(function(result) {
+		        if (result.value) {
+	             	$("#decide").val("delete");
+        			$("#kt_confirm_modal").modal('show');
+		        } else if (result.dismiss === "cancel") {
+		            
+		        }
+		    });
+   //      	if (window.confirm("削除しますか？")) {
+			// 	$("#decide").val("delete");
+   //      		$("#kt_confirm_modal").modal('show');
+			// }
         });
         $("#new_photo").on('click',function(){
 
@@ -77,6 +93,12 @@ var KTWizard5 = function () {
 					if (status == 'Valid') {
 						
 						var data = new FormData($("#kt_form")[0]);
+						var active = $("#customer").hasClass("active");
+						if(active){
+							data.append("customer", "2");
+						}else{
+							data.append("customer", "1");
+						}
 						$.ajax({
 			                url: HOST_URL + "admin/user/save",
 			                type: 'post',
@@ -185,10 +207,25 @@ var KTWizard5 = function () {
                     if(data.success == true){
                         $("#kt_password_modal").modal('hide');
                         if($("input[name=show_type]").val()=="purchase"){
-                        	$('.purchase').collapse('show');
-                        	$("#detail_div").css("display","block");
+                        	var isVisible = $('.purchase').is( ":visible" );
+						    if(isVisible){
+						        $('.purchase').collapse('hide');
+						        $("#detail_div").css("display","none");
+								$(".btn-purchase").text("表示");
+						    }else{
+	                        	$('.purchase').collapse('show');
+	                        	$("#detail_div").css("display","block");
+								$(".btn-purchase").text("非表示");
+							}
                         }else{
-                        	$('.extend').collapse('show');
+                    	    var isVisible = $('.extend').is( ":visible" );
+						    if(isVisible){
+						        $('.extend').collapse('hide');
+								$(".btn-extend").text("表示");
+						    }else{
+	                        	$('.extend').collapse('show');
+								$(".btn-extend").text("非表示");
+							}
                         }
                     }else{
                         toastr.error(data.msg)
@@ -262,6 +299,7 @@ function saveData(){
     formData.append("extend[etc]", $("#etc").val());
     formData.append("extend[body]", $("#body").val());
     formData.append("extend[extra]", $("#extra").val());
+    formData.append("extend[active]", $("#active").val());
 
     $.ajax({
         url: HOST_URL + 'admin/user/saveImage',
@@ -304,24 +342,13 @@ function removeImg(index){
     });
 }
 function showPurchase (){
-    var isVisible = $('.purchase').is( ":visible" );
-    if(isVisible){
-        $('.purchase').collapse('hide');
-        $("#detail_div").css("display","none");
-    }else{
-    	$("input[name=show_type]").val("purchase");
-    	$("#kt_password_modal").modal("show");
-    }
+    $("input[name=show_type]").val("purchase");
+	$("#kt_password_modal").modal("show");
 }
 
 function showExtend (){
-    var isVisible = $('.extend').is( ":visible" );
-    if(isVisible){
-        $('.extend').collapse('hide');
-    }else{
-    	$("input[name=show_type]").val("extend");
-    	$("#kt_password_modal").modal("show");
-    }
+    $("input[name=show_type]").val("extend");
+	$("#kt_password_modal").modal("show");
 }
 function showImage(el){
 	var image = el.style.backgroundImage
@@ -329,4 +356,12 @@ function showImage(el){
 	$("#img01").attr("src",path);
 	$("#myModal").css("display", "block");
 
+}
+function setCustomer(){
+	var active = $("#customer").hasClass("active");
+	if(active){
+		$("#customer").removeClass("active");
+	}else{
+		$("#customer").addClass("active");
+	}
 }

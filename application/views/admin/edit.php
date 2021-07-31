@@ -73,6 +73,9 @@
         width: 100%;
     }
 }
+#customer.active{
+    color: #6993ff !important;
+}
 </style>
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -161,17 +164,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
-                                                
-                                                
-                                                <!-- <div class="col-sm-3 mt-2">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['class']:''?>" name="class" placeholder="クラス"/>
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="la la-bookmark-o"></i></span> 
-                                                        </div>
-                                                    </div>
-                                                </div> -->
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-3 mt-2">
@@ -191,15 +183,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3 mt-2">
-                                                    <div class="input-group">
-                                                        <label class="col-form-label text-right col-sm-6">お得意様</label>
-                                                        <div class="col-sm-6">
-                                                            <span class="switch switch-icon">
-                                                                <label>
-                                                                    <input type="checkbox" <?=isset($customer)&&($customer["customer"]=="2")?'checked':''?> name="customer">
-                                                                    <span></span>
-                                                                </label>
-                                                            </span>
+                                                    <div class="d-flex flex-grow-1 align-items-center rounded">
+                                                        <div class="text-muted">お得意様</div>
+                                                        <div class="mr-4 flex-shrink-0 text-center ml-10" style="width: 40px;" onclick="setCustomer()">
+                                                            <i id="customer"  class="icon-2x  flaticon-star <?=isset($customer)&&($customer["customer"]=="2")?'active':'text-dark-50'?>"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -224,7 +211,7 @@
                                             </div>
                                         </div>
                                         <div class="card-footer text-right">
-                                            <button type="button" name="saveUser" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3">次 へ
+                                            <button type="button" name="saveUser" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3">基本情報保管
                                            </button>
                                         </div>
                                     </div>
@@ -260,7 +247,7 @@
                                                 <h3 class="card-label">購入履歴</h3>
                                             </div>
                                             <div class="card-toolbar">
-                                                <a href="javascript:showPurchase()" class="btn btn-light-primary font-weight-bolder btn-sm mr-5">非表示ボタン</a>
+                                                <a href="javascript:showPurchase()" class="btn btn-light-primary font-weight-bolder btn-sm mr-5 btn-purchase">表示</a>
                                                 <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_product">+ 追加</a>
                                             </div>
                                         </div>
@@ -286,7 +273,7 @@
                                                 <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_photo">+ 追加</a>
                                             </div>
                                         </div>
-                                        <div class="d-flex card-body justify-content-between flex-wrap photo-container">
+                                        <div class="d-flex card-body justify-content-left flex-wrap photo-container">
                                             <?php if (isset($images)){
                                                 end($images); 
                                                 $key = key($images); 
@@ -327,7 +314,7 @@
                                                 <h3 class="card-label">備考</h3>
                                             </div>
                                             <div class="card-toolbar">
-                                                <a href="javascript:showExtend()" class="btn btn-light-primary font-weight-bolder btn-sm mr-5">非表示ボタン</a>
+                                                <a href="javascript:showExtend()" class="btn btn-light-primary font-weight-bolder btn-sm mr-5  btn-extend">表示</a>
                                             </div>
                                         </div>
                                         <div class="card-body extend collapse">
@@ -416,7 +403,7 @@
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <label class="col-form-label text-right col-sm-4">好 み</label>
+                                                        <label class="col-form-label text-right col-sm-4">性 格</label>
                                                         <div class="col-sm-8">
                                                             <select class="form-control" name="extend[etc]" id="etc">
                                                                 <option value=""></option>
@@ -426,6 +413,22 @@
                                                                 <option value="大雑把" <?=isset($customer)&&($customer["etc"]=="大雑把")?'selected':''?>>大雑把 </option>
                                                                 <option value="金額にシビア" <?=isset($customer)&&($customer["etc"]=="金額にシビア")?'selected':''?>>金額にシビア </option>
                                                                 <option value="沢山相談し" <?=isset($customer)&&($customer["etc"]=="沢山相談し")?'selected':''?>>沢山相談し</option>
+                                                            </select>
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 mt-2">
+                                                    <div class="input-group">
+                                                        <label class="col-form-label text-right col-sm-4">好 み</label>
+                                                        <div class="col-sm-8">
+                                                            <select class="form-control" name="extend[active]" id="active">
+                                                                <option value=""></option>
+                                                                <option value="かわいい" <?=isset($customer)&&($customer["active"]=="かわいい")?'selected':''?>>かわいい</option>
+                                                                <option value="きれい" <?=isset($customer)&&($customer["active"]=="きれい")?'selected':''?>>きれい </option>
+                                                                <option value="シック" <?=isset($customer)&&($customer["active"]=="シック")?'selected':''?>>シック </option>
+                                                                <option value="渋め" <?=isset($customer)&&($customer["active"]=="渋め")?'selected':''?>>渋め </option>
+                                                                <option value="粋" <?=isset($customer)&&($customer["active"]=="粋")?'selected':''?>>粋 </option>
+                                                                <option value="古典" <?=isset($customer)&&($customer["active"]=="古典")?'selected':''?>>古典</option>
                                                             </select>
                                                         </div>    
                                                     </div>
@@ -503,7 +506,7 @@
                     <div class="form-group row">
                         <label class="col-form-label text-right col-lg-3 col-sm-12">生年月日</label>
                         <div class="col-lg-9 col-md-9 col-sm-12">
-                            <input class="form-control form-control-solid form-control-lg" readonly name="birthday" id="birthday" type="text" value="">
+                            <input class="form-control form-control-solid form-control-lg" name="birthday" id="birthday" type="text" value="">
                             <div class="fv-plugins-message-container"></div>
                         </div>
                     </div>
@@ -550,7 +553,7 @@
                     <div class="form-group row">
                         <label class="col-form-label text-right col-lg-3 col-sm-12">家族</label>
                         <div class="col-lg-9 col-md-9 col-sm-12">
-                            <select class="form-control" name="family_id">
+                            <select class="form-control" name="user_name">
                                 
                             </select>
                             <!-- <input type="text" class="form-control form-control-solid form-control-lg" name="sex" id="sex" value=""> -->
@@ -560,7 +563,7 @@
                     <div class="form-group row">
                         <label class="col-form-label text-right col-lg-3 col-sm-12">買上日</label>
                         <div class="col-lg-9 col-md-9 col-sm-12">
-                            <input class="form-control form-control-solid form-control-lg" readonly name="date" id="date" type="text" value="">
+                            <input class="form-control form-control-solid form-control-lg" name="date" id="date" type="text" value="">
                             <div class="fv-plugins-message-container"></div>
                         </div>
                     </div>
@@ -571,13 +574,13 @@
                             <div class="fv-plugins-message-container"></div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <label class="col-form-label text-right col-lg-3 col-sm-12">名前</label>
                         <div class="col-lg-9 col-md-9 col-sm-12">
                             <input type="text" class="form-control form-control-solid form-control-lg" name="user_name" id="user_name" value="">
                             <div class="fv-plugins-message-container"></div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group row">
                         <label class="col-form-label text-right col-lg-3 col-sm-12">買上金額(円)</label>
                         <div class="col-lg-9 col-md-9 col-sm-12">

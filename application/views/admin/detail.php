@@ -25,21 +25,21 @@
         <!-- Tabs navs -->
         <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
           <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="tab" href="javascript:switchView(1)" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">
-                cm表示
+            <a class="nav-link " id="ex1-tab-1" data-mdb-toggle="tab" href="javascript:switchView(1)" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">
+                cm
             </a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="javascript:switchView(2)" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">
-                鯨尺表示
+            <a class="nav-link active" id="ex1-tab-2" data-mdb-toggle="tab" href="javascript:switchView(2)" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">
+                尺寸
             </a>
           </li>
         </ul>
         <div class="tab-content" id="ex1-content">
-            <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1" >
+            <div class="tab-pane fade show " id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1" >
                 <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important"></table>
             </div>
-            <div class="tab-pane fade show" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+            <div class="tab-pane fade show active" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                 <table class="table table-bordered table-hover table-checkable" id="kt_datatable_1" style="margin-top: 13px !important;"></table>
             </div>
         </div>
@@ -215,6 +215,15 @@
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" name="hope[height]" placeholder="希望寸法"/>
                                     <input type="text" class="form-control mt-2" name="real[height]" placeholder="実寸"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 mt-2">
+                            <div class="input-group">
+                                <label class="col-form-label text-right col-sm-4">備考</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="hope[remark]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" name="real[remark]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>

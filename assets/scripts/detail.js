@@ -4,6 +4,7 @@ arrows = {
 }
 var datatable3;
 var datatable4
+var editable = true;
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 var __webpack_exports__ = {};
@@ -32,7 +33,12 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                         map: function(raw) {
                             var dataSet = raw;
                             if (typeof raw.data !== 'undefined') {
+
                                 dataSet = raw.data;
+                                if(raw.data.length == 0)
+                                    editable = true;
+                                else
+                                    editable = false;
                             }
                             return dataSet;
                         },
@@ -393,9 +399,22 @@ var KTDatatableRemoteAjaxDemo1 = function() {
 
         $("#new_detail").on("click", function(){
             // $('#form')[0].reset();
-            $("#id").val("");
-            $('#kt_detail_form').trigger("reset");
-            $("#kt_detail_modal").modal('show');
+            if(editable){
+                $("#id").val("");
+                $('#kt_detail_form').trigger("reset");
+                $("#kt_detail_modal").modal('show');
+            }else{
+                Swal.fire({
+                    title: "アラート!",
+                    text: "これ以上追加することはできません!",
+                    icon: "success",
+                    buttonsStyling: false,
+                    confirmButtonText: "わかった",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
+            }
         });
        
     };
@@ -926,17 +945,32 @@ function editDetail(product_id){
 }
 
 function delDetail(id){
-    $.ajax({
-        type: "POST",
-        url: HOST_URL + "admin/detail/delete",
-        data: {"id" : id },
-        dataType: "json",
-        encode: true,
-    }).done(function (data) {
-        toastr.success("成 功");
-        datatable3.reload();
-        datatable4.reload();
+    Swal.fire({
+        title: "本気ですか？",
+        text: "これを元に戻すことはできません！",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "はい、削除してください！",
+        cancelButtonText: "いいえ、キャンセルします。",
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.value) {
+             $.ajax({
+                type: "POST",
+                url: HOST_URL + "admin/detail/delete",
+                data: {"id" : id },
+                dataType: "json",
+                encode: true,
+            }).done(function (data) {
+                toastr.success("成 功");
+                datatable3.reload();
+                datatable4.reload();
+            });
+        } else if (result.dismiss === "cancel") {
+            
+        }
     });
+   
 }
 function switchView(index){
     if(index == 1){

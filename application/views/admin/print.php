@@ -20,6 +20,10 @@
                 font-size: 15px;
                 display:table;
                 table-layout:fixed;
+                font-size: 15px !important;
+            }
+            .d-flex{
+                height: 170px;
             }
         }
         .content {
@@ -44,21 +48,21 @@
                         <div style="width: 30%;">
                             <p style="padding: 5px;"><?= $users[$i]["post_code"]?></p>
                             <p style="padding: 5px;"><?= $users[$i]["address"]?></p>
-                            <p style="padding: 5px;"><?= $users[$i]["name"]?></p>
+                            <p style="padding: 5px;"><b><?= $users[$i]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+1 <= count($users)) { ?>
                         <div style="width: 30%;">
                             <p style="padding: 5px;"><?= $users[$i+1]["post_code"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+1]["address"]?></p>
-                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+1]["name"]?></p>
+                            <p style="padding: 5px;" style="padding: 5px;"><b><?= $users[$i+1]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+2 <= count($users)) { ?>
                         <div style="width: 30%;">
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["post_code"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["address"]?></p>
-                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["name"]?></p>
+                            <p style="padding: 5px;" style="padding: 5px;"><b><?= $users[$i+2]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                 </section>
@@ -68,21 +72,21 @@
                         <div style="width: 30%;">
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["post_code"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["address"]?></p>
-                            <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["name"]?></p>
+                            <p style="padding: 5px;" style="padding: 5px;"><b><?= $users[$i]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+1 <= count($users)) { ?>
                         <div style="width: 30%;">
                             <p style="padding: 5px;"><?= $users[$i+1]["post_code"]?></p>
                             <p style="padding: 5px;"><?= $users[$i+1]["address"]?></p>
-                            <p style="padding: 5px;"><?= $users[$i+1]["name"]?></p>
+                            <p style="padding: 5px;"><b><?= $users[$i+1]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+2 <= count($users)) { ?>
                         <div style="width: 30%;">
                             <p style="padding: 5px;"><?= $users[$i+2]["post_code"]?></p>
                             <p style="padding: 5px;"><?= $users[$i+2]["address"]?></p>
-                            <p style="padding: 5px;"><?= $users[$i+2]["name"]?></p>
+                            <p style="padding: 5px;"><b><?= $users[$i+2]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                 </div>

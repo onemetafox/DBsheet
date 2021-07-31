@@ -26,6 +26,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
                             var dataSet = raw;
                             if (typeof raw.data !== 'undefined') {
                                 dataSet = raw.data;
+                                $("strong").html(dataSet.length);
                             }
                             return dataSet;
                         },
@@ -89,7 +90,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
             sortable: true,
 
             pagination: true,
-
+            
             columns: [{
                 field: 'user_id',
                 title: '宛名印刷',
@@ -175,7 +176,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
         $("#search").on("click", function(){
             var paramObj = {};
             paramObj['name'] = $("input[name=name]").val();
-            paramObj['customer'] = $("#customer").prop("checked");
+            paramObj['customer'] = $("input[name=customer]").val();
             paramObj['making'] = $("#making").prop("checked");
 
             paramObj['date_from'] = $("input[name=date_from]").val();
@@ -200,7 +201,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
 jQuery(document).ready(function() {
     var paramObj = {};
     paramObj['name'] = $("input[name=name]").val();
-    paramObj['customer'] = $("#customer").prop("checked");
+    paramObj['customer'] = $("input[name=customer]").val();
     paramObj['making'] = $("#making").prop("checked");
     paramObj['date_from'] = $("input[name=date_from]").val();
     paramObj['date_to'] = $("input[name=date_to]").val();
@@ -231,11 +232,21 @@ jQuery(document).ready(function() {
 
 
 function showSearch(){
-    var isVisible = $('.card-footer').is( ":visible" );
+    var isVisible = $('.advance-search').is( ":visible" );
     if(isVisible){
-        $('.card-footer').collapse('hide');
+        $('.advance-search').collapse('hide');
     }else{
-        $('.card-footer').collapse('show');
+        $('.advance-search').collapse('show');
     }
     
+}
+function setCustomer(){
+    var active = $("#customer").hasClass("active");
+    if(active){
+        $("#customer").removeClass("active");
+        $("input[name=customer]").val("true");
+    }else{
+        $("#customer").addClass("active");
+        $("input[name=customer]").val("false");
+    }
 }

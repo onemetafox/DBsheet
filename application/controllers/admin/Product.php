@@ -80,13 +80,11 @@ class Product extends AdminController {
 		// return $html;
 		// $this->json($html);
 	}
-
-	
-
 	public function search(){
 		$filter = json_decode($this->input->post("query[query]"));
 		// print_r($filter);
 		$data["data"] = $this->product->search((array)$filter);
+		$data["search_count"] = count($data["data"]);
 		$data["filter"] = $filter;
 		$this->json($data);
 	}

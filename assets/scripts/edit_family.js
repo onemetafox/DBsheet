@@ -224,14 +224,29 @@ function editFamily(id){
 }
 
 function delFamily(id){
-    $.ajax({
-        type: "POST",
-        url: HOST_URL + "admin/family/delete",
-        data: {"id" : id },
-        dataType: "json",
-        encode: true,
-    }).done(function (data) {
-        toastr.success("成 功");
-        datatable1.reload();
+    Swal.fire({
+        title: "本気ですか？",
+        text: "これを元に戻すことはできません！",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "はい、削除してください！",
+        cancelButtonText: "いいえ、キャンセルします。",
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.value) {
+             $.ajax({
+                type: "POST",
+                url: HOST_URL + "admin/family/delete",
+                data: {"id" : id },
+                dataType: "json",
+                encode: true,
+            }).done(function (data) {
+                toastr.success("成 功");
+                datatable1.reload();
+            });
+        } else if (result.dismiss === "cancel") {
+            
+        }
     });
+    
 }

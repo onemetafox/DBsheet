@@ -22,7 +22,9 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                             var dataSet = raw;
                             if (typeof raw.data !== 'undefined') {
                                 dataSet = raw.data;
+                                $("strong").html(dataSet.length);
                             }
+
                             return dataSet;
                         },
                         timeout: 30000

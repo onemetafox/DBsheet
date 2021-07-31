@@ -78,7 +78,6 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
 			
             // column sorting
             sortable: true,
-
             pagination: false,
             translate :{
                 records : {
@@ -93,10 +92,14 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                     }
                 }
             },
+            order: [[0, 'desc']],
 			// columns definition
             columns: [{
                 field: 'date',
                 title: '買上日',
+            }            , {
+                field: 'user_name',
+                title: '購入者'
             }, {
                 field: 'name',
                 title: '買上品'
@@ -170,11 +173,12 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                 encode: true,
             }).done(function (data) {
                 var row = data.data;
-                var str = '';
+                var username = $("#kt_form input[name=name]").val()
+                var str = '<option value = "'+username+'">'+ username+'</option>';
                 for(var i= 0; i < row.length; i++){
-                    str = str + '<option value = "' + row[i].id + '">' + row[i].name + '</option>';
+                    str = str + '<option value = "' + row[i].name + '">' + row[i].name + '</option>';
                 }
-                $("select[name=family_id]").html(str);
+                $("select[name=user_name]").html(str);
                 $("#product_id").val("");
                 $('form#kt_product_form').trigger("reset");
                 $("#kt_product_modal").modal('show');
@@ -258,16 +262,31 @@ function editProduct(id){
 }
 
 function delProduct(id){
-    $.ajax({
-        type: "POST",
-        url: HOST_URL + "admin/product/delete",
-        data: {"id" : id },
-        dataType: "json",
-        encode: true,
-    }).done(function (data) {
-        toastr.success("成 功");
-        datatable2.reload();
+    Swal.fire({
+        title: "本気ですか？",
+        text: "これを元に戻すことはできません！",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "はい、削除してください！",
+        cancelButtonText: "いいえ、キャンセルします。",
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.value) {
+             $.ajax({
+                type: "POST",
+                url: HOST_URL + "admin/product/delete",
+                data: {"id" : id },
+                dataType: "json",
+                encode: true,
+            }).done(function (data) {
+                toastr.success("成 功");
+                datatable2.reload();
+            });
+        } else if (result.dismiss === "cancel") {
+            
+        }
     });
+    
 }
 function loadDetail(id){
     $("#detail_div").css("display","block");
