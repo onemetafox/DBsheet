@@ -109,6 +109,7 @@ class User extends AdminController {
 		$data = $this->input->post("extend");
 		$this->user->updateData($data);
 		$images = array();
+		unset($data["active"]);
 		$startNum = 0;
 		for($i =1; $i <= 20 ; $i++){
 			if(isset($_FILES["file".$i]))

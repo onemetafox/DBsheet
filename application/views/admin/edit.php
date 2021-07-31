@@ -7,71 +7,138 @@
 ?>
 <style type="text/css">
     
+* {
+    box-sizing: border-box;
+}
+.row > .column {
+    padding: 0 8px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 25%;
+}
+
 /* The Modal (background) */
-    .img_modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-    }
+#myModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+}
 
-/* Modal Content (image) */
-    .img-content {
-        margin: auto;
-        display: block;
-        width: 80%;
-        max-width: 700px;
-    }
-
-
-/* Add Animation */
-    .img-content, #caption {  
-        -webkit-animation-name: zoom;
-        -webkit-animation-duration: 0.6s;
-        animation-name: zoom;
-        animation-duration: 0.6s;
-    }
-
-    @-webkit-keyframes zoom {
-        from {-webkit-transform:scale(0)} 
-        to {-webkit-transform:scale(1)}
-    }
-
-@keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
+/* Modal Content */
+#myModal .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1200px;
 }
 
 /* The Close Button */
-    .img_close {
-        position: absolute;
-        top: 15px;
-        right: 35px;
-        color: #f1f1f1;
-        font-size: 40px;
-        font-weight: bold;
-        transition: 0.3s;
-    }
+#myModal .close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
 
-    .img_close:hover,
-    .img_close:focus {
-        color: #bbb;
-        text-decoration: none;
-        cursor: pointer;
-    }
+#myModal .close:hover,
+#myModal .close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-    .img_content {
-        width: 100%;
-    }
+#myModal .mySlides {
+  display: none;
+}
+
+#myModal .cursor {
+    cursor: pointer;
+}
+
+/* Next & previous buttons */
+#myModal .prev,
+#myModal .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+#myModal .next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+#myModal .prev:hover,
+#myModal .next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+#myModal .numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+img {
+  margin-bottom: -4px;
+}
+
+#myModal .caption-container {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}
+
+#myModal .demo {
+  opacity: 0.6;
+}
+
+#myModal .active,
+#myModal .demo:hover {
+  opacity: 1;
+}
+
+#myModal img.hover-shadow {
+  transition: 0.3s;
+}
+
+#myModal .hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 #customer.active{
     color: #6993ff !important;
@@ -288,7 +355,7 @@
                                             } ?>
                                             <?php for ($i = 1; $i <= $key; $i++){ ?>
                                                 <div class="image-input image-input-outline m-5" id="kt_image_<?=$i?>" style="background-image: url(<?=asset_url()?>media/users)">
-                                                    <div class="image-<?=$i?> image-input-wrapper" onclick="showImage(this)" style="background-image: url(<?=upload_url()?><?=isset($images->$i)?$images->$i:''?>);background-size: contain;"></div>
+                                                    <div class="image-<?=$i?> image-input-wrapper" onclick="openModal();currentSlide(<?=$i?>)" style="background-image: url(<?=upload_url()?><?=isset($images->$i)?$images->$i:''?>);background-size: contain;"></div>
 
                                                     <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="アバターを変更する">
                                                         <i class="fa fa-pen icon-sm text-muted"></i>
@@ -673,13 +740,31 @@
     </div>
 </div>
 <div id="myModal" class="img_modal">
+    <span class="close cursor" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+         <?php if (isset($images)){
+            end($images); 
+            $key = key($images); 
 
-    <!-- The Close Button -->
-    <span class="img_close">&times;</span>
-
-    <!-- Modal Content (The Image) -->
-    <img class="img-content" id="img01">
-
+            if($key >12){ 
+                $count = $key;
+            }else{
+                $count = 12;
+            } 
+        } else{
+            $count = 12;
+        } ?>
+        <?php for ($i = 1; $i <= $key; $i++){ ?>
+            <div class="mySlides">
+                <img src="<?=upload_url()?><?=isset($images->$i)?$images->$i:''?>" style="width:100%">
+            </div>
+        <?php } ?>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="caption-container">
+            <p id="caption"></p>
+        </div>
+    </div>
 </div>
     <!--begin::Global Theme Bundle(used by all pages)-->
 <script src="<?=asset_url()?>/plugins/global/plugins.bundle.js"></script>

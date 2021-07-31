@@ -34,26 +34,7 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
-                        <thead>
-                            <tr>
-                                <td>名前（ふりがな）</td>
-                                <td>住所</td>
-                                <td>電話番号</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if($users) { foreach ($users as $item){ ?>
-                                <tr>
-                                    <td><a href="<?=base_url()?>admin/product/edit/<?=$item->id?>"><?=$item->name?>(<?=$item->nick_name?>)</a></td>
-                                    <td><?=$item->address?></td>
-                                    <td><?=$item->mobile?></td>
-                                </tr>
-                            <?php } }else{ ?>
-                                <tr>
-                                    <td colspan="4">データがありません</td>
-                                </tr>
-                            <?php }?>
-                        </tbody>
+                       
                     </table>
                 </div>
             </div>
@@ -64,6 +45,7 @@
 <script src="<?=asset_url()?>/plugins/custom/prismjs/prismjs.bundle.js"></script>
 <script src="<?=asset_url()?>/js/scripts.bundle.js"></script>
 <script src="<?=asset_url()?>/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="<?=asset_url()?>scripts/search.js"></script>
 <script type="text/javascript">
     function goSearch(e){
         if (e.keyCode == 13) {

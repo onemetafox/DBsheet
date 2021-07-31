@@ -12,7 +12,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 type: 'remote',
                 source: {
                     read: {
-                        url: HOST_URL + 'admin/user/api',
+                        url: HOST_URL + 'admin/product/search',
                         params : {
                             query:{
                                 "q" : $("#query").val(),
