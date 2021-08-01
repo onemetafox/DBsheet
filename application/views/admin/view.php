@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-lg-6 col-md-6 col-sm-12 input-group">
+                                <div class="col-lg-4 col-md-4 col-sm-12 input-group">
                                     <label class="col-form-label text-right col-lg-3 col-md-3 col-sm-12">趣 味</label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control" name="hobby">
@@ -118,7 +118,7 @@
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 input-group">
+                                <div class="col-lg-4 col-md-4 col-sm-12 input-group">
                                     <label class="col-form-label text-right col-lg-3 col-md-3 col-sm-12">習い事</label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control" name="habit">
@@ -132,6 +132,17 @@
                                         </select>
                                         <div class="fv-plugins-message-container"></div>
                                     </div>    
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 input-group">
+                                    <label class="col-form-label text-right col-lg-3 col-sm-3">DM不要</label>
+                                    <div class="col-lg-9 col-sm-3">
+                                        <span class="switch switch-icon">
+                                            <label>
+                                                <input type="checkbox" <?=isset($filter['dm']) && ($filter['dm'])=='on'?'checked':''?> id="dm" name="dm">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

@@ -9,20 +9,13 @@
 
 		public function search($filter){
 			$this->db->join("users", "users.id = products.user_id","LEFT");
-			$this->db->select("*, users.id user_id, users.name user_name, max(products.date)");
+			$this->db->select("*, `users.id user_id, users.name user_name, max(products.date)");
 			$this->db->group_by("products.user_id");
-			if($filter["customer"]){
+			if($filter["customer"] == "true"){
 				$this->db->where("users.customer","2");
-				
-			}else{
-				// $this->db->where("users.customer","1");
 			}
-
-			if ($filter["making"]) {
+			if ($filter["making"] == "true") {
 				$this->db->where("products.making","2");
-				
-			}else{
-				// $this->db->where("products.making","1");
 			}
 			if($filter["price_from"])
 			{
@@ -38,7 +31,7 @@
 			}
 			if($filter["date_to"])
 			{
-				$this->db->where("products.date >= '" . $filter['date_to'] . "'");
+				$this->db->where("products.date <= '" . $filter['date_to'] . "'");
 			}
 			if($filter["name"]){
 				$keyword = explode(" ", $filter["name"]);
@@ -51,6 +44,10 @@
 				    $this->db->or_like('users.phone1',$value);
 				    $this->db->or_like('users.nick_name',$value);
 				    $this->db->or_like('products.name',$value);
+				    $this->db->or_like('products.user_name',$value);
+				    if($filter["dm"]){
+				    	$this->db->or_like('users.extra',$value);
+				    }
 				    $this->db->group_end();
 				}
 			}
@@ -61,6 +58,7 @@
 			unset($filter['price_to']);
 			unset($filter['price_from']);
 			unset($filter["making"]);
+			unset($filter["dm"]);
 			$this->db->order_by("products.date desc");
 			$data = parent::getDataByParam($filter);
 			// print_r($this->db->last_query());

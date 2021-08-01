@@ -23,16 +23,11 @@
                 font-size: 15px !important;
             }
             .d-flex{
-                height: 170px;
+                height: 177px;
             }
         }
-        .content {
-            padding: 7px;
-            height: 15%;
-            width: 100%;
-        }
         @media print {
-          section {page-break-before: always;}
+            section {page-break-before: always;}
         }
         p {
             font-size: 15px !important;
@@ -40,26 +35,26 @@
     </style>
 </head>
 
-<body onload="window.print()" style="margin-left: 1.5cm; margin-bottom: 1.5cm;">
+<body onload="window.print()" style="margin-top:  10px ;margin-bottom: 1.5cm; background: white;">
         <?php for ($i = 1 ; $i <= count($users); $i=$i+3 ) { ?>
             <?php if ($i % 8 == 1)  { ?>
-                <section class="d-flex" style="margin-top: 10mm;">
+                <section class="d-flex">
                     <?php if ($i <= count($users)) { ?>
-                        <div style="width: 30%;">
+                        <div style="width: 33%;">
                             <p style="padding: 5px;"><?= $users[$i]["post_code"]?></p>
                             <p style="padding: 5px;"><?= $users[$i]["address"]?></p>
                             <p style="padding: 5px;"><b><?= $users[$i]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+1 <= count($users)) { ?>
-                        <div style="width: 30%;">
+                        <div style="width: 33%;">
                             <p style="padding: 5px;"><?= $users[$i+1]["post_code"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+1]["address"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><b><?= $users[$i+1]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+2 <= count($users)) { ?>
-                        <div style="width: 30%;">
+                        <div style="width: 33%;">
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["post_code"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["address"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><b><?= $users[$i+2]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
@@ -69,21 +64,21 @@
             <?php } else { ?>
                 <div class='d-flex'>
                     <?php if ($i <= count($users)) { ?>
-                        <div style="width: 30%;">
+                        <div style="width: 33%;">
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["post_code"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["address"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><b><?= $users[$i]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+1 <= count($users)) { ?>
-                        <div style="width: 30%;">
+                        <div style="width: 33%;">
                             <p style="padding: 5px;"><?= $users[$i+1]["post_code"]?></p>
                             <p style="padding: 5px;"><?= $users[$i+1]["address"]?></p>
                             <p style="padding: 5px;"><b><?= $users[$i+1]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+2 <= count($users)) { ?>
-                        <div style="width: 30%;">
+                        <div style="width: 33%;">
                             <p style="padding: 5px;"><?= $users[$i+2]["post_code"]?></p>
                             <p style="padding: 5px;"><?= $users[$i+2]["address"]?></p>
                             <p style="padding: 5px;"><b><?= $users[$i+2]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>

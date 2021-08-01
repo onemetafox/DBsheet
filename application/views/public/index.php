@@ -35,7 +35,47 @@
     </div>
     <div class="d-flex flex-column-fluid">
         <div class="container">
-           <div class="card card-custom gutter-b">
+            
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="card card-custom card-stretch">
+                        <div class="card-body">
+                            <div id="kt_calendar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card card-custom card-stretch">
+                        <div class="card-header">
+                            <div class="card-title">
+                                詳細
+                            </div>    
+                        </div>
+                        <div class="card-body">
+                            <div class="card card-custom gutter-b" style="display: none;" name="detail">
+                                <!--begin::Body-->
+                                <div class="card-body d-flex flex-column"   style="text-align: center;">
+                                    <div class="flex-grow-1 pb-5">
+                                        <!--begin::Info-->
+                                        <div class="d-flex align-items-center pr-2 mb-6">
+                                            <span class="text-muted font-weight-bold font-size-lg flex-grow-1" name="date"></span>
+                                        </div>
+                                        <!--end::Info-->
+                                        <a class="text-dark font-weight-bolder text-hover-primary font-size-h4" name="title" >
+                                        </a>
+                                        <!--begin::Desc-->
+                                        <p class="text-dark-50 font-weight-normal font-size-lg mt-6" name="content">
+                                        </p>
+                                        <!--end::Desc-->
+                                    </div>
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-custom gutter-b mt-5">
                 <div class="card-body">
                     <form method="post" name="kt_search_form" action="<?=base_url()?>admin/user/view">
                         <div class="form-group row">
@@ -47,7 +87,8 @@
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-12 col-sm-12 input-group">
-                                <div class="col-lg-6 col-md-6 col-sm-6 input-group">
+                                
+                                 <div class="col-lg-6 col-md-6 col-sm-6 input-group">
                                     <label class="col-form-label text-right col-lg-3 col-sm-3">制作中</label>
                                     <div class="col-lg-9 col-sm-3">
                                         <span class="switch switch-icon">
@@ -102,7 +143,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-6 col-md-6 col-sm-12 input-group">
+                            <div class="col-lg-4 col-md-4 col-sm-12 input-group">
                                 <label class="col-form-label text-right col-lg-3 col-md-3 col-sm-12">趣 味</label>
                                 <div class="col-lg-9 col-md-9 col-sm-12">
                                     <select class="form-control" name="hobby">
@@ -116,7 +157,7 @@
                                     <div class="fv-plugins-message-container"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 input-group">
+                            <div class="col-lg-4 col-md-4 col-sm-12 input-group">
                                 <label class="col-form-label text-right col-lg-3 col-md-3 col-sm-12">習い事</label>
                                 <div class="col-lg-9 col-md-9 col-sm-12">
                                     <select class="form-control" name="habit">
@@ -131,6 +172,17 @@
                                     <div class="fv-plugins-message-container"></div>
                                 </div>    
                             </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 input-group">
+                                <label class="col-form-label text-right col-lg-3 col-sm-3">DM不要</label>
+                                <div class="col-lg-9 col-sm-3">
+                                    <span class="switch switch-icon">
+                                        <label>
+                                            <input type="checkbox" name="dm">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="card-toolbar float-right">
@@ -140,45 +192,6 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-9">
-                    <div class="card card-custom card-stretch">
-                        <div class="card-body">
-                            <div id="kt_calendar"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card card-custom card-stretch">
-                        <div class="card-header">
-                            <div class="card-title">
-                                詳細
-                            </div>    
-                        </div>
-                        <div class="card-body">
-                            <div class="card card-custom gutter-b" style="display: none;" name="detail">
-                                <!--begin::Body-->
-                                <div class="card-body d-flex flex-column"   style="text-align: center;">
-                                    <div class="flex-grow-1 pb-5">
-                                        <!--begin::Info-->
-                                        <div class="d-flex align-items-center pr-2 mb-6">
-                                            <span class="text-muted font-weight-bold font-size-lg flex-grow-1" name="date"></span>
-                                        </div>
-                                        <!--end::Info-->
-                                        <a class="text-dark font-weight-bolder text-hover-primary font-size-h4" name="title" >
-                                        </a>
-                                        <!--begin::Desc-->
-                                        <p class="text-dark-50 font-weight-normal font-size-lg mt-6" name="content">
-                                        </p>
-                                        <!--end::Desc-->
-                                    </div>
-                                </div>
-                                <!--end::Body-->
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

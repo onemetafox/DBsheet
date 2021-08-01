@@ -50,15 +50,15 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
             layout: {
                 scroll: false,
                 footer: false,
-					icons:{
-						pagination: {
-							next: 'la la-angle-right',
-							prev: 'la la-angle-left',
-							first: 'la la-angle-double-left',
-							last: 'la la-angle-double-right',
-							more: 'la la-ellipsis-h'
-						  }
-					},
+				icons:{
+					pagination: {
+						next: 'la la-angle-right',
+						prev: 'la la-angle-left',
+						first: 'la la-angle-double-left',
+						last: 'la la-angle-double-right',
+						more: 'la la-ellipsis-h'
+					  }
+				},
             },
             translate :{
                 records : {
@@ -76,7 +76,6 @@ var KTDatatableRemoteAjaxDemo1 = function(user_id) {
 			
             // column sorting
             sortable: true,
-
             pagination: false,
 
             columns: [{

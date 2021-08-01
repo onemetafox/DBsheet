@@ -29,8 +29,9 @@ class Detail extends AdminController {
 		$real["status"] = 1;
 		
 		if($data["id"]){
+			$hope["id"] = $data["id"];
 			$this->model->updateData($hope);
-			$this->model->updateDataByParam($real, array("parent_id"=>$id));
+			$this->model->updateDataByParam($real, array("parent_id"=>$data["id"]));
 			$this->json(array("success"=> true, "id"=>$data["id"]));
 		}else{
 			$id = $this->model->setData($hope);
@@ -41,8 +42,7 @@ class Detail extends AdminController {
 	}
 	public function delete(){
 		$id = $this->input->post("id");
-		$this->model->unsetDataById($id);
-		$this->model->deleteByParam(array("parent_id"=>$id));
+		$this->model->deleteByParam(array("product_id"=>$id));
 		$this->json(array("success"=>true, "msg"=>"削除しました。"));
 	}
 	public function api(){

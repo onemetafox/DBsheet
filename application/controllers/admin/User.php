@@ -85,7 +85,6 @@ class User extends AdminController {
 		$filter["query"] = $this->input->get("q");
 		$params = explode(" ", $filter["query"]);
 		$data["users"] = $this->model->all($params);
-		
 		$data["filter"] = $filter["query"];
 		$this->render("admin/search",$data);
 	}

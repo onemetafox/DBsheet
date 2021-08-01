@@ -1,8 +1,7 @@
 
 <link href="<?=asset_url()?>/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 <div class="card card-custom gutter-b">
-    <input type="hidden" name="product_id" id="product_id" value="<?=$product_id?>">
-    <input type="hidden" name="user_id" id="user_id" value="<?=$user_id?>">
+    
     <div class="card-header">
         <div class="card-title">
             <span class="card-icon">
@@ -19,6 +18,8 @@
            <!-- <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="setMaking">制作中</a> -->
            <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="setDate">完成予定日</a>
            <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="new_detail">+ 追加</a>
+           <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="del_detail">- 削除</a>
+           <a class="btn btn-light-primary font-weight-bolder btn-sm mr-5" id="edit_detail"> 編集</a>
         </div>
     </div>
     <div class="card-body">
@@ -58,6 +59,8 @@
             </div>
             <form class="form" id ="kt_detail_form">
                 <input type="hidden" name="id" id="id">
+                <input type="hidden" name="product_id" id="product_id" value="<?=$product_id?>">
+                <input type="hidden" name="user_id" id="user_id" value="<?=$user_id?>">
                 <div class="modal-body">
                        
                     <div class="form-group row">
@@ -65,8 +68,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">丈(背)</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[back]" placeholder="希望寸法"/>    
-                                    <input type="text" class="form-control mt-2" name="real[back]" placeholder="実寸"/>   
+                                    <input type="text" class="form-control" id = "h-back" name="hope[back]" placeholder="希望寸法"/>    
+                                    <input type="text" class="form-control mt-2" id = "r-back" name="real[back]" placeholder="実寸"/>   
                                 </div>
                             </div>
                         </div>
@@ -74,8 +77,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">丈(肩)</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[shoulder]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[shoulder]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id = "h-shoulder" name="hope[shoulder]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-shoulder" name="real[shoulder]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -83,8 +86,8 @@
                              <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">裄</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[yuki]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[yuki]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-yuki" name="hope[yuki]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-yuki" name="real[yuki]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -92,8 +95,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">肩巾</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[shawl]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[shawl]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-shawl" name="hope[shawl]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-shawl" name="real[shawl]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -101,8 +104,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">袖巾</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[sleeve_width]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[sleeve_width]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-sleeve_width" name="hope[sleeve_width]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-sleeve_width" name="real[sleeve_width]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -110,8 +113,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">袖丈</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[sleeve_Length]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[sleeve_Length]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-sleeve_length" name="hope[sleeve_length]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-sleeve_length" name="real[sleeve_Length]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -121,8 +124,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">袖付</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[with_sleeves]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[with_sleeves]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-with_sleeves" name="hope[with_sleeves]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-with_sleeves" name="real[with_sleeves]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -130,8 +133,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">前巾</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[front_width]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[front_width]" placeholder="実寸"/>
+                                    <input type="text" class="form-control"id="h-front_width" name="hope[front_width]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-front_width" name="real[front_width]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -139,8 +142,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">後巾</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[back_width]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[back_width]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-back_width" name="hope[back_width]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-back_width" name="real[back_width]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -148,8 +151,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">褄下</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[under_hood]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[under_hood]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-under_hood" name="hope[under_hood]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-under_hood" name="real[under_hood]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -157,8 +160,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">抱巾</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[hug]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[hug]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-hug" name="hope[hug]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-hug" name="real[hug]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -166,8 +169,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">衽巾</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[width]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[width]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-width" name="hope[width]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-width" name="real[width]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -177,8 +180,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">繰越</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[carry_forward]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[carry_forward]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-carry_forward" name="hope[carry_forward]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-carry_forward" name="real[carry_forward]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -186,8 +189,8 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">ヒップ</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[hips]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[hips]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-hips" name="hope[hips]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-hips" name="real[hips]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
@@ -195,35 +198,35 @@
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">バスト</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[bust]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[bust]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-bust" name="hope[bust]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-bust" name="real[bust]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 mt-2">
+                        <div class="col-sm-2 mt-2">
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">ウエスト</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[west]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[west]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-west" name="hope[west]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-west" name="real[west]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 mt-2">
+                        <div class="col-sm-2 mt-2">
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">身長</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[height]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[height]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id = "h-height" name="hope[height]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-height" name="real[height]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 mt-2">
+                        <div class="col-sm-2 mt-2">
                             <div class="input-group">
                                 <label class="col-form-label text-right col-sm-4">備考</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="hope[remark]" placeholder="希望寸法"/>
-                                    <input type="text" class="form-control mt-2" name="real[remark]" placeholder="実寸"/>
+                                    <input type="text" class="form-control" id="h-remark" name="hope[remark]" placeholder="希望寸法"/>
+                                    <input type="text" class="form-control mt-2" id="r-remark" name="real[remark]" placeholder="実寸"/>
                                 </div>
                             </div>
                         </div>

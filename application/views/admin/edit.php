@@ -486,8 +486,8 @@ img {
                                                 </div>
                                                 <div class="col-sm-4 mt-2">
                                                     <div class="input-group">
-                                                        <label class="col-form-label text-right col-sm-4">好 み</label>
-                                                        <div class="col-sm-8">
+                                                        <label class="col-form-label text-right col-sm-3">好 み</label>
+                                                        <div class="col-sm-9">
                                                             <select class="form-control" name="extend[active]" id="active">
                                                                 <option value=""></option>
                                                                 <option value="かわいい" <?=isset($customer)&&($customer["active"]=="かわいい")?'selected':''?>>かわいい</option>
@@ -620,7 +620,7 @@ img {
                     <div class="form-group row">
                         <label class="col-form-label text-right col-lg-3 col-sm-12">家族</label>
                         <div class="col-lg-9 col-md-9 col-sm-12">
-                            <select class="form-control" name="user_name">
+                            <select class="form-control" id="user_name" name="user_name">
                                 
                             </select>
                             <!-- <input type="text" class="form-control form-control-solid form-control-lg" name="sex" id="sex" value=""> -->

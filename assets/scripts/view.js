@@ -178,6 +178,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
             paramObj['name'] = $("input[name=name]").val();
             paramObj['customer'] = $("input[name=customer]").val();
             paramObj['making'] = $("#making").prop("checked");
+            paramObj['dm'] = $("#dm").prop("checked");
 
             paramObj['date_from'] = $("input[name=date_from]").val();
             paramObj['date_to'] = $("input[name=date_to]").val();
@@ -203,6 +204,7 @@ jQuery(document).ready(function() {
     paramObj['name'] = $("input[name=name]").val();
     paramObj['customer'] = $("input[name=customer]").val();
     paramObj['making'] = $("#making").prop("checked");
+    paramObj['dm'] = $("#dm").prop("checked");
     paramObj['date_from'] = $("input[name=date_from]").val();
     paramObj['date_to'] = $("input[name=date_to]").val();
     paramObj['price_from'] = $("input[name=price_from]").val();
@@ -227,9 +229,6 @@ jQuery(document).ready(function() {
 });
 
 /******/ })()
-;
-//# sourceMappingURL=data-ajax.js.map
-
 
 function showSearch(){
     var isVisible = $('.advance-search').is( ":visible" );
@@ -244,9 +243,9 @@ function setCustomer(){
     var active = $("#customer").hasClass("active");
     if(active){
         $("#customer").removeClass("active");
-        $("input[name=customer]").val("true");
+        $("input[name=customer]").val("false");
     }else{
         $("#customer").addClass("active");
-        $("input[name=customer]").val("false");
+        $("input[name=customer]").val("true");
     }
 }

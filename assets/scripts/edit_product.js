@@ -42,6 +42,7 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                                 temp.id = "";
                                 temp.content = "";
                                 temp.date = "";
+                                temp.user_name = "";
                                 data.push(temp);
                                 dataSet = data;
                             }
@@ -77,6 +78,7 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
             },
 			
             // column sorting
+            autoHide: false,
             sortable: true,
             pagination: false,
             translate :{
@@ -93,16 +95,18 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                 }
             },
             order: [[0, 'desc']],
-			// columns definition
             columns: [{
                 field: 'date',
                 title: '買上日',
+                width: 100
             }            , {
                 field: 'user_name',
-                title: '購入者'
+                title: '購入者',
+                width: 150
             }, {
                 field: 'name',
-                title: '買上品'
+                title: '買上品',
+                width: 100
             }, {
                 field: 'price',
                 title: '価 格',
@@ -111,12 +115,14 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                 }
             }, {
                 field: 'content',
-                title: '備考'
+                title: '備考',
+                width: 200,
+                overflow: 'visible'
             }, {
                 field: 'Actions',
                 title: '編 集',
                 sortable: false,
-                width: 240,
+                width: 150,
                 overflow: 'visible',
                 autoHide: false,
                 template: function(row) {
@@ -203,6 +209,7 @@ var KTDatatableRemoteAjaxDemo2 = function(user_id) {
                         $("#kt_product_modal").modal('hide');
                         $("#id").val(data.id);
                         datatable2.search($("#id").val(), 'user_id');
+                        datatable2.sort("date","desc");
                     }else{
                         toastr.error(data.msg)
                     }
@@ -242,23 +249,41 @@ jQuery(document).ready(function() {
 function editProduct(id){
     $.ajax({
         type: "POST",
-        url: HOST_URL + "admin/product/api",
+        url: HOST_URL + "admin/family/api",
         data: {
-            query:{"id" : id}
+            query:{"user_id" : $("#id").val()}
         },
         dataType: "json",
         encode: true,
     }).done(function (data) {
         var row = data.data;
-        $("#kt_product_form #product_id").val(row["id"]);
-        $("#kt_product_form #name").val(row["name"]);
-        $("#kt_product_form #price").val(row["price"]);
-        $("#kt_product_form #date").val(row["date"]);
-        $("#kt_product_form #etc").val(row["etc"]);
-        $("#kt_product_form #content").val(row["content"]);
-        $("#kt_product_form #user_name").val(row["user_name"]);
-        $("#kt_product_modal").modal('show');
+        var username = $("#kt_form input[name=name]").val()
+        var str = '<option value = "'+username+'">'+ username+'</option>';
+        for(var i= 0; i < row.length; i++){
+            str = str + '<option value = "' + row[i].name + '">' + row[i].name + '</option>';
+        }
+        $("select[name=user_name]").html(str);
+        $.ajax({
+            type: "POST",
+            url: HOST_URL + "admin/product/api",
+            data: {
+                query:{"id" : id}
+            },
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            var row = data.data;
+            $("#kt_product_form #product_id").val(row["id"]);
+            $("#kt_product_form #name").val(row["name"]);
+            $("#kt_product_form #price").val(row["price"]);
+            $("#kt_product_form #date").val(row["date"]);
+            $("#kt_product_form #etc").val(row["etc"]);
+            $("#kt_product_form #content").val(row["content"]);
+            $("#kt_product_form #user_name").val(row["user_name"]);
+            $("#kt_product_modal").modal('show');
+        });
     });
+    
 }
 
 function delProduct(id){
@@ -281,6 +306,7 @@ function delProduct(id){
             }).done(function (data) {
                 toastr.success("成 功");
                 datatable2.reload();
+                datatable2.sort("date","desc");
             });
         } else if (result.dismiss === "cancel") {
             
