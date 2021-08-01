@@ -83,8 +83,8 @@ class User extends AdminController {
 
 	public function search(){
 		$filter["query"] = $this->input->get("q");
-		$params = explode(" ", $filter["query"]);
-		$data["users"] = $this->model->all($params);
+		// $params = explode(" ", $filter["query"]);
+		// $data["users"] = $this->model->all($params);
 		$data["filter"] = $filter["query"];
 		$this->render("admin/search",$data);
 	}
@@ -149,5 +149,10 @@ class User extends AdminController {
 		}
 		$user["image"] = json_encode($images);
 		$this->user->updateData($user);
+	}
+	public function getData(){
+		$filter = $this->input->post("query");
+		$data = $this->model->all($filter);
+		$this->json(array("success"=>true, "data"=>$data));
 	}
 }
