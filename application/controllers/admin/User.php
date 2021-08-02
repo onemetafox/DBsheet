@@ -152,7 +152,12 @@ class User extends AdminController {
 	}
 	public function getData(){
 		$filter = $this->input->post("query");
-		$data = $this->model->all($filter);
+		if($filter)
+			$params = explode(" ", $filter["keyword"]);
+		else
+			$params = [];
+		$data = $this->model->all($params);
+
 		$this->json(array("success"=>true, "data"=>$data));
 	}
 }

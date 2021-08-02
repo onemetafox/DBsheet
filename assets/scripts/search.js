@@ -6,33 +6,20 @@ var __webpack_exports__ = {};
 
 var demo = function() {
     
-    var searchGrid = function(query) {
-        datatable1 = $('#kt_datatable1').KTDatatable({
+    var searchGrid = function(keyword) {
+        datatable1 = $('#kt_datatable').KTDatatable({
             data: {
                 type: 'remote',
                 source: {
                     read: {
                         url: HOST_URL + 'admin/user/getData',
-                        params : {
-                            query:{
-                                "query" : query,
-                            }
-                        },
-                        map: function(raw) {
-                            var dataSet = raw;
-                            if (typeof raw.data !== 'undefined') {
-                                dataSet = raw.data;
-                                $("strong").html(dataSet.length);
-                            }
-                            return dataSet;
-                        },
-                        timeout: 30000
                     },
                 },
                 pageSize: 10,
                 serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false
+                serverFiltering: true,
+                serverSorting: false,
+                serverSearching: true,
             },
             layout: {
                 scroll: false,
@@ -47,7 +34,10 @@ var demo = function() {
 					  }
 				},
             },
-			
+			search: {
+                input: $('#search'),
+                key: 'keyword'
+            },
             // column sorting
             sortable: true,
 
@@ -133,29 +123,26 @@ var demo = function() {
                 title: '最終購入日'
             }],
         });
-       
+        $("#btn_search").on('click', function(){
+            var query = $("#search").val();
+            datatable1.getDataSourceParam(query,"keyword");
+            console.log(datatable1.getDataSourceQuery());
+        })
 
     };
-
-    var temp = function(){
-        $("#btn_search").on('click', function(){
-            var keyword = $("#search").val();
-            datatable1.search(keyword,"query");
-            // searchGrid(keyword);
-        })
-    }
     return {
         // public functions
-        init: function(query) {
-            searchGrid(query);
-            temp();
+        init: function(keyword) {
+            searchGrid(keyword);
         },
     };
 }();
 
 jQuery(document).ready(function() {
-    var query = $("#search").val();
-    demo.init(query);
+
+    var keyword = $("#search").val();
+    demo.init(keyword);
 });
 
 /******/ })()
+
