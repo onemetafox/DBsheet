@@ -360,10 +360,10 @@ var KTDatatableRemoteAjaxDemo1 = function() {
             }else{
                 Swal.fire({
                     title: "アラート!",
-                    text: "これ以上追加することはできません!",
+                    text: "1つ以上追加できません!",
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "わかった",
+                    confirmButtonText: "はい",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
@@ -375,22 +375,22 @@ var KTDatatableRemoteAjaxDemo1 = function() {
             if(editable){
                 Swal.fire({
                     title: "アラート!",
-                    text: "削除するレコードがありません!",
+                    text: "",
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "わかった",
+                    confirmButtonText: "はい",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }
                 });
             }else{
                 Swal.fire({
-                    title: "本気ですか？",
+                    title: "削除しますか？",
                     text: "これを元に戻すことはできません！",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "はい、削除してください！",
-                    cancelButtonText: "いいえ、キャンセルします。",
+                    confirmButtonText: "はい",
+                    cancelButtonText: "いいえ",
                     reverseButtons: true
                 }).then(function(result) {
                     var product_id = $("#product_id").val();
@@ -420,7 +420,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                     text: "編集するレコードがありません!",
                     icon: "success",
                     buttonsStyling: false,
-                    confirmButtonText: "わかった",
+                    confirmButtonText: "はい",
                     customClass: {
                         confirmButton: "btn btn-primary"
                     }

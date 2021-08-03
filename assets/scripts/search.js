@@ -14,6 +14,11 @@ var demo = function() {
                     read: {
                         url: HOST_URL + 'admin/user/getData',
                     },
+                    params :{
+                        query :{
+                            "query" : keyword
+                        }
+                    }
                 },
                 pageSize: 10,
                 serverPaging: false,
@@ -87,7 +92,7 @@ var demo = function() {
                 autoHide: false,
                 template: function(row) {
                         return '\
-                        <a href="'+HOST_URL+'admin/product/edit/'+row.id+'" class="" title = "Edit">\
+                        <a href="'+HOST_URL+'admin/product/edit/'+row.userid+'" class="" title = "Edit">\
                         ' + row.user_name +'(' + row.nick_name +')\
                         </a>\
                         ';
@@ -95,6 +100,7 @@ var demo = function() {
             }, {
                 field: 'sex',
                 title: '性 別',
+                sortable: false,
                 template : function(row){
                     if(row.sex == 1){
                         return '男';
@@ -104,14 +110,17 @@ var demo = function() {
                 }
             }, {
                 field: 'birthday',
-                title: '生年月日'
+                title: '生年月日',
+                sortable: false
             }, {
                 field: 'address',
-                title: '〒住所'
+                title: '〒住所',
+                sortable: false
             }, {
                 field: 'mobile',
                 width: 150,
-                title: '電話番号'
+                title: '電話番号',
+                sortable: false
             }, {
                 field: 'price',
                 title: '購入金額',
@@ -123,12 +132,6 @@ var demo = function() {
                 title: '最終購入日'
             }],
         });
-        $("#btn_search").on('click', function(){
-            var query = $("#search").val();
-            datatable1.getDataSourceParam(query,"keyword");
-            console.log(datatable1.getDataSourceQuery());
-        })
-
     };
     return {
         // public functions

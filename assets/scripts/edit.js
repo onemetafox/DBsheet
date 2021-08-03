@@ -45,12 +45,12 @@ var KTWizard5 = function () {
         });
         $("#delete").on("click", function(){
         	Swal.fire({
-		        title: "本気ですか？",
-		        text: "これを元に戻すことはできません！",
+		        title: "削除しますか？",
+		        text: "",
 		        icon: "warning",
 		        showCancelButton: true,
-		        confirmButtonText: "はい、削除してください！",
-		        cancelButtonText: "いいえ、キャンセルします。",
+		        confirmButtonText: "はい",
+		        cancelButtonText: "いいえ",
 		        reverseButtons: true
 		    }).then(function(result) {
 		        if (result.value) {

@@ -30,7 +30,7 @@
                         <h3 class="card-label">検索結果</h3>
                     </div>
                     <div class="card-toolbar">
-                        <h6>検索結果<strong style="color: red"></strong>件該当しました</h6>
+                        <!-- <h6>検索結果<strong style="color: red"></strong>件該当しました</h6> -->
                     </div>
                 </div>
                 <!-- <div class="card-body">

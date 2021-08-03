@@ -76,7 +76,7 @@ var KTLogin = function() {
 					                text: data.msg,
 					                icon: "error",
 					                buttonsStyling: false,
-					                confirmButtonText: "はい、わかった!",
+					                confirmButtonText: "はい!",
 			                        customClass: {
 			    						confirmButton: "btn font-weight-bold btn-light-primary"
 			    					}

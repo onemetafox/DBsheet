@@ -314,11 +314,11 @@ img {
                                                 <h3 class="card-label">購入履歴</h3>
                                             </div>
                                             <div class="card-toolbar">
-                                                <a href="javascript:showPurchase()" class="btn btn-light-primary font-weight-bolder btn-sm mr-5 btn-purchase">表示</a>
+                                                <a href="javascript:showPurchase()" class="btn btn-light-primary font-weight-bolder btn-sm mr-5 btn-purchase">非表示</a>
                                                 <a class="btn btn-light-primary font-weight-bolder btn-sm" id="new_product">+ 追加</a>
                                             </div>
                                         </div>
-                                        <div class="card-body purchase collapse">
+                                        <div class="card-body purchase collapse show">
                                             <!--begin: Datatable-->
                                             <table class="table table-separate table-head-custom table-foot-custom table-checkable" id="kt_product_table" style="margin-top: 13px !important">
                                             </table>

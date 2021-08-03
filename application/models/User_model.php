@@ -8,7 +8,7 @@ class User_model extends BaseModel
 	var $table = 'users';
 
 	public function all($params){
-		$query = "SELECT users.*, a.*, a.name product_name FROM users 
+		$query = "SELECT users.id userid, users.*, a.*, a.name product_name FROM users 
 		LEFT JOIN ( SELECT id, MAX( date ) date, price, user_id, user_name, name FROM products GROUP BY user_id ) a ON a.user_id = users.id WHERE 1 ";
 		if($params){
 			foreach($params as $item){

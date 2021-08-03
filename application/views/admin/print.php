@@ -20,18 +20,25 @@
                 font-size: 15px;
                 display:table;
                 table-layout:fixed;
-                font-size: 15px !important;
             }
             .d-flex{
                 height: 177px;
+            }
+            b {
+                font-size: 20px !important;
             }
         }
         @media print {
             section {page-break-before: always;}
         }
         p {
-            font-size: 15px !important;
+            font-size: 15px;
+            padding: 2px;
         }
+        b {
+            font-size: 20px !important;
+        }
+        
     </style>
 </head>
 

@@ -90,7 +90,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
             sortable: true,
 
             pagination: true,
-            
+            order: [[5, 'desc']],
             columns: [{
                 field: 'user_id',
                 title: '宛名印刷',
@@ -105,7 +105,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
                 autoHide: false,
                 template: function(row) {
                         return '\
-                        <a href="'+HOST_URL+'admin/product/edit/'+row.id+'" class="" title = "Edit">\
+                        <a href="'+HOST_URL+'admin/product/edit/'+row.user_id+'" class="" title = "Edit">\
                         ' + row.user_name +'(' + row.nick_name +')\
                         </a>\
                         ';
@@ -129,6 +129,10 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
                 width: 150,
                 title: '電話番号'
             }, {
+                field: 'customer_name',
+                width: 150,
+                title: '購入者'
+            }, {
                 field: 'price',
                 title: '購入金額',
                 template:function(row){
@@ -140,6 +144,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
                 title: '最終購入日'
             }],
         };
+
         options.extensions ={
             checkbox: true
         };
@@ -188,6 +193,7 @@ var KTDatatableRemoteAjaxDemo1 = function(query) {
             paramObj['habit'] = $("select[name=habit]").val();
 
             datatable1.search(JSON.stringify(paramObj), 'query');
+            datatable1.sort("date","desc");
 
         })
     }
