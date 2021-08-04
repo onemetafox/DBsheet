@@ -96,6 +96,7 @@ var KTCalendarExternalEvents = function() {
         calendar.render();
     }
 
+
     return {
         init: function() {
             events();
@@ -117,6 +118,9 @@ jQuery(document).ready(function() {
         todayHighlight: true,
         // templates: arrows,
         format: "yyyy-mm-dd"
+    });
+    $("#btn-search").on("click", function(){
+        $("#kt_form").submit();
     });
     KTCalendarExternalEvents.init();
 });

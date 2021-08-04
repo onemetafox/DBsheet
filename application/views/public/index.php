@@ -17,14 +17,16 @@
             <div class="d-flex align-items-center flex-wrap mr-1">
                 <div class="d-flex flex-column">
                     <div class="input-icon input-icon-right mr-2">
-                        <input type="text" class="form-control" placeholder="検索..." id="search" onkeypress="goSearch(event)">
+                        <form method="post" id="kt_form" action="<?=base_url()?>admin/user/search">
+                            <input type="text" name="query" class="form-control" placeholder="検索..." id="search" >
+                        </form>
                         <span>
                             <i class="flaticon2-search-1 icon-md"></i>
                         </span>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a href="javascript:search()" class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-2">検索</a>
+                    <a id="btn-search" class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-2">検索</a>
                 </div>
             </div>
             <div class="d-flex align-items-center">
@@ -107,15 +109,6 @@
                                             <i id="customer"  class="icon-2x  flaticon-star text-dark-50"></i>
                                         </div>
                                     </div>
-                                    <!-- <label class="col-form-label text-right col-lg-3 col-sm-3">お得意様</label>
-                                    <div class="col-lg-9 col-sm-3">
-                                        <span class="switch switch-icon">
-                                            <label>
-                                                <input type="checkbox" name="customer">
-                                                <span></span>
-                                            </label>
-                                        </span>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -201,14 +194,6 @@
 <script src="<?=asset_url()?>/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
 <script src="<?=asset_url()?>/scripts/calendar.js"></script>
 <script type="text/javascript">
-    function goSearch(e){
-        if (e.keyCode == 13) {
-            window.location = "<?=base_url()?>admin/user/search?q=" + $("#search").val();
-        }
-    }
-    function search(){
-        window.location = "<?=base_url()?>admin/user/search?q=" + $("#search").val();
-    }
     function setCustomer(){
         var active = $("#customer").hasClass("active");
         if(active){

@@ -77,12 +77,9 @@ class Product extends AdminController {
 		$data["customer"] = $this->user->getDataById($product["user_id"]);
 		$data["product"] = $product;
 		$this->load->view("admin/detail",$data);
-		// return $html;
-		// $this->json($html);
 	}
 	public function search(){
 		$filter = json_decode($this->input->post("query[query]"));
-		// print_r($filter);
 		$data["data"] = $this->product->search((array)$filter);
 		$data["search_count"] = count($data["data"]);
 		$data["filter"] = $filter;

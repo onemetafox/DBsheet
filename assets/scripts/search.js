@@ -7,18 +7,26 @@ var __webpack_exports__ = {};
 var demo = function() {
     
     var searchGrid = function(keyword) {
-        datatable1 = $('#kt_datatable').KTDatatable({
+        datatable1 = $('#user_table').KTDatatable({
             data: {
                 type: 'remote',
                 source: {
                     read: {
-                        url: HOST_URL + 'admin/user/getData',
+                        url: HOST_URL + 'admin/user/getData/'+keyword,
                     },
-                    params :{
-                        query :{
-                            "query" : keyword
+                    map: function(raw) {
+                        var dataSet = raw;
+                        if (typeof raw.data !== 'undefined') {
+                            dataSet = raw.data;
                         }
+                        return dataSet;
                     }
+                    // ,
+                    // params :{
+                    //     query :{
+                    //         "keyword" : keyword
+                    //     }
+                    // }
                 },
                 pageSize: 10,
                 serverPaging: false,
@@ -39,10 +47,10 @@ var demo = function() {
 					  }
 				},
             },
-			search: {
-                input: $('#search'),
-                key: 'keyword'
-            },
+			// search: {
+   //              input: $('#search'),
+   //              key: 'keyword'
+   //          },
             // column sorting
             sortable: true,
 
@@ -133,6 +141,11 @@ var demo = function() {
             }],
         });
     };
+    // $("#btn-search").on("click", function(){
+    //     var query = $("#search").val();
+    //     datatable1.reload();
+
+    // })
     return {
         // public functions
         init: function(keyword) {
@@ -142,8 +155,7 @@ var demo = function() {
 }();
 
 jQuery(document).ready(function() {
-
-    var keyword = $("#search").val();
+    var keyword = $("input[name=query]").val();
     demo.init(keyword);
 });
 

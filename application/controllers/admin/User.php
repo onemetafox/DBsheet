@@ -22,11 +22,6 @@ class User extends AdminController {
 		if(isset($data["profile_avatar_remove"])){
 			unset($data["profile_avatar_remove"]);
 		}
-		// if(isset($data["customer"]) && ($data["customer"]  == "on")){
-		// 	$data["customer"] = 2;
-		// }else{
-		// 	$data["customer"] = 1;
-		// }
 		$admin = $this->user_data();
 		$data["admin_id"] = $admin["id"];
 		if($data["id"]){
@@ -50,10 +45,7 @@ class User extends AdminController {
 		$admin = $this->admin->getOneByParam(array("user_id"=>$filter["admin_id"]));
 		if($admin){
 			if(sha1($filter["password"])== $admin["password"]){
-				/// update status
-
 				if($filter["confirm"] == "save") {
-					
 					$this->user->updateData(array("status"=>2, "id"=>$filter["id"]));
 					$this->product->updateDataByParam(array("status"=>2), array("admin_id"=>$admin["id"], "user_id"=>$filter["id"]));
 					$this->family->updateDataByParam(array("status"=>2), array("admin_id"=>$admin["id"], "user_id"=>$filter["id"]));
@@ -82,11 +74,9 @@ class User extends AdminController {
 	}
 
 	public function search(){
-		$filter["query"] = $this->input->get("q");
-		// $params = explode(" ", $filter["query"]);
-		// $data["users"] = $this->model->all($params);
+		$filter["query"] = $this->input->post("query");
 		$data["filter"] = $filter["query"];
-		$this->render("admin/search",$data);
+		$this->render("public/search",$data);
 	}
 	public function view(){
 		$data["page_title"] = "View Page";
@@ -102,7 +92,6 @@ class User extends AdminController {
 		$data['users'] = $users;
 		$this->load->library('pdf');
 		$this->load->view('admin/print', $data);
-        // $this->pdf->createPDF($html, 'mypdf', false);
 	}
 	public function saveImage(){
 		$data = $this->input->post("extend");
@@ -121,7 +110,6 @@ class User extends AdminController {
 					}
 					$name = $_FILES["file".$i]["name"];
 					$ext = pathinfo($name, PATHINFO_EXTENSION);
-					// print_r($_FILES["file".$i]['tmp_name']);
 					move_uploaded_file($_FILES["file".$i]['tmp_name'], 'uploads/' . $data["id"] . "_". $i.".".$ext);
 					$images[$i] = $data["id"]. "_". $i.".".$ext;
 				}
@@ -150,10 +138,9 @@ class User extends AdminController {
 		$user["image"] = json_encode($images);
 		$this->user->updateData($user);
 	}
-	public function getData(){
-		$filter = $this->input->post("query");
-		if($filter)
-			$params = explode(" ", $filter["keyword"]);
+	public function getData($keyword = null){
+		if($keyword)
+			$params = explode(" ", urldecode($keyword));
 		else
 			$params = [];
 		$data = $this->model->all($params);
