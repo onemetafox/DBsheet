@@ -22,7 +22,7 @@
                 table-layout:fixed;
             }
             .d-flex{
-                height: 177px;
+                height: 180px;
             }
             b {
                 font-size: 20px !important;
@@ -42,26 +42,26 @@
     </style>
 </head>
 
-<body onload="window.print()" style="margin-top:  10px ;margin-bottom: 1.5cm; background: white;">
+<body onload="window.print()" style="margin-top:  10px ; background: white;">
         <?php for ($i = 1 ; $i <= count($users); $i=$i+3 ) { ?>
             <?php if ($i % 8 == 1)  { ?>
                 <section class="d-flex">
                     <?php if ($i <= count($users)) { ?>
-                        <div style="width: 33%;">
+                        <div style="width: 33.333%;">
                             <p style="padding: 5px;"><?= $users[$i]["post_code"]?></p>
                             <p style="padding: 5px;"><?= $users[$i]["address"]?></p>
                             <p style="padding: 5px;"><b><?= $users[$i]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+1 <= count($users)) { ?>
-                        <div style="width: 33%;">
+                        <div style="width: 33.333%;">
                             <p style="padding: 5px;"><?= $users[$i+1]["post_code"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+1]["address"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><b><?= $users[$i+1]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+2 <= count($users)) { ?>
-                        <div style="width: 33%;">
+                        <div style="width: 33.333%;">
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["post_code"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i+2]["address"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><b><?= $users[$i+2]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
@@ -71,21 +71,21 @@
             <?php } else { ?>
                 <div class='d-flex'>
                     <?php if ($i <= count($users)) { ?>
-                        <div style="width: 33%;">
+                        <div style="width: 33.333%;">
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["post_code"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><?= $users[$i]["address"]?></p>
                             <p style="padding: 5px;" style="padding: 5px;"><b><?= $users[$i]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+1 <= count($users)) { ?>
-                        <div style="width: 33%;">
+                        <div style="width: 33.333%;">
                             <p style="padding: 5px;"><?= $users[$i+1]["post_code"]?></p>
                             <p style="padding: 5px;"><?= $users[$i+1]["address"]?></p>
                             <p style="padding: 5px;"><b><?= $users[$i+1]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
                         </div>
                     <?php } ?>
                     <?php if ($i+2 <= count($users)) { ?>
-                        <div style="width: 33%;">
+                        <div style="width: 33.333%;">
                             <p style="padding: 5px;"><?= $users[$i+2]["post_code"]?></p>
                             <p style="padding: 5px;"><?= $users[$i+2]["address"]?></p>
                             <p style="padding: 5px;"><b><?= $users[$i+2]["name"]?></b>&nbsp;&nbsp;&nbsp;様</p>
