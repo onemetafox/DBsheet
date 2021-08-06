@@ -243,7 +243,7 @@ img {
                                                 </div>
                                                  <div class="col-sm-3 mt-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone1']:''?>" name="phone4" placeholder="携帯電話2"/>
+                                                        <input type="text" class="form-control" value="<?=isset($customer)?$customer['phone4']:''?>" name="phone4" placeholder="携帯電話2"/>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="la la-phone"></i></span> 
                                                         </div>
@@ -390,7 +390,7 @@ img {
                                                     <div class="input-group">
                                                         <label class="col-form-label text-right col-sm-3">趣 味</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="extend[hobby]" id="hobby">
+                                                            <select style="width: 100%" class="form-control select2" id="kt_select2_hobby" name="extend[hobby]" id="hobby" multiple="multiple">
                                                                 <option value=""></option>
                                                                 <option value="歌舞伎" <?=isset($customer)&&($customer["hobby"]=="歌舞伎")?'selected':''?>>歌舞伎</option>
                                                                 <option value="能" <?=isset($customer)&&($customer["hobby"]=="能")?'selected':''?>>能</option>
@@ -407,7 +407,7 @@ img {
                                                     <div class="input-group">
                                                         <label class="col-form-label text-right col-sm-4">習い事</label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-control" name="extend[habit]" id="habit">
+                                                            <select style="width: 100%" class="form-control select2" id="kt_select2_habit" name="extend[habit]" id="habit" multiple="multiple">
                                                                 <option value=""></option>
                                                                 <option value="着付" <?=isset($customer)&&($customer["habit"]=="着付")?'selected':''?>>着付</option>
                                                                 <option value="和裁" <?=isset($customer)&&($customer["habit"]=="和裁")?'selected':''?>>和裁 </option>
@@ -456,7 +456,7 @@ img {
                                                     <div class="input-group">
                                                         <label class="col-form-label text-right col-sm-4">色の好み</label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-control" name="extend[color]" id="color">
+                                                            <select style="width: 100%" class="form-control select2" id="kt_select2_color" name="extend[color]" id="color" multiple="multiple">
                                                                 <option value=""></option>
                                                                 <option value="青系" <?=isset($customer)&&($customer["color"]=="青系")?'selected':''?>>青系</option>
                                                                 <option value="赤系" <?=isset($customer)&&($customer["color"]=="赤系")?'selected':''?>>赤系 </option>
@@ -472,7 +472,7 @@ img {
                                                     <div class="input-group">
                                                         <label class="col-form-label text-right col-sm-4">性 格</label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-control" name="extend[etc]" id="etc">
+                                                            <select style="width: 100%" class="form-control select2" id="kt_select2_etc" name="extend[etc]" id="etc" multiple="multiple">
                                                                 <option value=""></option>
                                                                 <option value="せっかち" <?=isset($customer)&&($customer["etc"]=="せっかち")?'selected':''?>>せっかち</option>
                                                                 <option value="細かい" <?=isset($customer)&&($customer["etc"]=="細かい")?'selected':''?>>細かい </option>
@@ -488,7 +488,7 @@ img {
                                                     <div class="input-group">
                                                         <label class="col-form-label text-right col-sm-3">好 み</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="extend[active]" id="active">
+                                                            <select style="width: 100%" class="form-control select2" id="kt_select2_active" name="extend[active]" id="active" multiple="multiple">
                                                                 <option value=""></option>
                                                                 <option value="かわいい" <?=isset($customer)&&($customer["active"]=="かわいい")?'selected':''?>>かわいい</option>
                                                                 <option value="きれい" <?=isset($customer)&&($customer["active"]=="きれい")?'selected':''?>>きれい </option>

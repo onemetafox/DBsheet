@@ -34,6 +34,9 @@ var KTWizard5 = function () {
 	        templates: arrows,
 	        format: "yyyy-mm-dd"
 	    });
+        $('#kt_select2_active, #kt_select2_etc, #kt_select2_hobby, #kt_select2_habit, #kt_select2_color').select2({
+        	placeholder: "選ぶ...",
+        });
     }
 	// Private functions
 	var _initWizard = function () {
@@ -293,13 +296,13 @@ function saveData(){
         
     formData.append("extend[id]", $("#id").val());
     formData.append("extend[age]", $("#age").val());
-    formData.append("extend[color]", $("#color").val());
-    formData.append("extend[hobby]", $("#hobby").val());
-    formData.append("extend[habit]", $("#habit").val());
-    formData.append("extend[etc]", $("#etc").val());
+    formData.append("extend[color]", $("#color").select2('data'));
+    formData.append("extend[hobby]", $("#hobby").select2('data'));
+    formData.append("extend[habit]", $("#habit").select2('data'));
+    formData.append("extend[etc]", $("#etc").select2('data'));
     formData.append("extend[body]", $("#body").val());
     formData.append("extend[extra]", $("#extra").val());
-    formData.append("extend[active]", $("#active").val());
+    formData.append("extend[active]", $("#active").select2('data'));
 
     $.ajax({
         url: HOST_URL + 'admin/user/saveImage',
@@ -380,9 +383,6 @@ function showSlides(n) {
 	  for (i = 0; i < dots.length; i++) {
 	      dots[i].className = dots[i].className.replace(" active", "");
 	  }
-	  slides[slideIndex-1].style.display = "block";
-	  dots[slideIndex-1].className = " active";
-	  captionText.innerHTML = dots[slideIndex-1].alt;
 }
 function setCustomer(){
 	var active = $("#customer").hasClass("active");

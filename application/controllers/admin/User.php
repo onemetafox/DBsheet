@@ -5,8 +5,13 @@ require_once(APPPATH.'core/AdminController.php');
 
 class User extends AdminController {
 	
-	public function __construct(){
+	var $HOBBY = ["歌舞伎","能","文楽","落語","美術・工芸品"];
+	var $HABIT = ["着付","和裁","茶道","華道","三味線","琴"];
+	var $COLOR = ["青系","赤系","黄系","みどり系","黒","淡色"];
+	var $ETC = ["せっかち","細かい","穏やか","大雑把","金額にシビア","沢山相談し"];
+	var $ACTIVE = ["かわいい","きれい","シック","渋め","粋","古典"];
 
+	public function __construct(){
 		parent::__construct();
 		$this->load->model("User_model", "model");
 	}

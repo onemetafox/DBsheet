@@ -19,7 +19,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
     // basic demo
     var demo1 = function(product_id) {
 
-        datatable3 = $('#kt_datatable').KTDatatable({
+        datatable3 = $('#kt_datatable_1').KTDatatable({
             scrollY: '50vh',
             scrollX: true,
             scrollCollapse: true,
@@ -104,9 +104,9 @@ var KTDatatableRemoteAjaxDemo1 = function() {
             },{
                 field: 'back',
                 overflow: 'visible',
-                width: 20,
+                width: 30,
                 autoHide: false,
-                title: '丈(背)',
+                title: '丈‐背',
                 template: function(row){
                     if(row.parent_id){
                         return "<span class='font-weight-boldest text-danger'>"+row.back+"</span>"
@@ -118,9 +118,9 @@ var KTDatatableRemoteAjaxDemo1 = function() {
             }, {
                 field: 'shoulder',
                 overflow: 'visible',
-                width: 20,
+                width: 30,
                 autoHide: false,
-                title: '丈(肩)',
+                title: '丈‐肩',
                 template: function(row){
                     if(row.parent_id){
                         return "<span class='font-weight-boldest text-danger'>"+row.shoulder+"</span>"
@@ -481,7 +481,7 @@ var KTDatatableRemoteAjaxDemo1 = function() {
        
     };
     var demo2 = function(product_id) {
-        datatable4 = $('#kt_datatable_1').KTDatatable({
+        datatable4 = $('#kt_datatable').KTDatatable({
             scrollY: '50vh',
             scrollX: true,
             scrollCollapse: true,
@@ -559,35 +559,35 @@ var KTDatatableRemoteAjaxDemo1 = function() {
             },{
                 field: 'back',
                 overflow: 'visible',
-                width: 20,
+                width: 30,
                 autoHide: false,
-                title: '丈(背)',
+                title: '丈‐背',
                 template : function(row){
                     if(row.parent_id){
                         if(row.back){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.back) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.back) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }
                     else{
-                        return Number(row.back) * 26;
+                        return Number(row.back) / 2.63125;
                     }
                 }
             }, {
                 field: 'shoulder',
                 overflow: 'visible',
-                width: 20,
+                width: 30,
                 autoHide: false,
-                title: '丈(肩)',
+                title: '丈‐肩',
                 template : function(row){
                     if(row.parent_id){
                         if(row.shoulder){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.shoulder) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.shoulder) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }
                     else{
-                        return Number(row.shoulder) * 26;
+                        return Number(row.shoulder) / 2.63125;
                     }
                 }
             }, {
@@ -599,12 +599,12 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.yuki){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.yuki) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.yuki) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }
                     else{
-                        return Number(row.yuki) * 26;
+                        return Number(row.yuki) / 2.63125;
                     }
                 }
             }, {
@@ -616,12 +616,12 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){ 
                     if(row.parent_id){
                         if(row.shawl){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.shawl) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.shawl) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }
                     else{
-                        return Number(row.shawl) * 26;
+                        return Number(row.shawl) / 2.63125;
                     }
                 }
             }
@@ -634,11 +634,11 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.sleeve_width){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.sleeve_width) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.sleeve_width) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }else{
-                        return Number(row.sleeve_width) * 26;
+                        return Number(row.sleeve_width) / 2.63125;
                     }
                 }
             }
@@ -651,11 +651,11 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.sleeve_length){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.sleeve_length) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.sleeve_length) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }else{
-                        return Number(row.sleeve_length) * 26;
+                        return Number(row.sleeve_length) / 2.63125;
                     }
                 }
             }
@@ -668,11 +668,11 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.with_sleeves){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.with_sleeves) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.with_sleeves) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }else{
-                        return Number(row.with_sleeves) * 26;
+                        return Number(row.with_sleeves) / 2.63125;
                     }
                 }
             },{
@@ -684,11 +684,11 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.front_width){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.front_width) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.front_width) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }else{
-                        return Number(row.front_width) * 26;
+                        return Number(row.front_width) / 2.63125;
                     }
                 }
             }
@@ -701,11 +701,11 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.back_width){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.back_width) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.back_width) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }else{
-                        return Number(row.back_width) * 26;
+                        return Number(row.back_width) / 2.63125;
                     }
                 }
             }
@@ -718,11 +718,11 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.under_hood){
-                            return "<span class='font-weight-boldest text-danger'>"+Number(row.under_hood) * 26;+"</span>"; }else{
+                            return "<span class='font-weight-boldest text-danger'>"+Number(row.under_hood) / 2.63125;+"</span>"; }else{
                             return "";
                         }
                     }else{
-                        return Number(row.under_hood) * 26;
+                        return Number(row.under_hood) / 2.63125;
                     }
                 }
             }
@@ -735,11 +735,11 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.hug){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.hug) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.hug) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }else{
-                        return Number(row.hug) * 26;
+                        return Number(row.hug) / 2.63125;
                     }
                 }
             }
@@ -752,11 +752,11 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.width){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.width) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.width) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }else{
-                        return Number(row.width) * 26;
+                        return Number(row.width) / 2.63125;
                     }
                 }
             }
@@ -769,11 +769,11 @@ var KTDatatableRemoteAjaxDemo1 = function() {
                 template : function(row){
                      if(row.parent_id){
                         if(row.carry_forward){
-                        return "<span class='font-weight-boldest text-danger'>"+Number(row.carry_forward) * 26;+"</span>" }else{
+                        return "<span class='font-weight-boldest text-danger'>"+Number(row.carry_forward) / 2.63125;+"</span>" }else{
                             return "";
                         }
                     }else{
-                        return Number(row.carry_forward) * 26;
+                        return Number(row.carry_forward) / 2.63125;
                     }
                 }
             },{
